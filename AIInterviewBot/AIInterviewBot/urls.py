@@ -20,7 +20,13 @@ from django.conf.urls.static import static
 import accounts.views as accounts
 
 urlpatterns = [
+    # 管理後台
     path('admin/', admin.site.urls),
+    # 驗證碼
+    path('captcha/', include('captcha.urls')),
+    # 首頁
     path('', accounts.index),
+    # 註冊
+    path('register/', accounts.register, name='Register'),
 ]
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
