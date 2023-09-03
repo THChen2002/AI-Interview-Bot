@@ -40,6 +40,9 @@ INSTALLED_APPS = [
 
     # 自己的應用程式
     'accounts',
+
+    #圖形驗證碼
+    'captcha',
 ]
 
 MIDDLEWARE = [
@@ -122,6 +125,27 @@ STATIC_URL = 'static/'
 STATICFILES_DIRS = [ BASE_DIR / 'static' ]
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
+
+
+# ----------驗證碼設定開始----------
+
+CAPTCHA_NOISE_FUNCTIONS = (
+    #'captcha.helpers.noise_null', #没有樣式  
+    'captcha.helpers.noise_arcs', #線  
+    'captcha.helpers.noise_dots', #點  
+)
+#CAPTCHA_IMAGE_SIZE = (150, 70) #圖片大小 
+
+#CAPTCHA_BACKGROUND_COLOR = '#00ff00' #背景頻色
+
+#CAPTCHA_CHALLENGE_FUNCT = 'captcha.helpers.random_char_challenge' #圖片為英文字母 
+#CAPTCHA_CHALLENGE_FUNCT = 'captcha.helpers.math_challenge' #圖片中為數學計算式  
+  
+#CAPTCHA_LENGTH = 6 #英文字母個數 
+
+#CAPTCHA_TIMEOUT = 1 #時間限制(分) 
+
+# ----------驗證碼設定結束----------
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
