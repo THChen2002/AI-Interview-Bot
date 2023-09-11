@@ -28,5 +28,8 @@ urlpatterns = [
     path('', accounts.index),
     # 註冊
     path('register/', accounts.register, name='Register'),
+    # 修改密碼
+    path('change_password/', accounts.change_password, name='ChangePassword'),
+    
 ]
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
