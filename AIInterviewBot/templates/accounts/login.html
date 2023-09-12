@@ -18,24 +18,24 @@
 			{% csrf_token %}
 			<div class="txt_field">
 				{{ loginForm.username }}
-				<label>帳號</label>
+				<label>{{ loginForm.username.label }}</label>
 			</div>
 			<div class="txt_field">
 				{{ loginForm.password }}
-				<label>密碼</label>
+				<label>{{ loginForm.password.label }}</label>
 			</div>
 			<div class="txt_field">
-				<label style="padding-bottom:15px">驗證碼</label>
+				<label style="padding-bottom:15px">{{ loginForm.captcha.label }}</label>
 				<span style="padding-left:70px">{{ loginForm.captcha }}</span>
 			</div>
 			<div class="row">
 				<div class="col-7">
 					{{ loginForm.remember_me }}
 					<span></span>
-					<label>記住我</label>
+					<label>{{ loginForm.remember_me.label }}</label>
 				</div>
 				<div class="col-5 d-flex justify-content-end">
-					<a href="" class="text-decoration-none">忘記密碼?</a>
+					<a href="{% url 'ForgotPassword' %}" class="text-decoration-none">忘記密碼?</a>
 				</div>
 			</div>
 			{% if loginForm.errors %}
@@ -50,7 +50,7 @@
 			</div>
 			{% endif %}
 			<br>
-			<input type="submit" class="btn-submit" value="送出" /><br>
+			<input type="submit" class="btn-submit" value="登入" /><br>
 			<br>
 			<!--第三方登入 範例圖示-->
 			<script async="" defer="" src="https://accounts.google.com/gsi/client"></script><div data-callback="onSignIn1" data-client_id="543254836183-77q81p1iilmmp692ps8hnq3jriv1ec3o.apps.googleusercontent.com" id="g_id_onload"></div><div class="g_id_signin" data-type="standard"></div>
