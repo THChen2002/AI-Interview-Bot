@@ -50,3 +50,21 @@ class LoginForm(forms.Form):
         required=False, 
         widget=forms.CheckboxInput()
     )
+
+# 修改密碼
+class ChangePasswordForm(forms.Form):
+    oldpassword = forms.CharField(
+        label="舊密碼",
+        widget=forms.PasswordInput(attrs={'class': 'form-control'})
+    )
+    newpassword1 = forms.CharField(
+        label="新密碼",
+        widget=forms.PasswordInput(attrs={'class': 'form-control'})
+    )
+    newpassword2 = forms.CharField(
+        label="新密碼確認",
+        widget=forms.PasswordInput(attrs={'class': 'form-control'})
+    )
+
+
+    
