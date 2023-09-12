@@ -27,11 +27,15 @@ urlpatterns = [
     # 首頁
     path('', accounts.index),
     # 登入
-    path('login/', accounts.login, name='Login')
+    path('login/', accounts.login, name='Login'),
     # 註冊
     path('register/', accounts.register, name='Register'),
     # 忘記密碼頁面
     path('forgot_password/', accounts.forgot_password, name='ForgotPassword'),
+    # 密碼重設確認頁面
+    path('reset/confirm/<uidb64>/<token>/', accounts.password_reset_confirm, name='PasswordResetConfirm'),
+    # 密碼重設完成頁面
+    path('reset/complete/', accounts.password_reset_complete, name='PasswordResetComplete'),
     # 修改密碼
     path('change_password/', accounts.change_password, name='ChangePassword'),
 ]

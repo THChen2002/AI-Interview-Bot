@@ -1,5 +1,5 @@
-from django.shortcuts import render
-from accounts.forms import RegisterForm , LoginForm, ChangePasswordForm
+from django.shortcuts import render, redirect
+from accounts.forms import RegisterForm , LoginForm, ForgotPasswordForm, ChangePasswordForm
 from django.contrib.auth.models import User
 
 from django.core.mail import EmailMessage, send_mail
@@ -9,6 +9,9 @@ from django.template.loader import render_to_string
 from django.contrib.auth.tokens import default_token_generator
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.utils.encoding import force_bytes, force_str
+
+from django.contrib import messages
+from django.contrib.auth.forms import SetPasswordForm
 
 
 # 首頁
@@ -27,6 +30,7 @@ def register(request):
 
 #忘記密碼頁面
 def forgot_password(request):
+    forgotPasswordForm = ForgotPasswordForm()
     if request.method == 'POST':
         email = request.POST['email']
         try:

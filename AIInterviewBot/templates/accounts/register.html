@@ -18,19 +18,19 @@
 			{% csrf_token %}
 			<div class="txt_field">
 				{{ registerForm.username }}
-				<label>帳號</label>
+				<label>{{ registerForm.username.label }}</label>
 			</div>
 			<div class="txt_field">
 				{{ registerForm.email }}
-				<label>電子郵件</label>
+				<label>{{ registerForm.email.label }}</label>
 			</div>
 			<div class="txt_field">
 				{{ registerForm.password1 }}
-				<label>密碼</label>
+				<label>{{ registerForm.password1.label }}</label>
 			</div>
 			<div class="txt_field">
 				{{ registerForm.password2 }}
-				<label>密碼確認</label>
+				<label>{{ registerForm.password2.label }}</label>
 			</div>
 			{% if registerForm.errors %}
 			<div class="error text-danger">
@@ -46,7 +46,7 @@
 			<input type="submit" class="btn-submit" value="送出" /><br>
 		</form>
 		<div class="signup_link">
-			已經是會員?<a href="">&nbsp;登入</a>
+			已經是會員?<a href="{% url 'Login'%}">&nbsp;登入</a>
 		</div>
 	</div>
 </body>
