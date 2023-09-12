@@ -28,5 +28,7 @@ urlpatterns = [
     path('', accounts.index),
     # 註冊
     path('register/', accounts.register, name='Register'),
+    # 登入
+    path('login/', accounts.login, name='Login')
 ]
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

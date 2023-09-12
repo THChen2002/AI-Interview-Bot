@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from accounts.forms import RegisterForm
+from accounts.forms import RegisterForm , LoginForm
 
 # Create your views here.
 
@@ -11,3 +11,8 @@ def index(request):
 def register(request):
     registerForm = RegisterForm()
     return render(request, 'accounts/register.html', locals())
+
+# 登入
+def login(request):
+    loginForm = LoginForm()
+    return render(request, 'accounts/login.html', locals())
