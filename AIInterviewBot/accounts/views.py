@@ -1,9 +1,8 @@
 from django.shortcuts import render
-from accounts.forms import RegisterForm
+from accounts.forms import RegisterForm , LoginForm
 from django.contrib.auth.models import User
 
-from django.core.mail import EmailMessage
-from django.core.mail import send_mail
+from django.core.mail import EmailMessage, send_mail
 from django.conf import settings
 from django.template.loader import render_to_string
 
@@ -11,12 +10,16 @@ from django.contrib.auth.tokens import default_token_generator
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.utils.encoding import force_bytes, force_str
 
-# Create your views here.
 
 # 首頁
 def index(request): 
     return render(request, 'accounts/index.html')
 
+# 登入
+def login(request):
+    loginForm = LoginForm()
+    return render(request, 'accounts/login.html', locals())
+  
 # 註冊
 def register(request):
     registerForm = RegisterForm()

@@ -26,6 +26,8 @@ urlpatterns = [
     path('captcha/', include('captcha.urls')),
     # 首頁
     path('', accounts.index),
+    # 登入
+    path('login/', accounts.login, name='Login')
     # 註冊
     path('register/', accounts.register, name='Register'),
     # 忘記密碼頁面
