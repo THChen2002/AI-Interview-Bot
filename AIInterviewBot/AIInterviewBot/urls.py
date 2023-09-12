@@ -32,5 +32,7 @@ urlpatterns = [
     path('register/', accounts.register, name='Register'),
     # 忘記密碼頁面
     path('forgot_password/', accounts.forgot_password, name='ForgotPassword'),
+    # 修改密碼
+    path('change_password/', accounts.change_password, name='ChangePassword'),
 ]
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

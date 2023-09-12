@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from accounts.forms import RegisterForm , LoginForm
+from accounts.forms import RegisterForm , LoginForm, ChangePasswordForm
 from django.contrib.auth.models import User
 
 from django.core.mail import EmailMessage, send_mail
@@ -51,3 +51,8 @@ def forgot_password(request):
         except User.DoesNotExist:
             return render(request, 'accounts/email_error.html')
     return render(request, 'accounts/forgot_password.html', locals())
+  
+#修改密碼
+def change_password(request):
+    form = ChangePasswordForm()
+    return render(request, 'accounts/change_password.html', locals())
