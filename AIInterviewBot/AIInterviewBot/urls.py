@@ -26,9 +26,11 @@ urlpatterns = [
     path('captcha/', include('captcha.urls')),
     # 首頁
     path('', accounts.index),
-    # 註冊
-    path('register/', accounts.register, name='Register'),
     # 登入
     path('login/', accounts.login, name='Login')
+    # 註冊
+    path('register/', accounts.register, name='Register'),
+    # 忘記密碼頁面
+    path('forgot_password/', accounts.forgot_password, name='ForgotPassword'),
 ]
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
