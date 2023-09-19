@@ -48,3 +48,7 @@ def forgot_password(request):
         except User.DoesNotExist:
             return render(request, 'accounts/email_error.html')
     return render(request, 'accounts/forgot_password.html', locals())
+
+#個人檔案頁面
+def basic_info(request, id=None):
+    return render(request, 'basic_info.html', locals())

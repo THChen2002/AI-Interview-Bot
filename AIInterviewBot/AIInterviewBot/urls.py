@@ -22,13 +22,25 @@ import accounts.views as accounts
 urlpatterns = [
     # 管理後台
     path('admin/', admin.site.urls),
+
+    # ----------套件 start----------
+    
     # 驗證碼
     path('captcha/', include('captcha.urls')),
+
+    # ----------套件 end----------
+
+    # ----------accounts start----------
+
     # 首頁
     path('', accounts.index),
     # 註冊
     path('register/', accounts.register, name='Register'),
     # 忘記密碼頁面
     path('forgot_password/', accounts.forgot_password, name='ForgotPassword'),
+    # 個人檔案頁面
+    path('basic_info/', accounts.basic_info, name='Basic_info'),
+
+    # ----------accounts end----------
 ]
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
