@@ -88,7 +88,7 @@ def forgot_password(request):
   
 #修改密碼
 def change_password(request):
-    form = ChangePasswordForm()
+    changePasswordForm = ChangePasswordForm()
     return render(request, 'accounts/change_password.html', locals())
 
 #使用者收信後的連結頁面
