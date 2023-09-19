@@ -1,6 +1,8 @@
 from django.shortcuts import render, redirect
 from accounts.forms import RegisterForm , LoginForm, ForgotPasswordForm, ChangePasswordForm
 from django.contrib.auth.models import User
+from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
 
 from django.core.mail import EmailMessage, send_mail
 from django.conf import settings
@@ -15,13 +17,41 @@ from django.contrib.auth.forms import SetPasswordForm
 
 
 # 首頁
+@login_required(login_url="Login")
 def index(request): 
     return render(request, 'accounts/index.html')
 
 # 登入
-def login(request):
-    loginForm = LoginForm()
+def sign_in(request):
+    if request.user.is_authenticated:
+        return redirect('/')  # 如果使用者已經登入，直接導向首頁
+    
+    if request.method == "POST":
+        loginForm = LoginForm(request.POST) 
+        if loginForm.is_valid():
+            username = request.POST.get("username")
+            password = request.POST.get("password")
+            remember_me = request.POST.get("remember_me")
+            user = authenticate(request, username=username, password=password)
+            if user is not None:
+                login(request, user)
+                if not remember_me:
+                    request.session.set_expiry(0)  # <-- Here if the remember me is False, that is why expiry is set to 0 seconds. So it will automatically close the session after the browser is closed.
+                                                    # else browser session will be as long as the session  cookie time "SESSION_COOKIE_AGE"
+                            # 判斷 user 是否為 social account，並檢查 UserProfile 是否存在
+                return redirect('/')  # 導向到首頁
+        else:
+            message = '驗證碼錯誤!'
+    else:
+        loginForm = LoginForm()
+
     return render(request, 'accounts/login.html', locals())
+
+
+# 登出
+def log_out(request):
+    logout(request)
+    return redirect('/')
   
 # 註冊
 def register(request):

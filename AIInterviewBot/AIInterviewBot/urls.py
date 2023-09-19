@@ -35,7 +35,9 @@ urlpatterns = [
     # 首頁
     path('', accounts.index),
     # 登入
-    path('login/', accounts.login, name='Login'),
+    path('login/', accounts.sign_in, name='Login'),
+    # 登出
+    path('logout/',accounts.log_out, name='Logout'),
     # 註冊
     path('register/', accounts.register, name='Register'),
     # 忘記密碼頁面
