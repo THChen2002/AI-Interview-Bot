@@ -22,8 +22,16 @@ import accounts.views as accounts
 urlpatterns = [
     # 管理後台
     path('admin/', admin.site.urls),
+
+    # ----------套件 start----------
+    
     # 驗證碼
     path('captcha/', include('captcha.urls')),
+
+    # ----------套件 end----------
+
+    # ----------accounts start----------
+
     # 首頁
     path('', accounts.index),
     # 登入
@@ -32,11 +40,15 @@ urlpatterns = [
     path('register/', accounts.register, name='Register'),
     # 忘記密碼頁面
     path('forgot_password/', accounts.forgot_password, name='ForgotPassword'),
+    # 個人檔案頁面
+    path('basic_info/', accounts.basic_info, name='Basic_info'),
     # 密碼重設確認頁面
     path('reset/confirm/<uidb64>/<token>/', accounts.password_reset_confirm, name='PasswordResetConfirm'),
     # 密碼重設完成頁面
     path('reset/complete/', accounts.password_reset_complete, name='PasswordResetComplete'),
     # 修改密碼
     path('change_password/', accounts.change_password, name='ChangePassword'),
+
+    # ----------accounts end----------
 ]
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

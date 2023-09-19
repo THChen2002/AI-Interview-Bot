@@ -89,3 +89,7 @@ def password_reset_confirm(request, uidb64, token):
 #密碼重設成功頁面
 def password_reset_complete(request):
     return render(request, 'accounts/reset_password_complete.html')
+  
+#個人檔案頁面
+def basic_info(request):
+    return render(request, 'basic_info.html', locals())
