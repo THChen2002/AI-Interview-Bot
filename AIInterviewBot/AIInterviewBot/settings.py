@@ -134,7 +134,9 @@ CAPTCHA_NOISE_FUNCTIONS = (
     'captcha.helpers.noise_arcs', #線  
     'captcha.helpers.noise_dots', #點  
 )
-#CAPTCHA_IMAGE_SIZE = (150, 70) #圖片大小 
+# CAPTCHA_IMAGE_SIZE = (150,70) #圖片大小 
+
+# CAPTCHA_FONT_SIZE = 36 #字體大小
 
 #CAPTCHA_BACKGROUND_COLOR = '#00ff00' #背景頻色
 
