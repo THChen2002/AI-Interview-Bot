@@ -11,6 +11,9 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 """
 
 from pathlib import Path
+from dotenv import load_dotenv
+import os
+load_dotenv()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -20,7 +23,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-68w4h3p9tez8fjwc@c5lu*+%$ufn3&#&$z2=2+ybpt8&=&xl-z'
+SECRET_KEY = os.getenv("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -152,8 +155,8 @@ EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'  #SMTP伺服器
 EMAIL_PORT = 587  #TLS通訊埠號
 EMAIL_USE_TLS = True  #開啟TLS(傳輸層安全性)
-EMAIL_HOST_USER = 'jobeasetest1@gmail.com'  #寄件者電子郵件
-EMAIL_HOST_PASSWORD = 'cnzx snpb wmla uqto '  #Gmail應用程式的密碼
+EMAIL_HOST_USER = os.getenv("EMAIL_HOST_USER")  #寄件者電子郵件
+EMAIL_HOST_PASSWORD = os.getenv("EMAIL_HOST_PASSWORD")  #Gmail應用程式的密碼
 
 
 # ----------驗證碼設定結束----------
