@@ -1,3 +1,4 @@
+from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from accounts.forms import RegisterForm , LoginForm, ForgotPasswordForm, ChangePasswordForm
 from django.contrib.auth.models import User
@@ -55,7 +56,49 @@ def log_out(request):
   
 # 註冊
 def register(request):
+    # 如果使用者已經登入，直接導向首頁
+    if request.user.is_authenticated:
+        return redirect('/')
+    
     registerForm = RegisterForm()
+    if request.method == "POST":
+        registerForm = RegisterForm(request.POST)
+        if registerForm.is_valid():
+            
+            # 儲存 User 物件到資料庫並取得已創建的 User 物件
+            user = registerForm.save()
+
+            # 創建 UserProfile 物件
+            # profile = UserProfile()
+            # profile.user = User.objects.get(id=user.id)
+            # profile.user_name = user.username
+            # profile.email = user.email
+
+            # profile.save()  # 儲存 UserProfile 物件到資料庫
+
+            # 電子郵件內容樣板
+            email_template = render_to_string(
+                'accounts/signup_success_email.html',
+                {'username': request.user.username}
+            )
+
+            email = EmailMessage(
+                '註冊成功通知信',  # 電子郵件標題
+                email_template,  # 電子郵件內容
+                settings.EMAIL_HOST_USER,  # 寄件者
+                [request.POST.get("email")]  # 收件者
+            )
+
+            email.fail_silently = False
+            email.send()
+
+            return HttpResponse('<script>alert("註冊成功！"); window.location.href = "/login";</script>')
+        else:
+            message = ''
+            for error in registerForm.errors:
+                message += (error + "\n")
+            return HttpResponse('<script>alert("註冊失敗！"'+ message +');</script>')
+
     return render(request, 'accounts/register.html', locals())
 
 #忘記密碼頁面
