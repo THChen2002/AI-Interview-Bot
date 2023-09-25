@@ -145,7 +145,16 @@ CAPTCHA_NOISE_FUNCTIONS = (
   
 #CAPTCHA_LENGTH = 6 #英文字母個數 
 
-#CAPTCHA_TIMEOUT = 1 #時間限制(分) 
+#CAPTCHA_TIMEOUT = 1 #時間限制(分)
+
+# SMTP Configuration
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'  #SMTP伺服器
+EMAIL_PORT = 587  #TLS通訊埠號
+EMAIL_USE_TLS = True  #開啟TLS(傳輸層安全性)
+EMAIL_HOST_USER = 'jobeasetest1@gmail.com'  #寄件者電子郵件
+EMAIL_HOST_PASSWORD = 'cnzx snpb wmla uqto '  #Gmail應用程式的密碼
+
 
 # ----------驗證碼設定結束----------
 
