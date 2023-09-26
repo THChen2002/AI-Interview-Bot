@@ -23,6 +23,9 @@
 			<div class="txt_field">
 				{{ loginForm.password }}
 				<label>{{ loginForm.password.label }}</label>
+				<button type="button" id="toggle-password">
+					<img src="{% static 'images/eye-slash-solid.png' %}" alt="顯示密碼" width="20" height="20">
+				</button>
 			</div>
 			<div class="txt_field">
 				<label style="padding-bottom:15px">{{ loginForm.captcha.label }}</label>
@@ -53,12 +56,32 @@
 			<input type="submit" class="btn-submit" value="登入" /><br>
 			<br>
 			<!--第三方登入 範例圖示-->
-			<script async="" defer="" src="https://accounts.google.com/gsi/client"></script><div data-callback="onSignIn1" data-client_id="543254836183-77q81p1iilmmp692ps8hnq3jriv1ec3o.apps.googleusercontent.com" id="g_id_onload"></div><div class="g_id_signin" data-type="standard"></div>
+			<script async="" defer="" src="https://accounts.google.com/gsi/client"></script>
+			<div data-callback="onSignIn1"
+				data-client_id="543254836183-77q81p1iilmmp692ps8hnq3jriv1ec3o.apps.googleusercontent.com"
+				id="g_id_onload"></div>
+			<div class="g_id_signin" data-type="standard"></div>
 			<div class="signup_link">
 				還不是會員嗎?<a href="{% url 'Register' %}">&nbsp註冊</a>
 			</div>
 		</form>
 	</div>
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+	<script>
+		$(document).ready(function () {
+			const passwordInput = $("input[type='password']");
+			const togglePasswordButton = $("#toggle-password");
+			togglePasswordButton.click(function () {
+				if (passwordInput.attr("type") === "password") {
+					passwordInput.attr("type", "text");
+					togglePasswordButton.find("img").attr("src", "{% static 'images/eye-solid.png' %}");
+				} else {
+					passwordInput.attr("type", "password");
+					togglePasswordButton.find("img").attr("src", "{% static 'images/eye-slash-solid.png' %}");
+				}
+			});
+		});
+	</script>
 </body>
 
 </html>
