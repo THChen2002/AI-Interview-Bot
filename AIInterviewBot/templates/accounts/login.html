@@ -52,5 +52,20 @@
 		</div>
 	</form>
 </div>
-
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+	<script>
+		$(document).ready(function () {
+			const passwordInput = $("input[type='password']");
+			const togglePasswordButton = $("#toggle-password");
+			togglePasswordButton.click(function () {
+				if (passwordInput.attr("type") === "password") {
+					passwordInput.attr("type", "text");
+					togglePasswordButton.find("img").attr("src", "{% static 'images/eye-solid.png' %}");
+				} else {
+					passwordInput.attr("type", "password");
+					togglePasswordButton.find("img").attr("src", "{% static 'images/eye-slash-solid.png' %}");
+				}
+			});
+		});
+	</script>
 {% endblock %}
