@@ -1,14 +1,12 @@
 {% extends "accounts/AccountsBase.html" %}
-
 {% block title %}登入{% endblock %}
-
 {% block content %}
+{% load static %}
 
 <div class="center">
 	<h1>登入</h1>
 	<form method="post" id="login-form">
 		{% csrf_token %}
-		<!-- 登入表單內容 -->
 		<div class="txt_field">
 			{{ loginForm.username }}
 			<label>{{ loginForm.username.label }}</label>
@@ -16,56 +14,63 @@
 		<div class="txt_field">
 			{{ loginForm.password }}
 			<label>{{ loginForm.password.label }}</label>
+			<button type="button" id="toggle-password">
+				<img src="{% static 'images/eye-slash-solid.png' %}" alt="顯示密碼" width="20" height="20">
+			</button>
 		</div>
 		<div class="txt_field">
-		<label style="padding-bottom:15px">{{ loginForm.captcha.label }}</label>
+			<label style="padding-bottom:15px">{{ loginForm.captcha.label }}</label>
 			<span style="padding-left:70px">{{ loginForm.captcha }}</span>
 		</div>
 		<div class="row">
-		<div class="col-7">
-			{{ loginForm.remember_me }}
-			<span></span>
-			<label>{{ loginForm.remember_me.label }}</label>
+			<div class="col-7">
+				{{ loginForm.remember_me }}
+				<span></span>
+				<label>{{ loginForm.remember_me.label }}</label>
+			</div>
+			<div class="col-5 d-flex justify-content-end">
+				<a href="{% url 'ForgotPassword' %}" class="text-decoration-none">忘記密碼?</a>
+			</div>
 		</div>
-		<div class="col-5 d-flex justify-content-end">
-			<a href="{% url 'ForgotPassword' %}" class="text-decoration-none">忘記密碼?</a>
-		</div>
-		</div>
-			{% if loginForm.errors %}
-			<div class="error text-danger">
-				<ul>
+		{% if loginForm.errors %}
+		<div class="error text-danger">
+			<ul>
 				{% for field in loginForm %}
 				{% for error in field.errors %}
 				<li>{{ error }}</li>
 				{% endfor %}
 				{% endfor %}
-				</ul>
-			</div>
-			{% endif %}
+			</ul>
+		</div>
+		{% endif %}
 		<br>
 		<input type="submit" class="btn-submit" value="登入" /><br>
 		<br>
 		<!--第三方登入 範例圖示-->
-		<script async="" defer="" src="https://accounts.google.com/gsi/client"></script><div data-callback="onSignIn1" data-client_id="543254836183-77q81p1iilmmp692ps8hnq3jriv1ec3o.apps.googleusercontent.com" id="g_id_onload"></div><div class="g_id_signin" data-type="standard"></div>
+		<script async="" defer="" src="https://accounts.google.com/gsi/client"></script>
+		<div data-callback="onSignIn1"
+			data-client_id="543254836183-77q81p1iilmmp692ps8hnq3jriv1ec3o.apps.googleusercontent.com"
+			id="g_id_onload"></div>
+		<div class="g_id_signin" data-type="standard"></div>
 		<div class="signup_link">
 			還不是會員嗎?<a href="{% url 'Register' %}">&nbsp註冊</a>
 		</div>
 	</form>
 </div>
-	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-	<script>
-		$(document).ready(function () {
-			const passwordInput = $("input[type='password']");
-			const togglePasswordButton = $("#toggle-password");
-			togglePasswordButton.click(function () {
-				if (passwordInput.attr("type") === "password") {
-					passwordInput.attr("type", "text");
-					togglePasswordButton.find("img").attr("src", "{% static 'images/eye-solid.png' %}");
-				} else {
-					passwordInput.attr("type", "password");
-					togglePasswordButton.find("img").attr("src", "{% static 'images/eye-slash-solid.png' %}");
-				}
-			});
+<script>
+	$(document).ready(function () {
+		const passwordInput = $("input[type='password']");
+		const togglePasswordButton = $("#toggle-password");
+		togglePasswordButton.click(function () {
+			if (passwordInput.attr("type") === "password") {
+				passwordInput.attr("type", "text");
+				togglePasswordButton.find("img").attr("src", "{% static 'images/eye-solid.png' %}");
+			} else {
+				passwordInput.attr("type", "password");
+				togglePasswordButton.find("img").attr("src", "{% static 'images/eye-slash-solid.png' %}");
+			}
 		});
-	</script>
+	});
+</script>
+
 {% endblock %}
