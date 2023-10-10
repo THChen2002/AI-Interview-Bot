@@ -18,6 +18,7 @@ from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
 import accounts.views as accounts
+import contents.views as contents
 
 urlpatterns = [
     # 管理後台
@@ -51,6 +52,12 @@ urlpatterns = [
     # 修改密碼
     path('change_password/', accounts.change_password, name='ChangePassword'),
 
-    # ----------accounts end----------
+    # ----------accounts end------------
+
+    # ----------accounts start----------
+    
+    # 自我介紹
+    path('self_introduction/', contents.self_introduction, name='SelfIntroduction'),
+    # ----------accounts end------------
 ]
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
