@@ -1,4 +1,5 @@
 from django.shortcuts import render
-
+from contents.forms import SelfIntroductionForm
 def self_introduction(request):
-    return render(request, 'contents/self_introduction.html')
+    form = SelfIntroductionForm()
+    return render(request, 'contents/self_introduction.html', locals())

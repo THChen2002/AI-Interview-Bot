@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block title %}首頁{% endblock %}
+{% block content %}
+<form method="post" id="login-form">
+    {% csrf_token %}
+    <div>
+        <label>{{ form.company.label }}</label>
+        {{ form.company }}
+    </div>
+    <div>
+        <label>{{ form.job.label }}</label>
+        {{ form.job }}
+    </div>
+    <div>
+        <label>{{ form.skill1.label }}</label>
+        {{ form.skill1 }}
+    </div>
+    <div>
+        <label>{{ form.skill2.label }}</label>
+        {{ form.skill2 }}
+    </div>
+    <div>
+        <label>{{ form.cultural_fit.label }}</label>
+        {{ form.cultural_fit }}
+    </div>
+    <div>
+        <label>{{ form.cultural_fit_example.label }}</label>
+        {{ form.cultural_fit_example }}
+    </div>
+</form>
+{% endblock %}

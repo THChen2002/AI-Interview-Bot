@@ -37,9 +37,7 @@ def sign_in(request):
             if user is not None:
                 login(request, user)
                 if not remember_me:
-                    request.session.set_expiry(0)  # <-- Here if the remember me is False, that is why expiry is set to 0 seconds. So it will automatically close the session after the browser is closed.
-                                                    # else browser session will be as long as the session  cookie time "SESSION_COOKIE_AGE"
-                            # 判斷 user 是否為 social account，並檢查 UserProfile 是否存在
+                    request.session.set_expiry(0)
                 return redirect('/')  # 導向到首頁
         else:
             message = '驗證碼錯誤!'
