@@ -2,9 +2,9 @@
 {% block title %}登入{% endblock %}
 {% block content %}
 {% load static %}
-
-<div class="center">
-	<h1>登入</h1>
+<div class="center logo">
+	<img src="{% static 'images/LOGO.png' %}" alt="LOGO" width="90" height="108">
+	<h1 class="custom-title" style="text-align: left;">使用者登入</h1>
 	<form method="post" id="login-form">
 		{% csrf_token %}
 		<div class="txt_field">
@@ -29,7 +29,7 @@
 				<label>{{ loginForm.remember_me.label }}</label>
 			</div>
 			<div class="col-5 d-flex justify-content-end">
-				<a href="{% url 'ForgotPassword' %}" class="text-decoration-none">忘記密碼?</a>
+				<a href="{% url 'ForgotPassword' %}" style="color: #F7A22D;">忘記密碼?</a>
 			</div>
 		</div>
 		{% if loginForm.errors %}
@@ -53,7 +53,8 @@
 			id="g_id_onload"></div>
 		<div class="g_id_signin" data-type="standard"></div>
 		<div class="signup_link">
-			還不是會員嗎?<a href="{% url 'Register' %}">&nbsp註冊</a>
+			<span style="color: #F7A22D;">還沒註冊嗎&nbsp?</span>
+			<a href="{% url 'Register' %}" style="color: #D57F0A;">&nbsp&nbsp立即註冊</a>
 		</div>
 	</form>
 </div>
