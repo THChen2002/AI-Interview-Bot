@@ -2,6 +2,8 @@
 {% block title %}登入{% endblock %}
 {% block content %}
 {% load static %}
+{% load socialaccount %}
+
 <div class="center logo">
 	<img src="{% static 'images/LOGO.png' %}" alt="LOGO" width="90" height="108">
 	<h1 class="custom-title" style="text-align: left;">使用者登入</h1>
@@ -46,12 +48,12 @@
 		<br>
 		<input type="submit" class="btn-submit" value="登入" /><br>
 		<br>
-		<!--第三方登入 範例圖示-->
-		<script async="" defer="" src="https://accounts.google.com/gsi/client"></script>
-		<div data-callback="onSignIn1"
-			data-client_id="543254836183-77q81p1iilmmp692ps8hnq3jriv1ec3o.apps.googleusercontent.com"
-			id="g_id_onload"></div>
-		<div class="g_id_signin" data-type="standard"></div>
+		<!--第三方登入-->
+		<button class="btn-google"
+			onclick="location.href='https://accounts.google.com/o/oauth2/v2/auth/oauthchooseaccount?client_id=9654745670-04k9md8n376d5k65go4pgkhfj47jbk1l.apps.googleusercontent.com&redirect_uri=http%3A%2F%2F127.0.0.1%3A8000%2Faccounts%2Fgoogle%2Flogin%2Fcallback%2F&scope=profile&response_type=code&state=ycRAoBICKXcb&service=lso&o2v=2&flowName=GeneralOAuthFlow'">
+			<img src="{% static 'images/Google.png' %}" alt="google" >
+			<span>Google登入</span>
+		</button>
 		<div class="signup_link">
 			<span style="color: #F7A22D;">還沒註冊嗎&nbsp?</span>
 			<a href="{% url 'Register' %}" style="color: #D57F0A;">&nbsp&nbsp立即註冊</a>

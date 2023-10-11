@@ -28,6 +28,8 @@ urlpatterns = [
     
     # 驗證碼
     path('captcha/', include('captcha.urls')),
+    #django-allauth
+    path('accounts/', include('allauth.urls')),
 
     # ----------套件 end----------
 
