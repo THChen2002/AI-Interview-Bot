@@ -59,6 +59,7 @@
 </div>
 <script>
 	$(document).ready(function () {
+		// 顯示/隱藏密碼
 		const passwordInput = $("input[type='password']");
 		const togglePasswordButton = $("#toggle-password");
 		togglePasswordButton.click(function () {
@@ -69,6 +70,27 @@
 				passwordInput.attr("type", "password");
 				togglePasswordButton.find("img").attr("src", "{% static 'images/eye-slash-solid.png' %}");
 			}
+		});
+
+		// 驗證碼重新整理
+		// 在所有驗證碼後方建立重新整理按鈕
+		$('img.captcha').after(
+			$('<a href="#" class="captcha-refresh"><img src="{% static 'images/refresh.png' %}"></a>')
+		);
+
+		// 重整按鈕的點擊事件
+		$('.captcha-refresh').click(function () {
+			var $form = $(this).parents('form');
+			var url = location.protocol + "//" + window.location.hostname + ":"
+				+ location.port + "/captcha/refresh/";
+
+			// 取得新的驗證碼
+			$.getJSON(url, {}, function (json) {
+				$form.find('input[name="captcha_0"]').val(json.key);
+				$form.find('img.captcha').attr('src', json.image_url);
+			});
+
+			return false;
 		});
 	});
 </script>
