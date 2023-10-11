@@ -6,23 +6,23 @@
 <main class="container" >
     <!-- 功能選單 -->
         <div class="row" style="justify-content: center;">
-            <a href="/" class="col shadow-lg index-box" style="background-image:url('{% static "images/cover_letter.png" %}');" role="button" >
+            <a href="/" class="col shadow-lg index-box" style="background-image:url('static/images/cover_letter.png');" role="button" >
                 <h3 class="pt-5 mt-5 mb-4 display-6 lh-1 fw-bold text-box">求職信</h3>
             </a>
-            <a href="/" class="col shadow-lg index-box" style="background-image:url('{% static "images/Letter_of_recommendation.png" %}');" role="button">
+            <a href="/" class="col shadow-lg index-box" style="background-image:url('static/images/Letter_of_recommendation.png');" role="button">
                 <h3 class="pt-5 mt-5 mb-4 display-6 lh-1 fw-bold text-box">推薦信</h3>
             </a>
         </div>
         <div class="row" style="justify-content: center;">
-            <a href="/" class="col shadow-lg index-box" style="background-image:url('{% static "images/Personal_profile.png" %}');" role="button" >
+            <a href="/" class="col shadow-lg index-box" style="background-image:url('static/images/Personal_profile.png');" role="button" >
                 <h3 class="pt-5 mt-5 mb-4 display-6 lh-1 fw-bold text-box">個人簡介</h3>
             </a>
-            <a href="/" class="col shadow-lg index-box" style="background-image:url('{% static "images/Self_introduction.png" %}');" role="button" >
+            <a href="{% url 'SelfIntroduction' %}" class="col shadow-lg index-box" style="background-image:url('static/images/Self_introduction.png');" role="button" >
                 <h3 class="pt-5 mt-5 mb-4 display-6 lh-1 fw-bold text-box">自我介紹</h3>
             </a>
         </div>
         <div class="row" style="justify-content: center;">
-            <a href="/" class="col shadow-lg center-vertically index-box" style="background-image:url('{% static "images/mock_interview.png" %}');" role="button" >
+            <a href="/" class="col shadow-lg center-vertically index-box" style="background-image:url('static/images/mock_interview.png');" role="button" >
                 <h3 class="pt-5 mt-5 mb-4 display-6 lh-1 fw-bold text-box">模擬面試</h3>
             </a>
         </div>

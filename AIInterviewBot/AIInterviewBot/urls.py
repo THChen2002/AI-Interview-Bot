@@ -34,7 +34,7 @@ urlpatterns = [
     # ----------accounts start----------
 
     # 首頁
-    path('', accounts.index),
+    path('', accounts.index, name='Index'),
     # 登入
     path('login/', accounts.sign_in, name='Login'),
     # 登出
