@@ -52,6 +52,15 @@ INSTALLED_APPS = [
 
     #圖形驗證碼
     'captcha',
+
+    # allauth
+    'django.contrib.sites',
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    
+    # google provider
+    'allauth.socialaccount.providers.google',
 ]
 
 MIDDLEWARE = [
@@ -62,6 +71,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'allauth.account.middleware.AccountMiddleware',
 ]
 
 ROOT_URLCONF = 'AIInterviewBot.urls'
@@ -125,6 +135,10 @@ TIME_ZONE = 'Asia/Taipei'
 USE_I18N = True
 
 USE_TZ = True
+
+SITE_ID = 1
+
+LOGIN_REDIRECT_URL = '/'  # 登入後的首頁網址
 
 
 # Static files (CSS, JavaScript, Images)
