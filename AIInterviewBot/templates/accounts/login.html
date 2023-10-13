@@ -49,9 +49,8 @@
 		<input type="submit" class="btn-submit" value="登入" /><br>
 		<br>
 		<!--第三方登入-->
-		<button class="btn-google"
-			onclick="location.href='https://accounts.google.com/o/oauth2/v2/auth/oauthchooseaccount?client_id=9654745670-04k9md8n376d5k65go4pgkhfj47jbk1l.apps.googleusercontent.com&redirect_uri=http%3A%2F%2F127.0.0.1%3A8000%2Faccounts%2Fgoogle%2Flogin%2Fcallback%2F&scope=profile&response_type=code&state=ycRAoBICKXcb&service=lso&o2v=2&flowName=GeneralOAuthFlow'">
-			<img src="{% static 'images/Google.png' %}" alt="google" >
+		<button class="btn-google" onclick="location.href='{% provider_login_url 'google' method='oauth2' %}'">
+			<img src="{% static 'images/Google.png' %}" alt="google" width="18px" height="18px">
 			<span>Google登入</span>
 		</button>
 		<div class="signup_link">
