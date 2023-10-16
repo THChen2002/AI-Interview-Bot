@@ -1,12 +1,11 @@
 from django.shortcuts import render
-from contents.forms import SelfIntroductionForm,MockInterviewForm,RecommendationLetterForm,CoverLetter
 from contents.service import ContentsService
+from contents.forms import CoverLetterForm, MockInterviewForm, RecommendationLetterForm, ResumeForm, SelfIntroductionForm
 
-
-def Self_Introduction(request):
+def self_introduction(request):
     if request.method == 'POST':
         form = SelfIntroductionForm(request.POST)
-        if SelfIntroductionForm.is_valid():
+        if form.is_valid():
             company = form.cleaned_data['company']
             job = form.cleaned_data['job']
             skill1 = form.cleaned_data['skill1']
@@ -33,7 +32,7 @@ def Self_Introduction(request):
 def mock_interview(request):
     if request.method == 'POST':
         form = MockInterviewForm(request.POST)
-        if MockInterviewForm.is_valid():
+        if form.is_valid():
             question = form.cleaned_data['question']
             answer = form.cleaned_data['answer']
 
@@ -58,7 +57,7 @@ def mock_interview(request):
 def recommendation_letter(request):
     if request.method == 'POST':
         form = RecommendationLetterForm(request.POST)
-        if RecommendationLetterForm.is_valid():
+        if form.is_valid():
             referee = form.cleaned_data['referee']
             referrer = form.cleaned_data['referrer']
             department = form.cleaned_data['department']
@@ -85,8 +84,8 @@ def recommendation_letter(request):
 
 def cover_letter(request):
     if request.method == 'POST':
-        form = CoverLetter(request.POST)
-        if CoverLetter.is_valid():
+        form = CoverLetterForm(request.POST)
+        if form.is_valid():
             company = form.cleaned_data['company']
             job = form.cleaned_data['job']
             reason = form.cleaned_data['reason']
@@ -107,3 +106,10 @@ def cover_letter(request):
     else:
         form = SelfIntroductionForm()
     return render(request, 'contents/self_introduction.html', locals())
+
+def resume(request):
+    if request.method == 'POST':
+        form = ResumeForm(request.POST)
+    else:
+        form = ResumeForm()
+    return render(request, 'contents/resume.html', locals()
