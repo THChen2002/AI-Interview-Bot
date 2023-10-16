@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% block title %}首頁{% endblock %}
+{% block title %}模擬面試{% endblock %}
 {% block content %}
 <div class="row" style="margin-top:10px">
     <div class="col-md-6">
@@ -14,20 +14,12 @@
                 {{ form.job }}
             </div>
             <div>
-                <label>{{ form.skill1.label }}</label>
-                {{ form.skill1 }}
+                <label>{{ form.self_introduction.label }}</label>
+                {{ form.self_introduction }}
             </div>
             <div>
-                <label>{{ form.skill2.label }}</label>
-                {{ form.skill2 }}
-            </div>
-            <div>
-                <label>{{ form.cultural_fit.label }}</label>
-                {{ form.cultural_fit }}
-            </div>
-            <div>
-                <label>{{ form.cultural_fit_example.label }}</label>
-                {{ form.cultural_fit_example }}
+                <label>{{ form.mode.label }}</label>
+                {{ form.mode }}
             </div>
             <div>
                 <input type="submit" class="btn btn-primary" value="送出" />
@@ -40,5 +32,4 @@
         {% endfor %}
     </div>
 </div>
-
 {% endblock %}

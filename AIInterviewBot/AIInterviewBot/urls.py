@@ -60,6 +60,14 @@ urlpatterns = [
     
     # 自我介紹
     path('self_introduction/', contents.self_introduction, name='SelfIntroduction'),
+    # 求職信
+    path('cover_letter/', contents.cover_letter, name='CoverLetter'),
+    # 推薦信
+    path('recommendation_letter/', contents.recommendation_letter, name='RecommendationLetter'),
+    # 簡歷
+    path('resume/', contents.resume, name='Resume'),
+    # 模擬面試
+    path('mock_interview/', contents.mock_interview, name='MockInterview'),
     # ----------accounts end------------
 ]
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
