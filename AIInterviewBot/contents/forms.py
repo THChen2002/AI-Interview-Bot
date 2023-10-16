@@ -155,3 +155,16 @@ class MockInterviewForm(forms.Form):
         required=True,
         widget=forms.TextInput(attrs={'class': 'form-control'})
     )
+
+class MockInterviewQuestionForm(forms.Form):
+    question = forms.CharField(
+        label="題目",
+        required=True,
+        widget=forms.TextInput(attrs={'class': 'form-control'})
+    )
+
+    answer = forms.CharField(
+        label="回答",
+        required=True,
+        widget=forms.Textarea(attrs={'class': 'form-control'})
+    )
