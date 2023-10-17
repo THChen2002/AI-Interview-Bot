@@ -16,15 +16,21 @@
 
 <body>
     <br><br><br>
-    <nav class="navbar navbar-expand-md navbar-light bg-light fixed-top ">
-        <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#sidebar"
-            style="display: block; box-shadow: none;">
-            <span class="navbar-toggler-icon">
-            </span>
-        </button>
-        <a href="{% url 'Index' %}" class="navbar-brand mx-auto" style="font-weight: bold; color: #F7A22D; font-size: 30px;">
-            JOBEASE
-        </a>
+    <nav class="row navbar navbar-expand-md navbar-light bg-light fixed-top ">
+        <div class="col-3">
+            <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#sidebar"
+                style="display: block; box-shadow: none;">
+                <span class="navbar-toggler-icon">
+                </span>
+            </button>
+        </div>
+        <div class="col-6 text-center">
+            <a href="{% url 'Index' %}" class="navbar-brand mx-auto"
+                style="font-weight: bold; color: #F7A22D; font-size: 30px;">
+                JOBEASE
+            </a>
+        </div>
+        <div class="col-3"></div>
     </nav>
     <!--滑出選單-->
     <div class="offcanvas offcanvas-start" tabindex="-1" id="sidebar" style="width: 200px">
