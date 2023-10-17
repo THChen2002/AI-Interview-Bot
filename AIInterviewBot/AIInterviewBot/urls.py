@@ -56,7 +56,7 @@ urlpatterns = [
 
     # ----------accounts end------------
 
-    # ----------accounts start----------
+    # ----------contents start----------
     
     # 自我介紹
     path('self_introduction/', contents.self_introduction, name='SelfIntroduction'),
@@ -68,6 +68,8 @@ urlpatterns = [
     path('resume/', contents.resume, name='Resume'),
     # 模擬面試
     path('mock_interview/', contents.mock_interview, name='MockInterview'),
-    # ----------accounts end------------
+    # 儀錶板
+    path('dashboard/', contents.dashboard, name='Dashboard'),
+    # ----------contents end------------
 ]
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
