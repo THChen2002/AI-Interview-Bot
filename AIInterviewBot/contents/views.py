@@ -109,3 +109,6 @@ def resume(request):
     else:
         form = ResumeForm()
     return render(request, 'contents/resume.html', locals())
+
+def dashboard(request):
+    return render(request, 'contents/dashboard.html', locals())
