@@ -3,3 +3,4 @@ django-simple-captcha
 python-dotenv
 django-allauth
 openai
+python-docx

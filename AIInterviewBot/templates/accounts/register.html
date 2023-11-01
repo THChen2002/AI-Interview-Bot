@@ -21,12 +21,6 @@
 		</div>
 		<div class="txt_field">
 			<div class="input-container">
-			  <img src="{% static 'images/mail.png' %}" alt="lock" width="18px" height="18px">
-			  {{ registerForm.email }}
-			</div>
-		</div>
-		<div class="txt_field">
-			<div class="input-container">
 			  <img src="{% static 'images/lock.png' %}" alt="lock" width="18px" height="18px">
 			  {{ registerForm.password1 }}
 			</div>
@@ -37,22 +31,51 @@
 			  {{ registerForm.password2 }}
 			</div>
 		</div>
+		<div class="txt_field">
+      <div class="input-container">
+			  <img src="{% static 'images/mail.png' %}" alt="lock" width="18px" height="18px">
+			  {{ registerForm.email }}
+			</div>
+		</div>
 		{% if registerForm.errors %}
 		<div class="error text-danger">
 			<ul>
-			{% for field in registerForm %}
-			{% for error in field.errors %}
-			<li>{{ error }}</li>
-			{% endfor %}
-			{% endfor %}
+				{% for field in registerForm %}
+				{% for error in field.errors %}
+				<li>{{ error }}</li>
+				{% endfor %}
+				{% endfor %}
 			</ul>
 		</div>
 		{% endif %}
-		<input type="submit" class="btn-submit" value="註冊" /><br>
+		<input type="submit" class="btn-submit" value="註冊" style="text-align: center;"><br>
 	</form>
 	<div class="signup_link">
 		已經是會員?<a href="{% url 'Login'%}" style="color: #F7A22D;">&nbsp;立即登入</a>
 	</div>
 </div>
+
+{% include 'modal_template.html' %}
+{% if registration_success %}
+<script>
+	$(document).ready(function () {
+		alertSuccess('註冊', function () {
+			window.location.href = "{% url 'Login' %}";
+		});
+	});
+
+</script>
+{% endif %}
+
+
+{% if registration_fail %}
+<script>
+	$(document).ready(function () {
+		alertFail('註冊', function () {
+			window.location.href = "{% url 'Register' %}";
+		});
+	});
+</script>
+{% endif %}
 
 {% endblock %}

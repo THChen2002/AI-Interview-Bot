@@ -6,7 +6,7 @@
 
 <div class="center logo">
 	<img src="{% static 'images/LOGO.png' %}" alt="LOGO" width="90" height="108">
-	<h1 class="custom-title" style="text-align: left;">使用者登入</h1>
+	<h1 class="custom-title" style="text-align: left; margin-left: -70px;">使用者登入</h1>
 	<form method="post" id="login-form">
 		{% csrf_token %}
 		<div class="txt_field">
@@ -20,20 +20,25 @@
 				<img src="{% static 'images/eye-slash-solid.png' %}" alt="顯示密碼" width="20" height="20">
 			</button>
 		</div>
-		<div class="txt_field">
-			<label style="padding-bottom:15px">{{ loginForm.captcha.label }}</label>
-			<span style="padding-left:70px">{{ loginForm.captcha }}</span>
-		</div>
-		<div class="row">
-			<div class="col-7">
+
+		<!-- 保持登入 忘記密碼 -->
+		<div style="display: flex; justify-content: space-between; align-items: center; margin-left: 10px;">
+			<div style="display: flex; align-items: center;">
 				{{ loginForm.remember_me }}
-				<span></span>
-				<label>{{ loginForm.remember_me.label }}</label>
+				<label style="color: #F7A22D; margin-left: 5px;">{{ loginForm.remember_me.label }}</label>
 			</div>
-			<div class="col-5 d-flex justify-content-end">
-				<a href="{% url 'ForgotPassword' %}" style="color: #F7A22D;">忘記密碼?</a>
+			<div style="margin-right: 10px;">
+				<a href="{% url 'ForgotPassword' %}" style="color: #F7A22D; text-decoration: none;">忘記密碼?</a>
 			</div>
 		</div>
+
+		<!-- 驗證碼 -->
+		<div class="txt_field" style="bottom: 0px;border: none;">
+			<div style="float: right;">{{ loginForm.captcha }}</div>
+			<label id="captcha-label">{{ loginForm.captcha.label }}</label>
+		</div>
+		<div class="horizontal-line"></div>
+
 		{% if loginForm.errors %}
 		<div class="error text-danger">
 			<ul>
@@ -46,28 +51,32 @@
 		</div>
 		{% endif %}
 		<br>
-		<input type="submit" class="btn-submit" value="登入" /><br>
-		<br>
-		<!--第三方登入-->
-		<button class="btn-google" onclick="location.href='{% provider_login_url 'google' method='oauth2' %}'">
-			<img src="{% static 'images/Google.png' %}" alt="google" width="18px" height="18px">
-			<span>Google登入</span>
-		</button>
+		<input type="submit" class="btn-submit" value="登入" />
 		<div class="signup_link">
 			<span style="color: #F7A22D;">還沒註冊嗎&nbsp?</span>
 			<a href="{% url 'Register' %}" style="color: #D57F0A;">&nbsp&nbsp立即註冊</a>
 		</div>
+		<!--第三方登入-->
+		<button class="btn-google" onclick="location.href='{% provider_login_url 'google' method='oauth2' %}'"
+			style="width: 50px; border: none;">
+			<img src="{% static 'images/Google.png' %}" alt="google" width="50px" height="50px">
+		</button>
+		<button class="btn-google" onclick="location.href='{% provider_login_url 'google' method='oauth2' %}'"
+			style="width: 50px; border: none;">
+			<img src="{% static 'images/facebook.png' %}" alt="google" width="35px" height="35px">
+		</button>
 	</form>
 </div>
 <script>
 	$(document).ready(function () {
+		$('#id_captcha_1').addClass('form-control');
 		// 顯示/隱藏密碼
 		const passwordInput = $("input[type='password']");
 		const togglePasswordButton = $("#toggle-password");
 		togglePasswordButton.click(function () {
 			if (passwordInput.attr("type") === "password") {
 				passwordInput.attr("type", "text");
-				togglePasswordButton.find("img").attr("src", "{% static 'images/eye-solid.png' %}");
+				togglePasswordButton.find("img").attr("src", "{% static 'images/eye-solid1.png' %}");
 			} else {
 				passwordInput.attr("type", "password");
 				togglePasswordButton.find("img").attr("src", "{% static 'images/eye-slash-solid.png' %}");
@@ -77,7 +86,7 @@
 		// 驗證碼重新整理
 		// 在所有驗證碼後方建立重新整理按鈕
 		$('img.captcha').after(
-			$('<a href="#" class="captcha-refresh"><img src="{% static 'images/refresh.png' %}"></a>')
+			$('<a href="#" class="captcha-refresh"><img src="/static/images/renew.png" width="40" height="40"></a>')
 		);
 
 		// 重整按鈕的點擊事件
@@ -93,6 +102,18 @@
 			});
 
 			return false;
+		});
+		// 點擊驗證碼框label字體往上移動+變色
+		$('#id_captcha_1').focus(function () {
+			$('#captcha-label').css({
+				'top': '-14px',
+				'color': '#2691d9'
+			});
+		}).blur(function () {
+			$('#captcha-label').css({
+				'top': '17px',
+				'color': '#adadad'
+			});
 		});
 	});
 </script>

@@ -10,6 +10,7 @@ body {
     padding: 0;
     height: 100vh;
     overflow: hidden;
+    zoom: 0.8;
 }
 
 .center {
@@ -41,6 +42,31 @@ form .txt_field {
     border-bottom: 2px solid #adadad;
     margin: 30px 0;
 }
+/* 驗證碼圖片位子 */
+img.captcha {
+    margin-top: 0px;
+    margin-left: -350px;
+}
+
+/* 驗證碼輸入框 */
+input#id_captcha_1 {
+    width: 200px;
+    text-align: left;
+    margin-top: -40px;
+}
+
+/* 帳號密碼輸入框寬度 */
+input#id_username,
+input#id_password {
+    width: 320px;
+}
+/* 驗證碼線條設定 */
+.horizontal-line {
+    border-top: 2px solid #adadad;
+    width: 200px;
+    margin-top: 70px;
+    margin-left: 150px;  
+}
 
 .txt_field input {
     width: 100%;
@@ -56,6 +82,17 @@ form .txt_field {
     position: absolute;
     top: 50%;
     left: 5px;
+    color: #adadad;
+    transform: translateY(-50%);
+    font-size: 16px;
+    pointer-events: none;
+    transition: .5s;
+}
+
+#captcha-label{
+    position: absolute;
+    left: 155px;
+    top: 17px;
     color: #adadad;
     transform: translateY(-50%);
     font-size: 16px;
@@ -85,7 +122,7 @@ form .txt_field {
 }
 
 .btn-submit {
-    width: 100%;
+    width: 250px;
     height: 50px;
     border: 1px solid;
     background: #F7A22D;
@@ -95,6 +132,9 @@ form .txt_field {
     font-weight: 700;
     cursor: pointer;
     outline: none;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .btn-submit:hover {
