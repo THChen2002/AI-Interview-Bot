@@ -1,9 +1,8 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
-from django.contrib.auth.models import User
+from captcha.fields import CaptchaField, CaptchaTextInput
 from django.contrib.auth import get_user_model
 User = get_user_model()
-from captcha.fields import CaptchaField
 
 
 class RegisterForm(UserCreationForm):
@@ -48,7 +47,7 @@ class LoginForm(forms.Form):
     captcha = CaptchaField(label="驗證碼")
 
     remember_me = forms.BooleanField(
-        label="記住我",
+        label="保持登入",
         required=False, 
         widget=forms.CheckboxInput()
     )
