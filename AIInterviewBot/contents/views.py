@@ -104,6 +104,7 @@ def cover_letter(request):
     return render(request, 'contents/self_introduction.html', locals())
 
 def resume(request):
+    ContentsService.export_resume()
     if request.method == 'POST':
         form = ResumeForm(request.POST)
     else:
