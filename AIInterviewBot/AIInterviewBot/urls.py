@@ -68,6 +68,7 @@ urlpatterns = [
     path('resume/', contents.resume, name='Resume'),
     # 模擬面試
     path('mock_interview/', contents.mock_interview, name='MockInterview'),
+    path('mock_interview_mode/<str:mode>/', contents.mock_interview_mode, name='MockInterviewMode'),
     # 儀錶板
     path('dashboard/', contents.dashboard, name='Dashboard'),
     # ----------contents end------------

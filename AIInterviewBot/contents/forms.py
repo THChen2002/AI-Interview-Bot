@@ -130,7 +130,7 @@ class ResumeForm(forms.Form):
         required=True,
         widget=forms.TextInput(attrs={'class': 'form-control'})
     )
-
+    
 class MockInterviewForm(forms.Form):
     company = forms.CharField(
         label="要面試的公司",
@@ -150,21 +150,12 @@ class MockInterviewForm(forms.Form):
         widget=forms.TextInput(attrs={'class': 'form-control','rows':4, 'cols':5})
     )
 
-    mode = forms.CharField(
+    mode = forms.ChoiceField(
         label="選擇模式",
         required=True,
-        widget=forms.TextInput(attrs={'class': 'form-control'})
-    )
-
-class MockInterviewQuestionForm(forms.Form):
-    question = forms.CharField(
-        label="題目",
-        required=True,
-        widget=forms.TextInput(attrs={'class': 'form-control'})
-    )
-
-    answer = forms.CharField(
-        label="回答",
-        required=True,
-        widget=forms.Textarea(attrs={'class': 'form-control'})
+        widget=forms.RadioSelect(attrs={'class': 'form-check-input form-check-inline'}),
+        choices=(
+            ('1', '單選模式'),
+            ('2', '複選模式'),
+        )
     )
