@@ -9,6 +9,17 @@ from docx.oxml.ns import qn
 class ContentsService:
     def __init__():
         openai.api_key = settings.OPENAI_API_KEY
+
+    # 取得OPEN AI API對話訊息
+    def get_messages(user_prompt):
+        messages=[
+            {
+                "role": "system",
+                "content": "#zh-tw You are an excellent interviewee and want to apply for work or school."
+            },
+            user_prompt
+        ]
+        return messages
     
     def get_reply(messages):
         try:
