@@ -18,33 +18,56 @@
 			<label>{{ registerForm.username.label }}</label>
 		</div>
 		<div class="txt_field">
-		{{ registerForm.email }}
-			<label>{{ registerForm.email.label }}</label>
-		</div>
-		<div class="txt_field">
 			{{ registerForm.password1 }}
-		<label>{{ registerForm.password1.label }}</label>
+			<label>{{ registerForm.password1.label }}</label>
 		</div>
 		<div class="txt_field">
 			{{ registerForm.password2 }}
 			<label>{{ registerForm.password2.label }}</label>
 		</div>
+		<div class="txt_field">
+			{{ registerForm.email }}
+			<label>{{ registerForm.email.label }}</label>
+		</div>
 		{% if registerForm.errors %}
 		<div class="error text-danger">
 			<ul>
-			{% for field in registerForm %}
-			{% for error in field.errors %}
-			<li>{{ error }}</li>
-			{% endfor %}
-			{% endfor %}
+				{% for field in registerForm %}
+				{% for error in field.errors %}
+				<li>{{ error }}</li>
+				{% endfor %}
+				{% endfor %}
 			</ul>
 		</div>
 		{% endif %}
-		<input type="submit" class="btn-submit" value="註冊" /><br>
+		<input type="submit" class="btn-submit" value="註冊" style="text-align: center;"><br>
 	</form>
 	<div class="signup_link">
 		已經是會員?<a href="{% url 'Login'%}" style="color: #F7A22D;">&nbsp;立即登入</a>
 	</div>
 </div>
+
+{% include 'modal_template.html' %}
+{% if registration_success %}
+<script>
+	$(document).ready(function () {
+		alertSuccess('註冊', function () {
+			window.location.href = "{% url 'Login' %}";
+		});
+	});
+
+</script>
+{% endif %}
+
+
+{% if registration_fail %}
+<script>
+	$(document).ready(function () {
+		alertFail('註冊', function () {
+			window.location.href = "{% url 'Register' %}";
+		});
+	});
+</script>
+{% endif %}
 
 {% endblock %}

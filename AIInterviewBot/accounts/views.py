@@ -1,7 +1,7 @@
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from accounts.forms import RegisterForm , LoginForm, ForgotPasswordForm, ChangePasswordForm
-from django.contrib.auth.models import User
+from django.contrib.auth import get_user_model
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 
@@ -16,6 +16,7 @@ from django.utils.encoding import force_bytes, force_str
 from django.contrib import messages
 from django.contrib.auth.forms import SetPasswordForm
 
+User = get_user_model()
 
 # 首頁
 @login_required(login_url="Login")
@@ -90,12 +91,12 @@ def register(request):
             email.fail_silently = False
             email.send()
 
-            return HttpResponse('<script>alert("註冊成功！"); window.location.href = "/login";</script>')
+            return render(request, 'accounts/register.html', {'registration_success': True})
         else:
             message = ''
             for error in registerForm.errors:
                 message += (error + "\n")
-            return HttpResponse('<script>alert("註冊失敗！"'+ message +');</script>')
+            return render(request, 'accounts/register.html', {'error_message': message, 'registration_fail': True})
 
     return render(request, 'accounts/register.html', locals())
 
