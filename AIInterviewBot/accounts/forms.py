@@ -8,22 +8,22 @@ class RegisterForm(UserCreationForm):
 
     username = forms.CharField(
         label="帳號",
-        widget=forms.TextInput(attrs={'class': 'form-control'})
+        widget=forms.TextInput(attrs={'class': 'form-control','placeholder':'帳號'})
     )
 
     email = forms.EmailField(
         label="電子郵件",
-        widget=forms.EmailInput(attrs={'class': 'form-control'})
+        widget=forms.EmailInput(attrs={'class': 'form-control','placeholder':'電子郵件'})
     )
 
     password1 = forms.CharField(
         label="密碼",
-        widget=forms.PasswordInput(attrs={'class': 'form-control'})
+        widget=forms.PasswordInput(attrs={'class': 'form-control','placeholder':'密碼'})
     )
 
     password2 = forms.CharField(
         label="密碼確認",
-        widget=forms.PasswordInput(attrs={'class': 'form-control'})
+        widget=forms.PasswordInput(attrs={'class': 'form-control','placeholder':'密碼確認'})
     )
 
     class Meta:
