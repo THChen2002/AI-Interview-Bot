@@ -87,11 +87,6 @@ def register(request):
 
             return HttpResponse('<script>alert("註冊成功！"); window.location.href = "/login";</script>')
         else:
-            # msg = ''
-            # for error in registerForm.error_messages:
-            #     msg += registerForm.error_messages[error]
-            #     print(msg)
-            # return HttpResponse('<script>alert("註冊失敗！'+ msg +'"); window.location.href = "/register";</script>') #跳不出來
             return render(request, 'accounts/register.html', {'registerForm': registerForm})
 
     return render(request, 'accounts/register.html', locals())
