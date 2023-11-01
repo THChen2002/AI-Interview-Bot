@@ -104,6 +104,17 @@ input#id_password {
     top: -10px;
     color: #2691d9;
 }
+  
+.input-container {
+    display: flex;
+    align-items: center;
+    /* 根据需要设置其他样式，例如间距等 */
+}
+
+.form-group {
+  display: flex;
+  align-items: center;
+}
 
 .txt_field input:focus~span::before,
 .txt_field input:valid~span::before {

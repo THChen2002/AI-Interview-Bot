@@ -14,20 +14,28 @@
 		{% csrf_token %}
 		<!-- 註冊表單內容 -->
 		<div class="txt_field">
-			{{ registerForm.username }}
-			<label>{{ registerForm.username.label }}</label>
+			<div class="input-container">
+			  <img src="{% static 'images/user.png' %}" alt="lock" width="18px" height="18px">
+			  {{registerForm.username}}
+			</div>
 		</div>
 		<div class="txt_field">
-			{{ registerForm.password1 }}
-			<label>{{ registerForm.password1.label }}</label>
+			<div class="input-container">
+			  <img src="{% static 'images/lock.png' %}" alt="lock" width="18px" height="18px">
+			  {{ registerForm.password1 }}
+			</div>
 		</div>
 		<div class="txt_field">
-			{{ registerForm.password2 }}
-			<label>{{ registerForm.password2.label }}</label>
+			<div class="input-container">
+			  <img src="{% static 'images/lock.png' %}" alt="lock" width="18px" height="18px">
+			  {{ registerForm.password2 }}
+			</div>
 		</div>
 		<div class="txt_field">
-			{{ registerForm.email }}
-			<label>{{ registerForm.email.label }}</label>
+      <div class="input-container">
+			  <img src="{% static 'images/mail.png' %}" alt="lock" width="18px" height="18px">
+			  {{ registerForm.email }}
+			</div>
 		</div>
 		{% if registerForm.errors %}
 		<div class="error text-danger">
