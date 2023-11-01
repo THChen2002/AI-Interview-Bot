@@ -1,5 +1,6 @@
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
+from django.urls import reverse
 from accounts.forms import RegisterForm , LoginForm, ForgotPasswordForm, ChangePasswordForm
 from django.contrib.auth import get_user_model
 from django.contrib.auth import authenticate, login, logout
@@ -15,6 +16,8 @@ from django.utils.encoding import force_bytes, force_str
 
 from django.contrib import messages
 from django.contrib.auth.forms import SetPasswordForm
+from django.contrib.auth import get_user_model
+User = get_user_model()
 
 User = get_user_model()
 
@@ -67,14 +70,6 @@ def register(request):
             # 儲存 User 物件到資料庫並取得已創建的 User 物件
             user = registerForm.save()
 
-            # 創建 UserProfile 物件
-            # profile = UserProfile()
-            # profile.user = User.objects.get(id=user.id)
-            # profile.user_name = user.username
-            # profile.email = user.email
-
-            # profile.save()  # 儲存 UserProfile 物件到資料庫
-
             # 電子郵件內容樣板
             email_template = render_to_string(
                 'accounts/signup_success_email.html',
@@ -93,11 +88,7 @@ def register(request):
 
             return render(request, 'accounts/register.html', {'registration_success': True})
         else:
-            message = ''
-            for error in registerForm.errors:
-                message += (error + "\n")
-            return render(request, 'accounts/register.html', {'error_message': message, 'registration_fail': True})
-
+            return render(request, 'accounts/register.html', {'registration_fail': True})
     return render(request, 'accounts/register.html', locals())
 
 #忘記密碼頁面
@@ -150,14 +141,11 @@ def password_reset_confirm(request, uidb64, token):
                 form.save()
                 user.reset_password_token = None
                 user.save()
-                messages.success(request, '您的密碼已成功重設。')
-                return redirect('password_reset_complete')
+                return redirect(reverse('PasswordResetComplete'))
+
         return render(request, 'accounts/reset_password_confirm.html', {'form': form})
     else:
-        # 顯示錯誤訊息
-        messages.error(request, '密碼重設連結無效或已過期。')
-        return redirect('forgot_password')
-    
+        return HttpResponse('<script>alert("密碼重設連結無效或已過期。"); window.location.href = "/forgot_password";</script>')
 #密碼重設成功頁面
 def password_reset_complete(request):
     return render(request, 'accounts/reset_password_complete.html')
