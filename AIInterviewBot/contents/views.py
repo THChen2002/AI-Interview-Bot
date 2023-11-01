@@ -1,6 +1,7 @@
-from django.shortcuts import render
+from django.shortcuts import render,redirect
+from django.urls import reverse
 from contents.service import ContentsService
-from contents.forms import CoverLetterForm, MockInterviewForm, RecommendationLetterForm, ResumeForm, SelfIntroductionForm, MockInterviewQuestionForm
+from contents.forms import CoverLetterForm, MockInterviewForm, RecommendationLetterForm, ResumeForm, SelfIntroductionForm
 
 def self_introduction(request):
     if request.method == 'POST':
@@ -30,6 +31,19 @@ def self_introduction(request):
 
 def mock_interview(request):
     if request.method == 'POST':
+        form = MockInterviewForm(request.POST)
+        if form.is_valid():
+            mode = form.cleaned_data['mode']
+            return redirect(reverse("MockInterviewMode", kwargs={'mode':mode}))
+    else:
+        form = MockInterviewForm(request.POST)
+    return render(request, 'contents/mock_interview.html', locals())
+
+def mock_interview_mode(request, mode):
+    return render(request, 'contents/mock_interview_mode.html', locals())
+
+def MockInterviewQuestionForm(request):
+    if request.method == 'POST':
         form = MockInterviewQuestionForm(request.POST)
         if form.is_valid():
             question = form.cleaned_data['question']
@@ -45,10 +59,10 @@ def mock_interview(request):
                 }
             ]
             replyMsg = ContentsService.get_reply_s(messages)
-        return render(request, 'contents/self_introduction.html', locals())
+        return render(request, 'contents/mock_interview.html', locals())
     else:
-        form = SelfIntroductionForm()
-    return render(request, 'contents/self_introduction.html', locals())
+        form = MockInterviewQuestionForm(request.POST)
+    return render(request, 'contents/mock_interview.html', locals())
 
 
 def recommendation_letter(request):
@@ -112,3 +126,4 @@ def resume(request):
 
 def dashboard(request):
     return render(request, 'contents/dashboard.html', locals())
+

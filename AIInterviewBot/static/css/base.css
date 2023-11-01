@@ -1,3 +1,7 @@
+:root {
+    --form-check-label-color: #FF0000; 
+
+}
 .index-box {
     text-decoration: none;
     height: 175px;
@@ -88,4 +92,65 @@
     display: flex; 
     align-items: center; 
     justify-content: center;
+}
+
+/* 大標題的字型 */
+.contents-title{
+    text-align: center;
+    color: #5E4104;
+    font-weight: bold;
+    font-size: 24px;
+    margin-top: 10px;
+    margin-bottom: 30px;
+}
+/* 小標題的字型 */
+.contents-test{
+    color: #5E4104;
+    font-size: 18px;
+    margin-top: 10px;
+    margin-bottom: 18px;
+}
+
+/* 輸入表格的樣式 */
+.form-control {
+    background-color: #FCE9CE;
+    border: #FCE9CE;
+}
+
+/* 送出按鈕的樣式 */
+.btn-primary {
+    --bs-btn-bg: #F7A32E;
+    --bs-btn-border-color: #F7A32E;
+    --bs-btn-hover-bg: #F7A32E;
+    --bs-btn-hover-border-color: #F7A32E;
+    --bs-btn-active-bg: #F7A32E;
+    --bs-btn-active-border-color: #F7A32E;
+    --bs-btn-disabled-bg: #F7A32E;
+    --bs-btn-disabled-border-color: #F7A32E;
+}
+
+.btn {
+    margin-top: 10px;
+    margin-bottom: 18px;
+    --bs-btn-padding-x: 3.85rem;
+    --bs-btn-padding-y: 0.375rem;
+    font-size: 24px;
+}
+
+.form-check-label {
+    color: #F7A22D; 
+    font-size: 16px;  
+    margin-right: 10px;   
+}
+
+.form-check-input {
+    background-color: #ffffff;
+    border-color:#F7A22D; 
+    margin-right: 0px;
+}
+
+.form-check-input:checked {
+    background-color: #5E4104;
+    border-color:#F7A22D; 
+
 }
