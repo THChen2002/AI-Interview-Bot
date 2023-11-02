@@ -1,43 +1,43 @@
 {% extends "base.html" %}
 {% block title %}推薦信{% endblock %}
 {% block content %}
+
 <div class="row" style="margin-top:10px">
     <div class="col-md-6">
         <form method="post">
             {% csrf_token %}
-            <div>
-                <label>{{ form.self.label }}</label>
+            <div class="contents-title">
+                推薦信輸入
+            </div>
+            <div class="contents-test">
+                <label>➊{{ form.self.label }}</label>
                 {{ form.self }}
             </div>
-            <div>
-                <label>{{ form.recommender.label }}</label>
+            <div class="contents-test">
+                <label>➋{{ form.recommender.label }}</label>
                 {{ form.recommender }}
             </div>
-            <div>
-                <label>{{ form.position.label }}</label>
+            <div class="contents-test">
+                <label>➌{{ form.position.label }}</label>
                 {{ form.position }}
             </div>
-            <div>
-                <label>{{ form.experience.label }}</label>
+            <div class="contents-test">
+                <label>➍{{ form.experience.label }}</label>
                 {{ form.experience }}
             </div>
-            <div>
-                <label>{{ form.reason.label }}</label>
+            <div class="contents-test">
+                <label>➎{{ form.reason.label }}</label>
                 {{ form.reason }}
             </div>
-            <div>
-                <label>{{ form.example.label }}</label>
+            <div class="contents-test">
+                <label>➏{{ form.example.label }}</label>
                 {{ form.example }}
             </div>
-            <div>
-                <input type="submit" class="btn btn-primary" value="送出" />
+            <div class="d-grid col-10 mx-auto">
+                <input type="submit" class="btn btn-primary" value="生成推薦信" />
             </div>
         </form>
     </div>
-    <div class="col-md-6" style="border: 1px solid black; border-radius:20px">
-        {% for msg in replyMsg %}
-            <div>{{ msg }}</div>
-        {% endfor %}
-    </div>
 </div>
+
 {% endblock %}

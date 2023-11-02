@@ -24,7 +24,7 @@ class SelfIntroductionForm(forms.Form):
     cultural_fit = forms.CharField(
         label="與要面試的公司文化契合點",
         required=True,
-        widget=forms.TextInput(attrs={'class': 'form-control'})
+        widget=forms.Textarea(attrs={'class': 'form-control','rows':4, 'cols':5})
     )
     cultural_fit_example = forms.CharField(
         label="針對文化契合度的舉例",
@@ -104,31 +104,31 @@ class ResumeForm(forms.Form):
     personal_experience = forms.CharField(
         label="輸入個人經歷",
         required=True,
-        widget=forms.TextInput(attrs={'class': 'form-control'})
+        widget=forms.Textarea(attrs={'class': 'form-control','rows':1, 'cols':5})
     )
 
     skill = forms.CharField(
         label="輸入專長與技能",
         required=True,
-        widget=forms.TextInput(attrs={'class': 'form-control'})
+        widget=forms.Textarea(attrs={'class': 'form-control','rows':1, 'cols':5})
     )
 
     enthusiasm = forms.CharField(
         label="輸入職涯熱情所在",
         required=True,
-        widget=forms.TextInput(attrs={'class': 'form-control','rows':4, 'cols':5})
+        widget=forms.Textarea(attrs={'class': 'form-control','rows':1, 'cols':5})
     )
 
     interest = forms.CharField(
         label="工作外的休閒嗜好",
         required=True,
-        widget=forms.TextInput(attrs={'class': 'form-control'})
+        widget=forms.Textarea(attrs={'class': 'form-control','rows':1, 'cols':5})
     )
 
     style = forms.CharField(
         label="個人簡介風格",
         required=True,
-        widget=forms.TextInput(attrs={'class': 'form-control'})
+        widget=forms.Textarea(attrs={'class': 'form-control','rows':1, 'cols':5})
     )
     
 class MockInterviewForm(forms.Form):
@@ -147,7 +147,7 @@ class MockInterviewForm(forms.Form):
     self_introduction = forms.CharField(
         label="個人簡歷",
         required=True,
-        widget=forms.TextInput(attrs={'class': 'form-control','rows':4, 'cols':5})
+        widget=forms.Textarea(attrs={'class': 'form-control','rows':4, 'cols':5})
     )
 
     mode = forms.ChoiceField(
