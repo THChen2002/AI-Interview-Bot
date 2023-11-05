@@ -75,5 +75,3 @@ class ContentsService:
 
         # 保存文件
         doc.save(output_path)
-
-    export_resume()
