@@ -3,21 +3,25 @@ from django import forms
 class SelfIntroductionForm(forms.Form):
     company = forms.CharField(
         label="要面試的公司",
+        max_length=100,
         required=True,
         widget=forms.TextInput(attrs={'class': 'form-control'})
     )
     job = forms.CharField(
         label="要面試的職業",
+        max_length=100,
         required=True,
         widget=forms.TextInput(attrs={'class': 'form-control'})
     )
     skill1 = forms.CharField(
         label="個人專長1",
+        max_length=200,
         required=True,
         widget=forms.TextInput(attrs={'class': 'form-control'})
     )
     skill2 = forms.CharField(
         label="個人專長2",
+        max_length=200,
         required=True,
         widget=forms.TextInput(attrs={'class': 'form-control'})
     )
@@ -35,12 +39,14 @@ class SelfIntroductionForm(forms.Form):
 class CoverLetterForm(forms.Form):
     company = forms.CharField(
         label="想申請的公司名稱",
+        max_length=100,
         required=True,
         widget=forms.TextInput(attrs={'class': 'form-control'})
     )
 
     job = forms.CharField(
         label="想應徵的職位名稱",
+        max_length=100,
         required=True,
         widget=forms.TextInput(attrs={'class': 'form-control'})
     )
@@ -66,18 +72,21 @@ class CoverLetterForm(forms.Form):
 class RecommendationLetterForm(forms.Form):
     self = forms.CharField(
         label="被推薦人稱呼",
+        max_length=100,
         required=True,
         widget=forms.TextInput(attrs={'class': 'form-control'})
     )
 
     recommender = forms.CharField(
         label="推薦人稱呼",
+        max_length=100,
         required=True,
         widget=forms.TextInput(attrs={'class': 'form-control'})
     )
 
     position = forms.CharField(
         label="推薦到的單位",
+        max_length=100,
         required=True,
         widget=forms.TextInput(attrs={'class': 'form-control'})
     )
@@ -134,12 +143,14 @@ class ResumeForm(forms.Form):
 class MockInterviewForm(forms.Form):
     company = forms.CharField(
         label="要面試的公司",
+        max_length=100,
         required=True,
         widget=forms.TextInput(attrs={'class': 'form-control'})
     )
 
     job = forms.CharField(
         label="要面試的職位",
+        max_length=100,
         required=True,
         widget=forms.TextInput(attrs={'class': 'form-control'})
     )
