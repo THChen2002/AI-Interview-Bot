@@ -18,12 +18,36 @@ from django.contrib import messages
 from django.contrib.auth.forms import SetPasswordForm
 from django.contrib.auth import get_user_model
 User = get_user_model()
+from django.core.files import File
+from django.core.files.temp import TemporaryFile
+from allauth.socialaccount.models import SocialAccount
+from accounts.models import UserProfile
+import urllib.request
 
-User = get_user_model()
 
 # 首頁
 @login_required(login_url="Login")
 def index(request): 
+    user = request.user
+    profile_image_url = '/static/images/user_default.png'  # 預設圖片 URL
+    try:
+        # URL抓取圖片
+        if not user.profile_image:
+            social_account = SocialAccount.objects.get(user=user.id)
+            social_account_name = social_account.extra_data.get('name')
+            picture_url = social_account.extra_data.get('picture')
+            temp_image = TemporaryFile()
+            with urllib.request.urlopen(picture_url) as response:
+                temp_image.write(response.read())
+            temp_image.flush()
+            profile = UserProfile.objects.get(id=user.id)
+            profile.profile_image.save(social_account_name + ".png", File(temp_image))
+            profile.save()
+            unit = UserProfile.objects.get(id=user.id)
+            profile_image_url = unit.profile_image.url
+    except SocialAccount.DoesNotExist:
+        pass
+    request.session['picture_url'] = profile_image_url
     return render(request, 'accounts/index.html')
 
 # 登入
