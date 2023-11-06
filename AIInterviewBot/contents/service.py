@@ -5,6 +5,7 @@ from docx.enum.text import WD_PARAGRAPH_ALIGNMENT
 from docx.enum.table import WD_CELL_VERTICAL_ALIGNMENT
 from docx.shared import Inches, Cm, Pt, RGBColor
 from docx.oxml.ns import qn
+import os
 
 class ContentsService:
     def __init__():
@@ -37,8 +38,8 @@ class ContentsService:
     def export_resume():
         # 設定段落格式
         def set_run_font(run, ch_font_name, en_font_name, font_size, bold=False, italic=False, underline=False, font_color=None):
-            run.font.name = en_font_name # 英文字型
-            run.element.rPr.rFonts.set(qn('w:eastAsia'), ch_font_name)  # 中文字型
+            run.font.name = en_font_name
+            run.element.rPr.rFonts.set(qn('w:eastAsia'), ch_font_name)
             run.font.size = Pt(font_size)
             run.font.bold = bold
             run.font.italic = italic
@@ -46,35 +47,31 @@ class ContentsService:
 
             if font_color:
                 run.font.color.rgb = font_color
-                
-        doc = Document()
-        doc.add_heading("個人簡歷", 0).alignment = WD_PARAGRAPH_ALIGNMENT.CENTER
 
-        records = (
-            ('amos', '12345678', 'teacher'),
-            ('carol', '23456789', '學生'),
-            ('frank', '34567890', ''),
-        )
+        # 設定路徑      
+        template_path = os.path.join('static', 'template.docx')
+        output_path = os.path.join('static', 'resume.docx')
 
-        
-        table = doc.add_table(rows=1, cols=3, style='Table Grid')
-        hdr_cells = table.rows[0].cells
-        hdr_cells[0].text = '姓名'
-        hdr_cells[1].text = '電話'
-        hdr_cells[2].text = '職稱'
+        # 載入現有的Word文件
+        doc = Document(template_path)
+        # 文件的第一個表格
+        table = doc.tables[0]
+        # 填入數據
+        table.cell(1, 2).text = '張三'
+        table.cell(2, 2).text = '男'
+        table.cell(1, 4).text = '90/01/01'
+        table.cell(2, 4).text = '國立台北教育大學'
+        table.cell(3, 2).text = '0915123456'
+        table.cell(4, 2).text = 'zhangsan@example.com'
 
-        for name, tel, title in records:
-            row_cells = table.add_row().cells
-            row_cells[0].text = name
-            row_cells[1].text = tel
-            row_cells[2].text = title
-            for cell in row_cells:
+        # 遍歷表格設定樣式
+        for row in table.rows:
+            for cell in row.cells:
                 for paragraph in cell.paragraphs:
                     for run in paragraph.runs:
                         set_run_font(run, '標楷體', 'Times New Roman', 12)
                         # Set vertical alignment for cell text
                         cell.vertical_alignment = WD_CELL_VERTICAL_ALIGNMENT.CENTER
-        row_3_cells = table.rows[3].cells
-        row_3_cells[1].merge(row_3_cells[2])
 
-        doc.save('resume.docx')
+        # 保存文件
+        doc.save(output_path)

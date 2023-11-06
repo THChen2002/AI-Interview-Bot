@@ -1,39 +1,39 @@
 {% extends "base.html" %}
 {% block title %}簡歷{% endblock %}
 {% block content %}
+
 <div class="row" style="margin-top:10px">
     <div class="col-md-6">
         <form method="post">
             {% csrf_token %}
-            <div>
-                <label>{{ form.personal_experience.label }}</label>
+            <div class="contents-title">
+                個人簡歷輸入
+            </div>
+            <div class="contents-test">
+                <label>➊{{ form.personal_experience.label }}</label>
                 {{ form.personal_experience }}
             </div>
-            <div>
-                <label>{{ form.skill.label }}</label>
+            <div class="contents-test">
+                <label>➋{{ form.skill.label }}</label>
                 {{ form.skill }}
             </div>
-            <div>
-                <label>{{ form.enthusiasm.label }}</label>
+            <div class="contents-test">
+                <label>➌{{ form.enthusiasm.label }}</label>
                 {{ form.enthusiasm }}
             </div>
-            <div>
-                <label>{{ form.interest.label }}</label>
+            <div class="contents-test">
+                <label>➍{{ form.interest.label }}</label>
                 {{ form.interest }}
             </div>
-            <div>
-                <label>{{ form.style.label }}</label>
+            <div class="contents-test">
+                <label>➎{{ form.style.label }}</label>
                 {{ form.style }}
             </div>
-            <div>
-                <input type="submit" class="btn btn-primary" value="送出" />
+            <div class="d-grid col-10 mx-auto">
+                <input type="submit" class="btn btn-primary" value="生成個人簡歷" />
             </div>
         </form>
     </div>
-    <div class="col-md-6" style="border: 1px solid black; border-radius:20px">
-        {% for msg in replyMsg %}
-            <div>{{ msg }}</div>
-        {% endfor %}
-    </div>
 </div>
+
 {% endblock %}

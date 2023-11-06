@@ -1,7 +1,11 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
+from django.conf import settings
+from django.db.models.signals import post_save
+from django.dispatch import receiver
+from contents.models import DashBoard
 
-# Create your models here.
+User = settings.AUTH_USER_MODEL
 
 class UserProfile(AbstractUser):
     profile_image = models.ImageField(upload_to='profile_images/',blank=True, null=True)
@@ -19,3 +23,9 @@ class UserProfile(AbstractUser):
         ('D', '博士'),
     )
     degree = models.CharField(max_length=100, choices=DEGREE_CHOICES, blank=True, null=True)
+
+# 當使用者註冊時，自動建立一個Dashboard
+@receiver(post_save, sender=User)
+def create_user_dashboard(sender, instance, created, **kwargs):
+    if created:
+        DashBoard.objects.create(user=instance)
