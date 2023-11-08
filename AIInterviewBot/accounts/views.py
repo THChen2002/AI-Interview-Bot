@@ -111,8 +111,6 @@ def register(request):
             email.send()
 
             return render(request, 'accounts/register.html', {'registration_success': True})
-        else:
-            return render(request, 'accounts/register.html', {'registration_fail': True})
     return render(request, 'accounts/register.html', locals())
 
 #忘記密碼頁面
