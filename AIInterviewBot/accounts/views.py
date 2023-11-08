@@ -163,11 +163,13 @@ def password_reset_confirm(request, uidb64, token):
                 form.save()
                 user.reset_password_token = None
                 user.save()
-                return redirect(reverse('PasswordResetComplete'))
+                success = True
 
-        return render(request, 'accounts/reset_password_confirm.html', {'form': form})
+        return render(request, 'accounts/reset_password_confirm.html', locals())
     else:
-        return HttpResponse('<script>alert("密碼重設連結無效或已過期。"); window.location.href = "/forgot_password";</script>')
+        urlExpired = True
+        return redirect(reverse('ForgotPassword'), locals())
+        # return HttpResponse('<script>alert("密碼重設連結無效或已過期。"); window.location.href = "/forgot_password";</script>')
 #密碼重設成功頁面
 def password_reset_complete(request):
     return render(request, 'accounts/reset_password_complete.html')
