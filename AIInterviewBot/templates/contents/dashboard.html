@@ -6,18 +6,100 @@
 <!-- 引入字體 -->
 <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@500&display=swap" rel="stylesheet">
 
+<!-- CSS -->
+<link rel="stylesheet" type="text/css" href="{% static 'css/dashboard.css' %}" />
+
 <!-- 引入圓圈CSS -->
-<link rel="stylesheet" href="{% static '/css/progresscircle.css' %}">
+<link rel="stylesheet" href="{% static 'css/progresscircle.css' %}">
+
 <div class="row" style="justify-content: center;">
     <a class="col dashboard-box chart-css">
         <canvas id="lineChart" width="100%" height="100%"></canvas>
+        <!-- 折線圖問號button -->
+        <button class="help-button" data-target="content-lineChart">
+            <img src="{% static 'images/question.png' %}" alt="幫助-lineChart">
+        </button>
     </a>
 </div>
 <div class="row">
     <a class="col dashboard-box chart-css">
         <canvas id="radarChart" width="100%" height="100%"></canvas>
+        <!-- 雷達圖問號button -->
+        <button class="help-button" data-target="content-radarChart">
+            <img src="{% static 'images/question.png' %}" alt="幫助-radarChart">
+        </button>
     </a>
 </div>
+<!-- 問號彈跳視窗結構 -->
+<div id="question-modal" class="modal" style="display: none;">
+    <div class="modal-content">
+
+    </div>
+</div>
+
+<div id="content-lineChart" style="display: none;">
+    <p><strong style="color: #5e410b;">專業能力：</strong><span
+            style="color: #7d766e;">在該領域內的專業知識和技能。是否能夠運用專業知識解決問題並做出實際貢獻。</span></p>
+    <p><strong style="color: #5e410b;">創意能力：</strong><span
+            style="color: #7d766e;">在面對挑戰時提出新穎和創造性的解決方案的能力。是否能夠從不同角度思考問題，帶來創新的想法。</span></p>
+    <p><strong style="color: #5e410b;">策略能力：</strong><span
+            style="color: #7d766e;">在制定目標、計劃和行動步驟的能力。是否能夠考慮多方面的因素，制定明確的策略並有效執行。</span></p>
+    <p><strong style="color: #5e410b;">溝通能力：</strong><span
+            style="color: #7d766e;">在回答問題、表達意見以及與他人合作時的溝通能力。是否能夠清晰地傳達信息，並有效地與他人交流。</span></p>
+    <p><strong style="color: #5e410b;">自主學習能力：</strong><span
+            style="color: #7d766e;">對於持續學習和自我提升的承諾程度。是否積極主動地學習新知識和技能，以保持競爭力。</span></p>
+    <p><strong style="color: #5e410b;">綜合能力分數：</strong><span style="color: #7d766e;">專業能力 + 創意能力 + 策略能力 + 溝通能力 +
+            自主學習能力的平均。</span></p>
+</div>
+
+<div id="content-radarChart" style="display: none;">
+    <p>
+        <strong style="color: #5e410b;">專業能力評分標準：</strong><br>
+        <span style="color: #7d766e;">
+            0-30分：展示出缺乏基本的領域知識和技能，無法適應相關情境。<br>
+            31-60分：擁有基本的專業知識，但在應用和解釋方面可能需要進一步的發展。<br>
+            61-90分：具備堅實的領域知識和技能，能夠有效應用於不同情境，並提供有價值的洞察和解決方案。<br>
+            91-100分：展現出卓越的專業知識和技能，能夠在複雜的情況下提供創新和高效的解決方案，對領域有深刻的理解。
+        </span>
+    </p>
+    <p>
+        <strong style="color: #5e410b;">創意能力評分標準：</strong><br>
+        <span style="color: #7d766e;">
+            0-30分：缺乏創意思維，難以提供新穎或獨特的解決方案。<br>
+            31-60分：能夠在某些情境下提出一些創意想法，但可能需要更多的多元思考。<br>
+            61-90分：展現出在解決問題時能夠提供創意解決方案，能夠從不同角度思考並提供獨特的見解。<br>
+            91-100分：具備高度創意思維，能夠在各種情境下提供極具創新性和實用性的解決方案。
+        </span>
+    </p>
+    <p>
+        <strong style="color: #5e410b;">策略能力評分標準：</strong><br>
+        <span style="color: #7d766e;">
+            0-30分：缺乏有效的計劃和目標，難以制定明確的行動步驟。<br>
+            31-60分：能夠制定一般的計劃，但可能需要更多的分析和策略性思考。<br>
+            61-90分：具備有效的策略思維，能夠考慮多個因素並制定有系統的行動計劃。<br>
+            91-100分：展示出卓越的策略能力，能夠在複雜情境下制定高效且有效的長遠計劃和目標。
+        </span>
+    </p>
+    <p>
+        <strong style="color: #5e410b;">溝通能力評分標準：</strong><br>
+        <span style="color: #7d766e;">
+            0-30分：表達不清晰，難以有效地傳達信息和意圖。<br>
+            31-60分：能夠基本表達想法，但可能需要更多的組織和結構。<br>
+            61-90分：具備清晰、適切和有力的溝通技巧，能夠在團隊內外有效地傳達信息。<br>
+            91-100分：展現出優秀的溝通能力，能夠以影響力和說服力與他人交流和協作。
+        </span>
+    </p>
+    <p>
+        <strong style="color: #5e410b;">自主學習能力評分標準：</strong><br>
+        <span style="color: #7d766e;">
+            0-30分：缺乏持續學習的動機，無法主動探索新知識和技能。<br>
+            31-60分：能夠在一些情境下展示出主動學習的態度，但可能需要更積極地提升。<br>
+            61-90分：具備持續自我提升的意願，能夠積極地學習新知識和技能。<br>
+            91-100分：展現出卓越的自主學習能力，能夠不斷掌握新知識，並將其應用於不同領域。
+        </span>
+    </p>
+</div>
+
 <div class="row" style="justify-content: center;">
     <a class="col center-vertically dashboard-box"
         style="display: flex; justify-content: center;text-align: center; padding: 0;">
@@ -138,6 +220,21 @@
         var percentage = $(this).data('percentage');
         $(this).circlechart({
         });
+    });
+
+    // 問號按鈕點擊事件
+    $(".help-button").click(function () {
+        var target = $(this).data('target');
+        var content = $("#" + target).html();
+        $("#question-modal .modal-content").html(content);
+        $("#question-modal").fadeIn();
+    });
+
+    // 關閉問號彈跳視窗
+    $(window).click(function (event) {
+        if ($(event.target).is("#question-modal")) {
+            $("#question-modal").fadeOut();
+        }
     });
 </script>
 
