@@ -1,0 +1,171 @@
+{% extends "base.html" %}
+{% block title %}幫助中心{% endblock %}
+{% block content %}
+{% load static %}
+<!-- 問題下拉選單 -->
+<style>
+  .accordion-button:not(.collapsed){
+    color: #ffffff;
+    background-color: #F7A22D;
+  }
+</style>
+<div class="accordion accordion-flush" id="QuestionSet">
+  <div class="accordion-item">
+    <h2 class="accordion-header" id="flush-headingOne">
+      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+        常見問題
+      </button>
+    </h2>
+    <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#QuestionSet">
+      <div class="accordion-body">
+        <div class="accordion accordion-flush" id="NestedAccordion1">
+          <div class="accordion-item">
+            <h2 class="accordion-header" id="nested-headingOne">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#nested-collapseOne" aria-expanded="false" aria-controls="nested-collapseOne">
+                Nested Accordion Item #1
+              </button>
+            </h2>
+            <div id="nested-collapseOne" class="accordion-collapse collapse" aria-labelledby="nested-headingOne" data-bs-parent="#NestedAccordion1">
+              <div class="accordion-body">Nested Accordion Content #1.</div>
+            </div>
+          </div>
+          <div class="accordion-item">
+            <h2 class="accordion-header" id="nested-headingTwo">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#nested-collapseTwo" aria-expanded="false" aria-controls="nested-collapseTwo">
+                Nested Accordion Item #1
+              </button>
+            </h2>
+            <div id="nested-collapseTwo" class="accordion-collapse collapse" aria-labelledby="nested-headingTwo" data-bs-parent="#NestedAccordion1">
+              <div class="accordion-body">Nested Accordion Content #1.</div>
+            </div>
+          </div>
+          <div class="accordion-item">
+            <h2 class="accordion-header" id="nested-headingThree">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#nested-collapseThree" aria-expanded="false" aria-controls="nested-collapseThree">
+                Nested Accordion Item #1
+              </button>
+            </h2>
+            <div id="nested-collapseThree" class="accordion-collapse collapse" aria-labelledby="nested-headingThree" data-bs-parent="#NestedAccordion1">
+              <div class="accordion-body">Nested Accordion Content #1.</div>
+            </div>
+          </div>
+          <!-- Add more nested accordion items here if needed -->
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="accordion-item">
+    <h2 class="accordion-header" id="flush-headingTwo">
+      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
+        帳號問題
+      </button>
+    </h2>
+    <div id="flush-collapseTwo" class="accordion-collapse collapse" aria-labelledby="flush-headingTwo" data-bs-parent="#QuestionSet">
+      <div class="accordion-body">
+        <div class="accordion accordion-flush" id="NestedAccordion2">
+          <div class="accordion-item">
+            <h2 class="accordion-header" id="nest-headingOne">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#nest-collapseOne" aria-expanded="false" aria-controls="nest-collapseOne">
+                註冊時遇到的錯誤訊息如何處理？
+              </button>
+            </h2>
+            <div id="nest-collapseOne" class="accordion-collapse collapse" aria-labelledby="nest-headingOne" data-bs-parent="#NestedAccordion2">
+              <div class="accordion-body">Nested Accordion Content #2.</div>
+            </div>
+          </div>
+          <div class="accordion-item">
+            <h2 class="accordion-header" id="nest-headingTwo">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#nest-collapseTwo" aria-expanded="false" aria-controls="nest-collapseTwo">
+                忘記密碼時如何重設密碼？
+              </button>
+            </h2>
+            <div id="nest-collapseTwo" class="accordion-collapse collapse" aria-labelledby="nest-headingTwo" data-bs-parent="#NestedAccordion2">
+              <div class="accordion-body">Nested Accordion Content #2.</div>
+            </div>
+          </div>
+          <div class="accordion-item">
+            <h2 class="accordion-header" id="nest-headingThree">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#nest-collapseThree" aria-expanded="false" aria-controls="nest-collapseThree">
+                如何設定強密碼？
+              </button>
+            </h2>
+            <div id="nest-collapseThree" class="accordion-collapse collapse" aria-labelledby="nest-headingThree" data-bs-parent="#NestedAccordion2">
+              <div class="accordion-body">Nested Accordion Content #2.</div>
+            </div>
+          </div>
+          <div class="accordion-item">
+            <h2 class="accordion-header" id="nest-headingFour">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#nest-collapseFour" aria-expanded="false" aria-controls="nest-collapseFour">
+                如何更改個人資料，如名稱、地址或聯絡資訊？
+              </button>
+            </h2>
+            <div id="nest-collapseFour" class="accordion-collapse collapse" aria-labelledby="nest-headingFour" data-bs-parent="#NestedAccordion2">
+              <div class="accordion-body">Nested Accordion Content #2.</div>
+            </div>
+          </div>
+          <div class="accordion-item">
+            <h2 class="accordion-header" id="nest-headingFive">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#nest-collapseFive" aria-expanded="false" aria-controls="nest-collapseFive">
+                如何保護個人隱私？
+              </button>
+            </h2>
+            <div id="nest-collapseFive" class="accordion-collapse collapse" aria-labelledby="nest-headingFive" data-bs-parent="#NestedAccordion2">
+              <div class="accordion-body">Nested Accordion Content #2.</div>
+            </div>
+          </div>
+          <!-- Add more nested accordion items here if needed -->
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="accordion-item">
+    <h2 class="accordion-header" id="flush-headingThree">
+      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseThree" aria-expanded="false" aria-controls="flush-collapseThree">
+        功能介紹
+      </button>
+    </h2>
+    <div id="flush-collapseThree" class="accordion-collapse collapse" aria-labelledby="flush-headingThree" data-bs-parent="#QuestionSet">
+      <div class="accordion-body">
+        <div class="accordion accordion-flush" id="NestedAccordion3">
+          <div class="accordion-item">
+            <h2 class="accordion-header" id="last-headingOne">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#last-collapseOne" aria-expanded="false" aria-controls="last-collapseOne">
+                如何生成求職信、推薦信、簡歷及個人簡介？
+              </button>
+            </h2>
+            <div id="last-collapseOne" class="accordion-collapse collapse" aria-labelledby="last-headingOne" data-bs-parent="#NestedAccordion3">
+              <div class="accordion-body">Nested Accordion Content #3.</div>
+            </div>
+          </div>
+          <div class="accordion-item">
+            <h2 class="accordion-header" id="last-headingTwo">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#last-collapseTwo" aria-expanded="false" aria-controls="last-collapseTwo">
+                如何進行模擬面試？
+              </button>
+            </h2>
+            <div id="last-collapseTwo" class="accordion-collapse collapse" aria-labelledby="last-headingTwo" data-bs-parent="#NestedAccordion3">
+              <div class="accordion-body">Nested Accordion Content #3.</div>
+            </div>
+          </div>
+          <div class="accordion-item">
+            <h2 class="accordion-header" id="last-headingThree">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#last-collapseThree" aria-expanded="false" aria-controls="last-collapseThree">
+                如何修改我的個人資料？
+              </button>
+            </h2>
+            <div id="last-collapseThree" class="accordion-collapse collapse" aria-labelledby="last-headingThree" data-bs-parent="#NestedAccordion3">
+              <div class="accordion-body">Nested Accordion Content #3.</div>
+            </div>
+          </div>
+          <!-- Add more nested accordion items here if needed -->
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="d-grid gap-2 col-8 mx-auto">
+    <button class="btn btn-primary" type="button">問題回報</button>
+  </div>
+</div>
+{% endblock %}
