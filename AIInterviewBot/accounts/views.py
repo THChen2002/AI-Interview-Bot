@@ -5,7 +5,7 @@ from accounts.forms import RegisterForm , LoginForm, ForgotPasswordForm, ChangeP
 from django.contrib.auth import get_user_model
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
-
+from django.contrib.auth import update_session_auth_hash
 from django.core.mail import EmailMessage, send_mail
 from django.conf import settings
 from django.template.loader import render_to_string
@@ -143,8 +143,16 @@ def forgot_password(request):
   
 #修改密碼
 def change_password(request):
-    changePasswordForm = ChangePasswordForm()
-    return render(request, 'accounts/change_password.html', locals())
+    user = request.user
+    if request.method == 'POST':
+        changePasswordForm = ChangePasswordForm(request.user,request.POST)
+        if changePasswordForm.is_valid():
+            user = changePasswordForm.save()
+            update_session_auth_hash(request, user)
+            success = True
+    else:
+        changePasswordForm = ChangePasswordForm(request.user)
+    return render(request, 'accounts/change_password.html',locals())
 
 #使用者收信後的連結頁面
 def password_reset_confirm(request, uidb64, token):
