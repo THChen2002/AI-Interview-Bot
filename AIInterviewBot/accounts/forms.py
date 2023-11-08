@@ -1,5 +1,5 @@
 from django import forms
-from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.forms import UserCreationForm, PasswordChangeForm
 from captcha.fields import CaptchaField, CaptchaTextInput
 from django.core.exceptions import ValidationError
 from django.contrib.auth import get_user_model
@@ -59,19 +59,19 @@ class LoginForm(forms.Form):
     )
 
 # 修改密碼
-class ChangePasswordForm(forms.Form):
+class ChangePasswordForm(PasswordChangeForm):
 
-    oldpassword = forms.CharField(
+    old_password = forms.CharField(
         label="舊密碼",
-        widget=forms.PasswordInput(attrs={'class': 'form-control'})
+        widget=forms.PasswordInput(attrs={"autocomplete": "new-password"})
     )
-    newpassword1 = forms.CharField(
+    new_password1 = forms.CharField(
         label="新密碼",
-        widget=forms.PasswordInput(attrs={'class': 'form-control'})
+        widget=forms.PasswordInput(attrs={"autocomplete": "new-password"})
     )
-    newpassword2 = forms.CharField(
+    new_password2 = forms.CharField(
         label="新密碼確認",
-        widget=forms.PasswordInput(attrs={'class': 'form-control'})
+        widget=forms.PasswordInput(attrs={"autocomplete": "new-password"})
     )
 
 # 忘記密碼
