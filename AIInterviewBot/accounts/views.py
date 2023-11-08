@@ -153,3 +153,7 @@ def password_reset_complete(request):
 #個人檔案頁面
 def basic_info(request):
     return render(request, 'basic_info.html', locals())
+
+#幫助中心頁面
+def help_center(request):
+    return render(request, 'accounts/help_center.html')

@@ -53,6 +53,8 @@ urlpatterns = [
     path('reset/complete/', accounts.password_reset_complete, name='PasswordResetComplete'),
     # 修改密碼
     path('change_password/', accounts.change_password, name='ChangePassword'),
+    # 幫助中心
+    path('help_center/', accounts.help_center, name='HelpCenter'),
 
     # ----------accounts end------------
 
