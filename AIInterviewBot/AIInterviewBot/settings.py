@@ -33,6 +33,7 @@ ALLOWED_HOSTS = []
 
 AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend',  # 默認認證後端
+    'allauth.account.auth_backends.AuthenticationBackend',  # allauth認證後端
 ]
 
 # Application definition
@@ -140,6 +141,23 @@ SITE_ID = 1
 
 LOGIN_REDIRECT_URL = '/'  # 登入後的首頁網址
 
+# Additional configuration settings for django-allauth
+SOCIALACCOUNT_QUERY_EMAIL = True
+ACCOUNT_LOGOUT_ON_GET= True
+ACCOUNT_UNIQUE_EMAIL = True
+ACCOUNT_EMAIL_REQUIRED = True
+
+SOCIALACCOUNT_PROVIDERS = {
+    'google': {
+        'SCOPE': [
+            'profile',
+            'email',
+        ],
+        'AUTH_PARAMS': {
+            'access_type': 'online',
+        }
+    }
+}
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
