@@ -33,67 +33,6 @@
     text-shadow: none;
 }
 
-.dashboard-box {
-    text-decoration: none;
-    height: 175px;
-    width: 175px;
-    border-radius: 5px;
-    margin: 10px;
-    align-items: center;
-    background-size: cover;
-    margin-top: 10px;
-    margin-bottom: 20px;
-    border: 10px solid #fde9d0;
-    background-size: 90px 90px;
-    background-repeat: no-repeat;
-    background-position: center 20%;
-}
-
-.register {
-    color: #000;
-    font-family: 'M PLUS Rounded 1c', sans-serif;
-    font-size: 30px;
-    text-align: left;
-    position: relative;
-    margin-left: 0px;
-    font-weight: bold;
-}
-
-.num {
-    color: #000;
-    font-family: 'M PLUS Rounded 1c', sans-serif;
-    font-size: 60px;
-    text-align: center;
-    display: block;
-    position: relative;
-    top: -15px;
-}
-
-.day {
-    color: #000;
-    font-family: 'M PLUS Rounded 1c', sans-serif;
-    font-size: 33px;
-    text-align: right;
-    display: block;
-    position: relative;
-    top: -25px;
-    margin-left: 100px;
-    font-weight: bold;
-}
-
-.fraction-circle-text {
-    font-family: 'M PLUS Rounded 1c', sans-serif;
-    font-weight: bold;
-}
-
-.chart-css {
-    height: 330px;
-    width: 400px;
-    display: flex; 
-    align-items: center; 
-    justify-content: center;
-}
-
 /* 大標題的字型 */
 .contents-title{
     text-align: center;

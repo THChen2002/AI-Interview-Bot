@@ -49,8 +49,8 @@ class ContentsService:
                 run.font.color.rgb = font_color
 
         # 設定路徑      
-        template_path = os.path.join('static', 'template.docx')
-        output_path = os.path.join('static', 'resume.docx')
+        template_path = os.path.join(settings.STATICFILES_DIRS[0], 'template.docx')
+        output_path = os.path.join(settings.STATICFILES_DIRS[0], 'resume.docx')
 
         # 載入現有的Word文件
         doc = Document(template_path)
@@ -75,3 +75,5 @@ class ContentsService:
 
         # 保存文件
         doc.save(output_path)
+
+        return output_path

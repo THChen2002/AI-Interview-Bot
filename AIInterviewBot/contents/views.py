@@ -2,6 +2,8 @@ from django.shortcuts import render,redirect
 from django.urls import reverse
 from contents.service import ContentsService
 from contents.forms import CoverLetterForm, MockInterviewForm, RecommendationLetterForm, ResumeForm, SelfIntroductionForm
+from django.http import FileResponse
+import os
 
 # 自我介紹頁面
 def self_introduction(request):
@@ -107,7 +109,8 @@ def cover_letter(request):
 
 # 履歷頁面
 def resume(request):
-    ContentsService.export_resume()
+    output_path = ContentsService.export_resume()
+    return download_file(output_path)
     if request.method == 'POST':
         form = ResumeForm(request.POST)
     else:
@@ -118,3 +121,11 @@ def resume(request):
 def dashboard(request):
     return render(request, 'contents/dashboard.html', locals())
 
+# 下載檔案
+def download_file(file_path):
+    file_name = os.path.basename(file_path)
+    file = open(file_path, 'rb')
+    response = FileResponse(file)
+    response['Content-Type'] = 'application/octet-stream'
+    response['Content-Disposition'] = f'attachment; filename="{file_name}"'
+    return response

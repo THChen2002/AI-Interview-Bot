@@ -68,14 +68,6 @@
 {% endif %}
 
 
-{% if registration_fail %}
-<script>
-	$(document).ready(function () {
-		alertFail('註冊', function () {
-			window.location.href = "{% url 'Register' %}";
-		});
-	});
-</script>
-{% endif %}
+
 
 {% endblock %}

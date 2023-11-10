@@ -5,7 +5,7 @@ from accounts.forms import RegisterForm , LoginForm, ForgotPasswordForm, ChangeP
 from django.contrib.auth import get_user_model
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
-
+from django.contrib.auth import update_session_auth_hash
 from django.core.mail import EmailMessage, send_mail
 from django.conf import settings
 from django.template.loader import render_to_string
@@ -18,12 +18,36 @@ from django.contrib import messages
 from django.contrib.auth.forms import SetPasswordForm
 from django.contrib.auth import get_user_model
 User = get_user_model()
+from django.core.files import File
+from django.core.files.temp import TemporaryFile
+from allauth.socialaccount.models import SocialAccount
+from accounts.models import UserProfile
+import urllib.request
 
-User = get_user_model()
 
 # 首頁
 @login_required(login_url="Login")
 def index(request): 
+    user = request.user
+    profile_image_url = '/static/images/user_default.png'  # 預設圖片 URL
+    try:
+        # URL抓取圖片
+        if not user.profile_image:
+            social_account = SocialAccount.objects.get(user=user.id)
+            social_account_name = social_account.extra_data.get('name')
+            picture_url = social_account.extra_data.get('picture')
+            temp_image = TemporaryFile()
+            with urllib.request.urlopen(picture_url) as response:
+                temp_image.write(response.read())
+            temp_image.flush()
+            profile = UserProfile.objects.get(id=user.id)
+            profile.profile_image.save(social_account_name + ".png", File(temp_image))
+            profile.save()
+            unit = UserProfile.objects.get(id=user.id)
+            profile_image_url = unit.profile_image.url
+    except SocialAccount.DoesNotExist:
+        pass
+    request.session['picture_url'] = profile_image_url
     return render(request, 'accounts/index.html')
 
 # 登入
@@ -87,8 +111,6 @@ def register(request):
             email.send()
 
             return render(request, 'accounts/register.html', {'registration_success': True})
-        else:
-            return render(request, 'accounts/register.html', {'registration_fail': True})
     return render(request, 'accounts/register.html', locals())
 
 #忘記密碼頁面
@@ -121,8 +143,16 @@ def forgot_password(request):
   
 #修改密碼
 def change_password(request):
-    changePasswordForm = ChangePasswordForm()
-    return render(request, 'accounts/change_password.html', locals())
+    user = request.user
+    if request.method == 'POST':
+        changePasswordForm = ChangePasswordForm(request.user,request.POST)
+        if changePasswordForm.is_valid():
+            user = changePasswordForm.save()
+            update_session_auth_hash(request, user)
+            success = True
+    else:
+        changePasswordForm = ChangePasswordForm(request.user)
+    return render(request, 'accounts/change_password.html',locals())
 
 #使用者收信後的連結頁面
 def password_reset_confirm(request, uidb64, token):
@@ -141,11 +171,13 @@ def password_reset_confirm(request, uidb64, token):
                 form.save()
                 user.reset_password_token = None
                 user.save()
-                return redirect(reverse('PasswordResetComplete'))
+                success = True
 
-        return render(request, 'accounts/reset_password_confirm.html', {'form': form})
+        return render(request, 'accounts/reset_password_confirm.html', locals())
     else:
-        return HttpResponse('<script>alert("密碼重設連結無效或已過期。"); window.location.href = "/forgot_password";</script>')
+        urlExpired = True
+        return redirect(reverse('ForgotPassword'), locals())
+        # return HttpResponse('<script>alert("密碼重設連結無效或已過期。"); window.location.href = "/forgot_password";</script>')
 #密碼重設成功頁面
 def password_reset_complete(request):
     return render(request, 'accounts/reset_password_complete.html')
@@ -153,3 +185,7 @@ def password_reset_complete(request):
 #個人檔案頁面
 def basic_info(request):
     return render(request, 'basic_info.html', locals())
+
+#幫助中心頁面
+def help_center(request):
+    return render(request, 'accounts/help_center.html')
