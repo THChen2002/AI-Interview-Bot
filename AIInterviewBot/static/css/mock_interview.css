@@ -1,0 +1,83 @@
+.container {
+    width: 100%;
+    max-width: 600px;
+    /* Adjust the max-width as needed */
+    margin: auto;
+    padding: 20px;
+}
+
+.question, .input-area {
+    border: 1px solid #ccc;
+    margin-bottom: 10px;
+    padding: 20px;
+    border-radius: 5px;
+}
+
+.button-container {
+    text-align: center;
+}
+
+button {
+    background-color: orange;
+    border: none;
+    padding: 10px 20px;
+    text-align: center;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.fixed-height {
+    height: 50px;
+    /* This sets a fixed height for the orange areas */
+    line-height: 50px;
+    /* Centers the text vertically */
+    background-color: orange;
+    color: white;
+    text-align: center;
+}
+
+.input-area {
+    float: left;
+    width: 275px;
+    height: 150px;
+}
+.question {
+    float: right;
+    position: relative;
+    width: 275px;
+    height: 150px;
+}
+
+.input-area textarea {
+    position: relative;
+}
+
+
+.interviewer-img {
+    left: -13%;
+}
+
+
+@media screen and (max-width: 1171px) {
+    .interviewer-img {
+        left: -21%;
+    }
+}
+@media screen and (min-width: 400px) and (max-width: 1171px) {
+    .interviewer-img {
+        left: -13%;
+    }
+}
+
+.interviewer-div {
+    left: 84%;
+}
+@media screen and (min-width: 400px) and (max-width: 1171px) {
+    .interviewer-div {
+        left: 90%;
+    }
+}
+

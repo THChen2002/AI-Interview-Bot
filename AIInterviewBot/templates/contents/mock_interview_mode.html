@@ -1,20 +1,66 @@
 {% extends "base.html" %}
 {% block title %}模擬面試{% endblock %}
 {% block content %}
+{% load static %}
 
-<div class="row" style="margin-top:10px">
-    <div class="col-md-6">
-        <form method="post">
-            {% csrf_token %}
-            <div class="contents-title">
-                模擬面試
+<link rel="stylesheet" type="text/css" href="{% static 'css/mock_interview.css' %}" />
+
+
+
+<form method="post">
+    {% csrf_token %}
+    <div class="contents-title">
+        模擬面試
+    </div>
+    <div class="container">
+        <!-- Interviewer's question section -->
+        <div class="question form-control" style="width: 80%;">
+            <img src="{% static 'images/interviewer.png' %}" alt="interviewer" class="interviewer-img"
+                style="position: absolute; top: 10px; width: 110px; height: 110px;">
+            <div style="position: absolute; right: 30px; top: 10px; bottom: 20px; left: 10px; overflow-y: auto;">
+                <p style="padding-left: 40px;">
+                    這裡將會顯示面試官的問題
+                    這裡將會顯示面試官的問題
+                    這裡將會顯示面試官的問題
+                    這裡將會顯示面試官的問題
+                    這裡將會顯示面試官的問題
+                    這裡將會顯示面試官的問題
+                    這裡將會顯示面試官的問題
+                    這裡將會顯示面試官的問題
+                    這裡將會顯示面試官的問題
+                    這裡將會顯示面試官的問題
+                </p>
+            </div>
+            <div class="form-control"
+                style="position: absolute; bottom: -1px; left: -40px;background-color: #FFB755; height: 35px;width: 80px; text-align: center;">
+                <p>面試官</p>
+            </div>
+        </div>
+
+        <!-- User's input section -->
+        <div class="input-area form-control" style="position: relative; width: 80%;">
+            <div>
+                {{ form.answer }}
             </div>
             
-            <div class="d-grid gap-2 col-6 mx-auto">
-                <input type="submit" class="btn btn-primary" value="送出" />
+            <img src="{% static 'images/interviewer.png' %}" alt="interviewer"
+                style="position: absolute; right: -55px; top: 10px; width: 110px; height: 110px;">
+            <div class="form-control interviewer-div" 
+                style="position: absolute; bottom: -1px; background-color: #FFB755; height: 35px;width: 80px; text-align: center;">
+                <p>面試者</p>
             </div>
-        </form>
+        </div>
+        
+        
+
+
+    <div class="d-grid gap-2 col-6 mx-auto">
+
+        <input type="submit" class="btn btn-primary" value="送出" />
     </div>
+
+</form>
 </div>
+
 
 {% endblock %}

@@ -170,3 +170,14 @@ class MockInterviewForm(forms.Form):
             ('2', '複選模式'),
         )
     )
+
+class MockInterviewForm(forms.Form):
+    answer = forms.CharField(
+        widget=forms.Textarea(attrs={
+            'class': 'form-control',
+            'rows': 4, 
+            'cols': 5, 
+            'style': 'resize: none; background-color: #FCE9CF; width: 90%; height: 108px; margin-top: -10px; margin-left: -10px;',
+            'placeholder': '輸入回答'
+        })
+    )
