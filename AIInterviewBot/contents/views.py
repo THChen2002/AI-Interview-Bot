@@ -4,6 +4,7 @@ from contents.service import ContentsService
 from contents.forms import CoverLetterForm, MockInterviewForm, RecommendationLetterForm, ResumeForm, SelfIntroductionForm
 from django.http import FileResponse
 import os
+from .forms import MockInterviewForm
 
 # 自我介紹頁面
 def self_introduction(request):
@@ -40,6 +41,7 @@ def mock_interview(request):
 
 # 模擬面試過程頁面
 def mock_interview_mode(request, mode):
+    form = MockInterviewForm()
     return render(request, 'contents/mock_interview_mode.html', locals())
 
 # def MockInterviewQuestion(request):
