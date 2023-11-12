@@ -11,6 +11,18 @@ class ContentsService:
     def __init__():
         openai.api_key = settings.OPENAI_API_KEY
     
+    # 取得OPEN AI API對話訊息
+    def get_messages(user_prompt):
+        messages=[
+            {
+                "role": "system",
+                "content": "#zh-tw You are an excellent interviewee and want to apply for work or school."
+            },
+            user_prompt
+        ]
+        return messages
+    
+    # 取得OPEN AI API回覆訊息
     def get_reply(messages):
         try:
             response = openai.ChatCompletion.create(
@@ -22,6 +34,7 @@ class ContentsService:
             reply = f"發生 {err.error.type} 錯誤\n{err.error.message}"
         return reply
     
+    # 取得OPEN AI API回覆訊息(Streaming)
     def get_reply_s(messages):
         try:
             response = openai.ChatCompletion.create(
@@ -35,6 +48,7 @@ class ContentsService:
         except openai.OpenAIError as err:
             reply = f"發生 {err.error.type} 錯誤\n{err.error.message}"
 
+    # 匯出簡歷
     def export_resume():
         # 設定段落格式
         def set_run_font(run, ch_font_name, en_font_name, font_size, bold=False, italic=False, underline=False, font_color=None):
