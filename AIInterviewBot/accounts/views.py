@@ -1,7 +1,7 @@
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.urls import reverse
-from accounts.forms import RegisterForm , LoginForm, ForgotPasswordForm, ChangePasswordForm
+from accounts.forms import RegisterForm , LoginForm, ForgotPasswordForm, ChangePasswordForm, PersonalForm
 from django.contrib.auth import get_user_model
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
@@ -22,6 +22,7 @@ from django.core.files import File
 from django.core.files.temp import TemporaryFile
 from allauth.socialaccount.models import SocialAccount
 from accounts.models import UserProfile
+from contents.models import DashBoard
 import urllib.request
 
 
@@ -178,15 +179,22 @@ def password_reset_confirm(request, uidb64, token):
         urlExpired = True
         return redirect(reverse('ForgotPassword'), locals())
         # return HttpResponse('<script>alert("密碼重設連結無效或已過期。"); window.location.href = "/forgot_password";</script>')
+        
 #密碼重設成功頁面
 def password_reset_complete(request):
     return render(request, 'accounts/reset_password_complete.html')
   
 #個人檔案頁面
-def basic_info(request):
-    return render(request, 'basic_info.html', locals())
-
 def personal(request):
+    unit = User.objects.get(id=request.user.id)
+    if request.method == 'POST':
+        form = PersonalForm(request.POST, request.FILES, instance=request.user)
+        if form.is_valid():
+            form.save()
+            return redirect(reverse('Personal'))
+    else:
+        dashboard = DashBoard.objects.get(id=request.user.id)
+        form = PersonalForm(instance=unit)
     return render(request, 'accounts/personal.html', locals())
 
 #幫助中心頁面

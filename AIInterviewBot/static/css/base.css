@@ -55,6 +55,9 @@
     background-color: #FCE9CE;
     border: #FCE9CE;
 }
+.form-control:disabled {
+    background-color: #FCE9CE;
+}
 
 /* 送出按鈕的樣式 */
 .btn-primary {
