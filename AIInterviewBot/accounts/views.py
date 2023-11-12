@@ -186,6 +186,9 @@ def password_reset_complete(request):
 def basic_info(request):
     return render(request, 'basic_info.html', locals())
 
+def personal(request):
+    return render(request, 'accounts/personal.html', locals())
+
 #幫助中心頁面
 def help_center(request):
     return render(request, 'accounts/help_center.html')
