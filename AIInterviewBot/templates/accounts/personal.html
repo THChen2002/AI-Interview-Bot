@@ -1,0 +1,171 @@
+{% extends "base.html" %}
+{% block title %}Personal{% endblock %}
+{% block content %}
+{% load static %} 
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+<section style="background-color: #ffffff;">
+    <div class="container  py-5">
+        <div class="row">
+            <div class="col-lg-1"></div>
+            <div class="col-lg-11 row justify-content-center">
+                <div class="col-lg-3">
+                    <div class="card-body text-center">
+                        <div style="position: relative; display: inline-block;" >
+                            {% if unit.profile_pic %}
+                            <img src="/media/{{ unit.profile_pic }}" alt="{{ unit.user_name }}'s profile picture"
+                                class="rounded-circle img-fluid" style="width: 150px;">
+                            {% else %}
+                            <img src="https://i.imgur.com/m2ewClw.pngs" alt="{{ unit.user_name }}'s profile picture"
+                                class="rounded-circle img-fluid" style="width: 150px;">
+                            {% endif %}
+                            {% if unit.id == user.id %}
+                            <form id="photo-form" style="position: absolute; bottom: 0; right: 0;">
+                                {% csrf_token %}
+                                <div class="rounded-circle"
+                                    style="position: relative; background-color: white; width: 40px;height: 40px; border: 1px solid rgb(184, 184, 184); ">
+                                    <label for="photo"><img
+                                            src="https://django-finalproj.thchen2002.repl.co/static/images/usericon/camera.png"
+                                            width=25px height=25px
+                                            style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);"></label>
+                                </div>
+                                <div>
+                                    <input type="file" class="form-control" id="photo" name="photo" accept="image/*"
+                                        style="display: none;">
+                                </div>
+                            </form>
+                            {% endif %}
+                        </div>
+                        <h5 class="my-3">{{ unit.user_name }}</h5>
+                        <p class="text-muted mb-1">{{ occupation|default:'' }}</p>
+                        <p class="text-muted mb-4">{{ unit.academic|default:'' }}</p>
+                        <div class="d-flex justify-content-center mb-2">
+                            <label for="first_name" style="font-weight: bold;font-size: 25px;">(姓名)</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 mx-auto" style="border: 2px solid #FCE9CF; padding: 3px; border-radius: 10px;  width: 80%; background-color: #FCE9CF;" >
+                    <table class="table table-borderless">
+                            <tr>
+                                <th scope="col" class="text-center">15天</br>註冊天數</th>
+                                <th scope="col" class="text-center">86分</br>綜合分數</th>
+                            </tr>
+                    </table>
+                </div>
+                <div class="container mt-3"></div>
+                <div class="col-lg-9">
+                    <div class="card mb-4 shadow-sm">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-sm-9">
+                                    <p class="text-muted mb-0">{{ unit.last_name|default:'' }}
+                                        {{unit.first_name|default:''}}</p>
+                                </div>
+                            </div>
+                            <form id="profile-form" method="post" action="{% url 'personal' %}">
+                                {% csrf_token %}
+                                <div class="form-group row">
+                                    <div class="col-sm-3">
+                                        <label for="first_name" style="font-weight: bold;">帳號</label>
+                                    </div>
+                                    <div class="col-sm-9">
+                                        <input type="text" class="form-control" id="first_name" name="first_name"
+                                            value="{{ unit.first_name|default:'' }}" placeholder="Your account"
+                                            readonly>
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="form-group row">
+                                    <div class="col-sm-3">
+                                        <label for="gender" style="font-weight: bold;">性別</label>
+                                    </div>
+                                    <div class="col-sm-9">
+                                        <select class="form-control" id="gender" name="gender">
+                                            <option value="" selected disabled selected hidden>請選擇</option>
+                                            <option value="M">男性</option>
+                                            <option value="F">女性</option>
+                                            <option value="O">其他</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="form-group row">
+                                    <div class="col-sm-3">
+                                        <label for="birth_date" style="font-weight: bold;">生日</label>
+                                    </div>
+                                    <div class="col-sm-9">
+                                        <input type="date" class="form-control" id="birth_date" name="birth_date">
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="form-group row ">
+                                    <div class="col-sm-3">
+                                        <label for="email" style="font-weight: bold;">Email</label>
+                                    </div>
+                                    <div class="col-sm-9  text-end">
+                                        <input type="email" class="form-control" id="email" name="email"
+                                            value="{{ unit.email|default:'' }}" placeholder="Your Email" readonly>
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="form-group row">
+                                    <div class="col-sm-3">
+                                        <label for="phone_namber" style="font-weight: bold;">學位</label>
+                                    </div>
+                                    <div class="col-sm-9">
+                                        <select class="form-control" id="education_level" name="education_level">
+                                            <option value="" selected disabled selected hidden>請選擇</option>
+                                            <option value="高中">高中</option>
+                                            <option value="學士">學士</option>
+                                            <option value="碩士">碩士</option>
+                                            <option value="博士">博士</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="d-flex justify-content-center">
+                                    <button type="submit" class="btn btn-primary">保存</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+</section>
+
+    <div class="row justify-content-center">
+        <div class="col-md-6 mx-auto" style="border: 2px solid #FCE9CF; padding: 10px; border-radius: 10px;  width: 80%; background-color: #FCE9CF;" >
+            <h6 class="text-center">專業能力</h6>
+            <div class="progress mx-auto" style="width: 80%;">
+                <div class="progress-bar" role="progressbar" style="width: 12.5%; background-color: #808080;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">12.5</div>
+            </div>
+            <br>
+            <h6 class="text-center">創意能力</h6>
+            <div class="progress mx-auto" style="width: 80%;">
+                <div class="progress-bar" role="progressbar" style="width: 25%; background-color: #808080;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">25</div>
+            </div>
+            <br>
+            <h6 class="text-center">溝通能力</h6>
+            <div class="progress mx-auto" style="width: 80%;">
+                <div class="progress-bar" role="progressbar" style="width: 50%; background-color: #808080;" aria-valuenow="" aria-valuemin="0" aria-valuemax="100">50</div>
+            </div>
+            <br>
+            <h6 class="text-center">策略能力</h6>
+            <div class="progress mx-auto" style="width: 80%;">
+                <div class="progress-bar" role="progressbar" style="width: 75%; background-color: #808080;" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100">75</div>
+            </div>
+            <br>
+            <h6 class="text-center">自主學習能力</h6>
+            <div class="progress mx-auto" style="width: 80%;">
+                <div class="progress-bar" role="progressbar" style="width: 100%; background-color: #808080;" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">100</div>
+            </div>
+        </div>
+    </div>
+
+<div class="container mt-3">
+    <p class="text-center" ><a href="{% url 'Dashboard' %}">查看我的儀表板</a></p>
+</div>
+
+{% endblock %}

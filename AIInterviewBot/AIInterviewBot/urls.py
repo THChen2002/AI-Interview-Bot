@@ -47,6 +47,7 @@ urlpatterns = [
     path('forgot_password/', accounts.forgot_password, name='ForgotPassword'),
     # 個人檔案頁面
     path('basic_info/', accounts.basic_info, name='Basic_info'),
+    path('personal/', accounts.personal, name='personal'),
     # 密碼重設確認頁面
     path('reset/confirm/<uidb64>/<token>/', accounts.password_reset_confirm, name='PasswordResetConfirm'),
     # 密碼重設完成頁面
