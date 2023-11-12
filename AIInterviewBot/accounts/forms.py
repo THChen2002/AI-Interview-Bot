@@ -2,6 +2,7 @@ from django import forms
 from django.contrib.auth.forms import UserCreationForm, PasswordChangeForm
 from captcha.fields import CaptchaField, CaptchaTextInput
 from django.core.exceptions import ValidationError
+from django.forms import ModelForm
 from django.contrib.auth import get_user_model
 User = get_user_model()
 
@@ -82,5 +83,14 @@ class ForgotPasswordForm(forms.Form):
         widget=forms.EmailInput(attrs={'class': 'form-control'})
     )
 
-
+class PersonalForm(ModelForm):
+    class Meta:
+        model = User
+        fields = ('profile_image', 'gender', 'birth_date', 'degree')
+        widgets = {
+            'profile_image': forms.FileInput(attrs={'class': 'form-control', 'id': 'photo', 'accept': 'image/*', 'style': 'display: none;'}),
+            'gender': forms.Select(attrs={'class': 'form-control', 'disabled':''}),
+            'birth_date': forms.DateInput(attrs={'type':'date', 'class': 'form-control', 'disabled':''}),
+            'degree': forms.Select(attrs={'class': 'form-control', 'disabled':''}),
+        }
     
