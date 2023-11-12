@@ -1,4 +1,5 @@
 from django import forms
+from .models import InterviewQuestion
 
 class SelfIntroductionForm(forms.Form):
     company = forms.CharField(
@@ -140,7 +141,7 @@ class ResumeForm(forms.Form):
         widget=forms.Textarea(attrs={'class': 'form-control','rows':1, 'cols':5})
     )
     
-class MockInterviewForm(forms.Form):
+class MockInterviewModeForm(forms.Form):
     company = forms.CharField(
         label="要面試的公司",
         max_length=100,
@@ -166,8 +167,8 @@ class MockInterviewForm(forms.Form):
         required=True,
         widget=forms.RadioSelect(attrs={'class': 'form-check-input form-check-inline'}),
         choices=(
-            ('1', '單選模式'),
-            ('2', '複選模式'),
+            ('1', '單題模式'),
+            ('2', '多題模式'),
         )
     )
 
