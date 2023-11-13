@@ -1,7 +1,7 @@
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.urls import reverse
-from accounts.forms import RegisterForm , LoginForm, ForgotPasswordForm, ChangePasswordForm, PersonalForm
+from accounts.forms import RegisterForm , LoginForm, ForgotPasswordForm, ChangePasswordForm, PersonalForm, ProblemReportForm
 from django.contrib.auth import get_user_model
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
@@ -200,3 +200,14 @@ def personal(request):
 #幫助中心頁面
 def help_center(request):
     return render(request, 'accounts/help_center.html')
+
+#問題回報頁面
+def problem_report(request):
+    if request.method == 'POST':
+        form = ProblemReportForm(request.POST)
+        # TODO: 表單送出後的處理
+        if form.is_valid():
+            pass
+    else:
+        form = ProblemReportForm()
+    return render(request, 'accounts/problem_report.html', locals())

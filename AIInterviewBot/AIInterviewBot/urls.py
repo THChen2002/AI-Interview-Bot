@@ -55,6 +55,8 @@ urlpatterns = [
     path('change_password/', accounts.change_password, name='ChangePassword'),
     # 幫助中心
     path('help_center/', accounts.help_center, name='HelpCenter'),
+    # 問題回報
+    path('problem_report/', accounts.problem_report, name='ProblemReport'),
 
     # ----------accounts end------------
 

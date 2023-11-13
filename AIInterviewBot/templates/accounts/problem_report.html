@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block title %}幫助中心{% endblock %}
+{% block content %}
+{% load static %}
+<h1 style="color: #F7A32E;">問題回報</h1>
+<hr style="background-color: #F7A32E;">
+<form method="post">
+  {% csrf_token %} 
+  <div>{{ form.type }}</div>
+  <div style="margin-top: 15px">{{ form.problem }}</div>
+  <div style="margin-top: 15px; text-align: center;">
+    <button type="submit" class="btn btn-primary" style="width:80%;">送出</button>
+  </div>
+</form>
+
+{% endblock %}
