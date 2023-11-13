@@ -199,6 +199,14 @@ input#id_password {
     width: 357px;
     height: 24px;
 }
+
+.forget-password {
+    font-size: 40px;
+    font-weight: bold;
+    color: #D57F0A;
+    text-align: center;
+}
+
 .navbar-toggler {
     border: 2px solid #F7A22D;
     border-radius: 4px;
