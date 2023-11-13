@@ -2,11 +2,14 @@ from django.shortcuts import render,redirect
 from django.urls import reverse
 from contents.service import ContentsService
 from contents.forms import CoverLetterForm, MockInterviewModeForm, MockInterviewForm, RecommendationLetterForm, ResumeForm, SelfIntroductionForm
-from contents.models import InterviewQuestion, InterviewRecord, InterviewScore
+from contents.models import InterviewQuestion, InterviewRecord, InterviewScore, DashBoard
 from django.http import FileResponse, JsonResponse
 import os
 import json
+from datetime import datetime
 from random import sample
+from django.contrib.auth import get_user_model
+User = get_user_model()
 
 # 自我介紹頁面
 def self_introduction(request):
@@ -150,7 +153,58 @@ def resume(request):
 
 # 儀表板頁面
 def dashboard(request):
+    dashboard = DashBoard.objects.get(id=request.user.id)
     return render(request, 'contents/dashboard.html', locals())
+
+# 取得儀表板資訊
+def get_chart_data(request):
+    chart_type = request.GET.get('type')
+    dashboard = DashBoard.objects.get(id=request.user.id)
+    if chart_type == 'line':
+        data = {
+            'labels': [record.created_at.strftime("%m/%d") for record in dashboard.score_records.all()],
+            'datasets': [
+                {
+                    'label': '專業能力',
+                    'data': [record.professional_score for record in dashboard.score_records.all()],
+                    'borderWidth': 1,
+                }, 
+                {
+                    'label': '創意能力',
+                    'data': [record.creative_score for record in dashboard.score_records.all()],
+                    'borderWidth': 1,
+                },
+                {
+                    'label': '策略能力',
+                    'data': [record.strategy_score for record in dashboard.score_records.all()],
+                    'borderWidth': 1,
+                },
+                {
+                    'label': '溝通能力',
+                    'data': [record.communication_score for record in dashboard.score_records.all()],
+                    'borderWidth': 1,
+                },
+                {
+                    'label': '自主學習能力',
+                    'data': [record.self_learning_score for record in dashboard.score_records.all()],
+                    'borderWidth': 1,
+                },
+                {
+                    'label': '綜合能力',
+                    'data': [record.comprehensive_score for record in dashboard.score_records.all()],
+                    'borderWidth': 1,
+                }
+            ]
+        }
+    elif chart_type == 'radar':
+        data = {
+            'labels': ['專業能力', '創意能力', '策略能力', '溝通能力', '自主學習能力'],
+            'datasets': [{
+                'label': '專業能力',
+                'data': [dashboard.professional_score, dashboard.creative_score, dashboard.strategy_score, dashboard.communication_score, dashboard.self_learning_score],
+            }]
+        }
+    return JsonResponse({'data': data})
 
 # 下載檔案
 def download_file(file_path):
