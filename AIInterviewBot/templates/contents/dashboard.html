@@ -103,13 +103,13 @@
 <div class="row" style="justify-content: center;">
     <a class="col center-vertically dashboard-box"
         style="display: flex; justify-content: center;text-align: center; padding: 0;">
-        <div class="circlechart fraction-circle-text" data-percentage="86">綜合能力分數</div>
+        <div class="circlechart fraction-circle-text" data-percentage="{{ dashboard.comprehensive_score|default:'--' }}">綜合能力分數{{ dashboard.comprehensive_score|default:'--' }}</div>
     </a>
     <a class="col dashboard-box" style="padding : 1;">
         <div class="container" style="padding: 0;">
             <h1 class="register">註冊</h1>
             <div>
-                <span class="num">15</span>
+                <span class="num">{{ dashboard.registration_days }}</span>
                 <span class="day">天</span>
             </div>
         </div>
@@ -125,95 +125,96 @@
     var ctx1 = $('#lineChart');
     var ctx2 = $('#radarChart');
 
-    // 折線圖
-    new Chart(ctx1, {
-        type: 'line',
-        data: {
-            labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Des'],
-            datasets: [{
-                label: '專業能力',
-                data: [10, 80, 90, 60, 35, 50, 80, 90, 60, 35, 50, 75],
-                borderWidth: 2,
-            }, {
-                label: '創意能力',
-                data: [20, 50, 70, 90, 15, 30, 50, 70, 90, 15, 30, 95],
-                borderWidth: 2,
-            }, {
-                label: '策略能力',
-                data: [60, 60, 60, 50, 60, 60, 90, 60, 60, 60, 60, 70],
-                borderWidth: 2,
-            }, {
-                label: '溝通能力',
-                data: [30, 30, 30, 30, 45, 30, 30, 30, 30, 80, 30, 80],
-                borderWidth: 2,
-            }, {
-                label: '自學能力',
-                data: [20, 20, 20, 20, 15, 20, 20, 20, 70, 20, 20, 50],
-                borderWidth: 2,
-            }, {
-                label: '綜合分數',
-                data: [10, 10, 20, 10, 10, 50, 10, 90, 10, 10, 30, 10],
-                borderWidth: 2,
-            }]
+    // 更新折線圖數據
+    $.ajax({
+        url: '/api/get_chart_data/?type=line',
+        method: 'GET',
+        success: function (data) {
+            initLineChart(data.data);
         },
-        options: {
-            scales: {
-                y: {
-                    type: 'linear',
-                    beginAtZero: true,
-                    min: 0,
-                    max: 100,
-                    stepSize: 10
-                }
-            },
-            plugins: {
-                legend: {
-                    labels: {
-                        font: {
-                            size: 20,
-                        },
-                        maxWidth: 0
-                    }
-                },
-                maintainAspectRatio: false,
-            }
+        error: function (error) {
+            console.error('Error fetching data:', error);
         }
     });
 
-    // 雷達圖
-    new Chart(ctx2, {
-        type: 'radar',
-        data: {
-            labels: ['專業能力', '創意能力', '策略能力', '溝通能力', '自主學習能力'],
-            datasets: [{
-                label: '專業能力',
-                data: [50, 80, 90, 60, 35],
-                borderWidth: 2,
-                min: 0,
-                max: 100,
-            }]
+    // 更新雷達圖數據
+    $.ajax({
+        url: '/api/get_chart_data/?type=radar',
+        method: 'GET',
+        success: function (data) {
+            initRadarChart(data.data);
         },
-        options: {
-            plugins: {
-                legend: {
-                    labels: {
-                        font: {
-                            size: 35,
-                        },
-                    },
-                    display: false,
-                },
-                maintainAspectRatio: false,
-            },
-            scale: {
-                ticks: {
-                    stepSize: 20,
-                },
-                suggestedMin: 0,
-                suggestedMax: 100,
-            },
+        error: function (error) {
+            console.error('Error fetching data:', error);
         }
     });
+
+    // 折線圖
+    function initLineChart(data) {
+        new Chart(ctx1, {
+            type: 'line',
+            data: data,
+            options: {
+                scales: {
+                    y: {
+                        type: 'linear',
+                        beginAtZero: true,
+                        min: 0,
+                        max: 100,
+                        stepSize: 10
+                    }
+                },
+                plugins: {
+                    legend: {
+                        labels: {
+                            font: {
+                                size: 20,
+                            },
+                            maxWidth: 0
+                        }
+                    },
+                    maintainAspectRatio: false,
+                }
+            }
+        });
+    }
+    
+    // 雷達圖
+    function initRadarChart(data) {
+        new Chart(ctx2, {
+            type: 'radar',
+            data: {
+                labels: data.labels,
+                datasets: [{
+                    label: '專業能力',
+                    data: data.datasets[0].data,
+                    borderWidth: 2,
+                    min: 0,
+                    max: 100,
+                }]
+            },
+            options: {
+                plugins: {
+                    legend: {
+                        labels: {
+                            font: {
+                                size: 35,
+                            },
+                        },
+                        display: false,
+                    },
+                    maintainAspectRatio: false,
+                },
+                scale: {
+                    ticks: {
+                        stepSize: 20,
+                    },
+                    suggestedMin: 0,
+                    suggestedMax: 100,
+                },
+            }
+        });
+    }
 
     // 分數圓圈
     $('.circlechart').each(function () {

@@ -74,6 +74,7 @@ urlpatterns = [
     path('mock_interview_result/', contents.mock_interview_result, name='MockInterviewResult'),
     # 儀錶板
     path('dashboard/', contents.dashboard, name='Dashboard'),
+    path('api/get_chart_data/', contents.get_chart_data, name='GetChartData'),
     # ----------contents end------------
 ]
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
