@@ -2,7 +2,7 @@ from django.shortcuts import render,redirect
 from django.urls import reverse
 from contents.service import ContentsService
 from contents.forms import CoverLetterForm, MockInterviewModeForm, MockInterviewForm, RecommendationLetterForm, ResumeForm, SelfIntroductionForm
-from contents.models import InterviewQuestion, InterviewRecord, InterviewScore, DashBoard, ContentRecord
+from contents.models import InterviewQuestion, InterviewRecord, InterviewScore, DashBoard
 from django.http import FileResponse, JsonResponse
 import os
 import json
@@ -141,7 +141,7 @@ def cover_letter(request):
         form = CoverLetterForm()
     return render(request, 'contents/cover_letter.html', locals())
 
-#生成結果頁面
+#求職信生成頁面
 def content_result(request, type):
     return render(request, 'contents/content_result.html', locals())
 

@@ -13,14 +13,4 @@
   </div>
 </form>
 
-{% include 'modal_template.html' %}
-{% if success %}
-<script>
-	$(document).ready(function () {
-		alertSuccess('表單送出', function () {
-      window.location.href = '{% url "ProblemReport" %}';
-    });
-  });
-</script>
-{% endif %}
 {% endblock %}

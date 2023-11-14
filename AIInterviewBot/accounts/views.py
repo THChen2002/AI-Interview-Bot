@@ -203,11 +203,13 @@ def help_center(request):
 def problem_report(request):
     if request.method == 'POST':
         form = ProblemReportForm(request.POST)
+        # TODO: 表單送出後的處理
         if form.is_valid():
-            problem_report = form.save(commit=False)
-            problem_report.user = request.user
-            problem_report.save()
-            success = True
+            pass
     else:
         form = ProblemReportForm()
     return render(request, 'accounts/problem_report.html', locals())
+
+#歷史紀錄頁面
+def history(request):
+    return render(request, 'accounts/history.html')
