@@ -1,5 +1,6 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm, PasswordChangeForm
+from .models import ProblemReport
 from captcha.fields import CaptchaField
 from django.core.exceptions import ValidationError
 from django.forms import ModelForm
@@ -120,21 +121,21 @@ class PersonalForm(ModelForm):
             'gender': forms.Select(attrs={'class': 'form-control', 'disabled':''}),
             'birth_date': forms.DateInput(attrs={'type':'date', 'class': 'form-control', 'disabled':''}),
             'degree': forms.Select(attrs={'class': 'form-control', 'disabled':''}),
-        }    
+        }
 
+
+TYPE_CHOICES = (
+    ('', '請選擇問題類型'),
+    ('A', '帳號問題'),
+    ('T', '技術問題'),
+    ('O', '其他問題')
+)
 # 問題回報
-class ProblemReportForm(forms.Form):
-    type = forms.ChoiceField(
-        label="選擇模式",
-        required=True,
-        widget=forms.Select(attrs={'class': 'form-control'}),
-        choices=(
-            ('1', '帳號問題'),
-            ('2', '技術問題'),
-            ('3', '其他問題'),
-        )
-    )
-
-    problem = forms.CharField(
-        widget=forms.Textarea(attrs={'class': 'form-control', 'placeholder':'遇到問題了嗎?若無法在幫助中心找到相關的解決方式，請在此簡單敘述您遇到的問題。'})
-    )
+class ProblemReportForm(ModelForm):
+    type = forms.ChoiceField(choices=TYPE_CHOICES, widget=forms.Select(attrs={'class': 'form-control'}))
+    class Meta:
+        model = ProblemReport
+        fields = ('type', 'problem')
+        widgets = {
+            'problem': forms.Textarea(attrs={'class': 'form-control', 'placeholder':'遇到問題了嗎?若無法在幫助中心找到相關的解決方式，請在此簡單敘述您遇到的問題。'}),
+        }

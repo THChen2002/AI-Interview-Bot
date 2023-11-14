@@ -141,7 +141,7 @@ def cover_letter(request):
         form = CoverLetterForm()
     return render(request, 'contents/cover_letter.html', locals())
 
-#求職信生成頁面
+#生成結果頁面
 def content_result(request, type):
     return render(request, 'contents/content_result.html', locals())
 
