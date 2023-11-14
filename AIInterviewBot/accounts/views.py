@@ -211,3 +211,7 @@ def problem_report(request):
     else:
         form = ProblemReportForm()
     return render(request, 'accounts/problem_report.html', locals())
+
+#歷史紀錄頁面
+def history(request):
+    return render(request, 'accounts/history.html')

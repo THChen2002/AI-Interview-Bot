@@ -1,0 +1,133 @@
+{% extends "Base.html" %}
+{% block title %}歷史紀錄{% endblock %}
+{% block content %}
+{% load static %}
+
+<div class="row row justify-content-center" style="margin-top:10px">
+    <div class="col-md-6 max-auto">
+        {% csrf_token %}
+        <div class="row justify-content-center">
+        <div class="row accounts-title">
+            歷史紀錄
+        </div>
+        <div class="row">
+            <ul class="nav nav-tabs" id="myTab" role="tablist">
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link active btn-primary" id="cover-letter-tab" data-bs-toggle="tab" data-bs-target="#cover-letter" type="button" role="tab" aria-controls="cover-letter" aria-selected="true" style="padding-left: 6px;padding-right: 6px; color: #F7A22D;">求職信</button>
+                </li>
+                <li class="nav-item" role="presentation">
+                  <button class="nav-link btn-primary" id="recommendation-letter-tab" data-bs-toggle="tab" data-bs-target="#recommendation-letter" type="button" role="tab" aria-controls="recommendation-letter" aria-selected="false" style="padding-left: 6px;padding-right: 6px; color: #F7A22D;">推薦信</button>
+                </li>
+                <li class="nav-item" role="presentation">
+                  <button class="nav-link btn-primary" id="self-introduction-tab" data-bs-toggle="tab" data-bs-target="#self-introduction" type="button" role="tab" aria-controls="self-introduction" aria-selected="false" style="padding-left: 6px;padding-right: 6px; color: #F7A22D;">自我介紹</button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link btn-primary" id="resume-tab" data-bs-toggle="tab" data-bs-target="#resume" type="button" role="tab" aria-controls="resume" aria-selected="false" style="padding-left: 6px;padding-right: 6px; color: #F7A22D;">簡歷</button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link btn-primary" id="mock-interview-tab" data-bs-toggle="tab" data-bs-target="#mock-interview" type="button" role="tab" aria-controls="mock-interview" aria-selected="false" style="padding-left: 6px;padding-right: 6px;color: #F7A22D; ">模擬面試</button>
+                </li>
+            </ul>
+            <div class="tab-content" id="myTabContent">
+                <div class="tab-pane fade show active" id="cover-letter" role="tabpanel" aria-labelledby="cover-letter-tab" >
+                    <br>
+                    <div class="card mb-3 border-0" style="max-width: 540px; max-height: 100px; background: #FCE9CF;">
+                        <div class="row g-0">
+                            <div class="col card text-white border-0" style="max-width: 60px ;max-height: 70px;top: 10px ;left: 20px;">  
+                                <div class="card-body">
+                                    <h5 class="card-title" style="color: black;text-align: center;margin-bottom: 0px;">20</h5>
+                                    <p class="card-text" style="color: black;text-align: center;"><small class="text-muted">Sep</small>
+                                </div>
+                            </div>
+                            <div class="col card bg-transparent border-0">
+                                <div class="card-body" style="padding-left: 40px;">
+                                    <h5 style="color:#5E4104">華碩公司求職信</h5>
+                                    <p class="card-text"><small class="text-muted">華碩有限公司......</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-pane fade" id="recommendation-letter" role="tabpanel" aria-labelledby="recommendation-letter-tab">
+                    <br>
+                    <div class="card mb-3 border-0" style="max-width: 540px; max-height: 100px; background: #FCE9CF;">
+                        <div class="row g-0">
+                            <div class="col card text-white border-0" style="max-width: 60px ;max-height: 70px;top: 10px ;left: 20px;">  
+                                <div class="card-body">
+                                    <h5 class="card-title" style="color: black;text-align: center;margin-bottom: 0px;">20</h5>
+                                    <p class="card-text" style="color: black;text-align: center;"><small class="text-muted">Sep</small>
+                                </div>
+                            </div>
+                            <div class="col card bg-transparent border-0">
+                                <div class="card-body" style="padding-left: 40px;">
+                                    <h5 style="color:#5E4104">華碩公司求職信</h5>
+                                    <p class="card-text"><small class="text-muted">華碩有限公司......</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-pane fade" id="self-introduction" role="tabpanel" aria-labelledby="self-introduction-tab">
+                    <br>
+                    <div class="card mb-3 border-0" style="max-width: 540px; max-height: 100px; background: #FCE9CF;">
+                        <div class="row g-0">
+                            <div class="col card text-white border-0" style="max-width: 60px ;max-height: 70px;top: 10px ;left: 20px;">  
+                                <div class="card-body">
+                                    <h5 class="card-title" style="color: black;text-align: center;margin-bottom: 0px;">20</h5>
+                                    <p class="card-text" style="color: black;text-align: center;"><small class="text-muted">Sep</small>
+                                </div>
+                            </div>
+                            <div class="col card bg-transparent border-0">
+                                <div class="card-body" style="padding-left: 40px;">
+                                    <h5 style="color:#5E4104">華碩公司求職信</h5>
+                                    <p class="card-text"><small class="text-muted">華碩有限公司......</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-pane fade" id="resume" role="tabpanel" aria-labelledby="resume-tab">
+                    <br>
+                    <div class="card mb-3 border-0" style="max-width: 540px; max-height: 100px; background: #FCE9CF;">
+                        <div class="row g-0">
+                            <div class="col card text-white border-0" style="max-width: 60px ;max-height: 70px;top: 10px ;left: 20px;">  
+                                <div class="card-body">
+                                    <h5 class="card-title" style="color: black;text-align: center;margin-bottom: 0px;">20</h5>
+                                    <p class="card-text" style="color: black;text-align: center;"><small class="text-muted">Sep</small>
+                                </div>
+                            </div>
+                            <div class="col card bg-transparent border-0">
+                                <div class="card-body" style="padding-left: 40px;">
+                                    <h5 style="color:#5E4104">華碩公司求職信</h5>
+                                    <p class="card-text"><small class="text-muted">華碩有限公司......</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-pane fade" id="mock-interview" role="tabpanel" aria-labelledby="mock-interview-tab">
+                    <br>
+                    <div class="card mb-3 border-0" style="max-width: 540px; max-height: 100px; background: #FCE9CF;">
+                        <div class="row g-0">
+                            <div class="col card text-white border-0" style="max-width: 60px ;max-height: 70px;top: 10px ;left: 20px;">  
+                                <div class="card-body">
+                                    <h5 class="card-title" style="color: black;text-align: center;margin-bottom: 0px;">20</h5>
+                                    <p class="card-text" style="color: black;text-align: center;"><small class="text-muted">Sep</small>
+                                </div>
+                            </div>
+                            <div class="col card bg-transparent border-0">
+                                <div class="card-body" style="padding-left: 40px;">
+                                    <h5 style="color:#5E4104">華碩公司求職信</h5>
+                                    <p class="card-text"><small class="text-muted">華碩有限公司......</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div> 
+        </div>  
+    </div>
+</div>
+
+{% endblock %}

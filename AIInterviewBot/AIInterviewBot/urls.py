@@ -57,7 +57,8 @@ urlpatterns = [
     path('help_center/', accounts.help_center, name='HelpCenter'),
     # 問題回報
     path('problem_report/', accounts.problem_report, name='ProblemReport'),
-
+    # 歷史紀錄
+    path('history/', accounts.history, name='History'),
     # ----------accounts end------------
 
     # ----------contents start----------
