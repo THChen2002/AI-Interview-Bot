@@ -41,7 +41,7 @@ def mock_interview_mode(request):
             mode = form.cleaned_data['mode']
             return redirect(reverse("MockInterview", kwargs={'mode':mode}))
     else:
-        form = MockInterviewModeForm(request.POST)
+        form = MockInterviewModeForm()
     return render(request, 'contents/mock_interview_mode.html', locals())
 
 # 模擬面試過程頁面
