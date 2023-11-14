@@ -63,8 +63,7 @@ class Migration(migrations.Migration):
             name='ContentRecord',
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('content_type', models.CharField(choices=[('CL', '求職信'), ('RL', '推薦信'), ('R', '履歷'), ('SI', '自我介紹')], max_length=10)),
-                ('unit', models.CharField(max_length=100)),
+                ('content_type', models.CharField(choices=[('CL', '求職信'), ('RL', '推薦信'), ('R', '履歷'), ('SI', '自我介紹'), ('MI', '模擬面試')], max_length=10)),
                 ('result', models.TextField()),
                 ('is_satisfied', models.BooleanField()),
                 ('created_at', models.DateTimeField(auto_now_add=True)),

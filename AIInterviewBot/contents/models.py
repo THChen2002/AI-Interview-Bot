@@ -11,9 +11,9 @@ class ContentRecord(models.Model):
         ('RL', '推薦信'),
         ('R', '履歷'),
         ('SI', '自我介紹'),
+        ('MI', '模擬面試'),
     )
     content_type = models.CharField(max_length=10, choices=CONTENT_TYPE_CHOICES)
-    unit = models.CharField(max_length=100)
     result = models.TextField()
     is_satisfied = models.BooleanField()
     created_at = models.DateTimeField(auto_now_add=True)
