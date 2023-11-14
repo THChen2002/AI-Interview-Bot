@@ -72,14 +72,14 @@ class CoverLetterForm(forms.Form):
 
 class RecommendationLetterForm(forms.Form):
     self = forms.CharField(
-        label="被推薦人稱呼",
+        label="被推薦人職稱",
         max_length=100,
         required=True,
         widget=forms.TextInput(attrs={'class': 'form-control'})
     )
 
     recommender = forms.CharField(
-        label="推薦人稱呼",
+        label="推薦人職稱",
         max_length=100,
         required=True,
         widget=forms.TextInput(attrs={'class': 'form-control'})
