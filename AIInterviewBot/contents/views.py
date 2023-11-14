@@ -141,6 +141,11 @@ def cover_letter(request):
         form = CoverLetterForm()
     return render(request, 'contents/cover_letter.html', locals())
 
+#求職信生成頁面
+def cover_letter_result(request):
+    return render(request, 'contents/cover_letter_result.html', locals())
+
+
 # 履歷頁面
 def resume(request):
     output_path = ContentsService.export_resume()

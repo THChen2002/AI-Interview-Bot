@@ -66,6 +66,7 @@ urlpatterns = [
     path('self_introduction/', contents.self_introduction, name='SelfIntroduction'),
     # 求職信
     path('cover_letter/', contents.cover_letter, name='CoverLetter'),
+    path('cover_letter_result/', contents.cover_letter_result, name='CoverLetterResult'),
     # 推薦信
     path('recommendation_letter/', contents.recommendation_letter, name='RecommendationLetter'),
     # 簡歷
