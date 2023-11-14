@@ -257,6 +257,10 @@ input#id_password {
     justify-content: center;
     align-items: center;
 }
+.input-container label {
+    top: 20px;
+    left: 20px;
+}
 
 /* 適用小螢幕 */
 @media (max-width: 1200px) {
