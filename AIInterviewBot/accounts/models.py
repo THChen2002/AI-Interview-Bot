@@ -7,6 +7,7 @@ from contents.models import DashBoard
 
 User = settings.AUTH_USER_MODEL
 
+# 使用者資料
 class UserProfile(AbstractUser):
     profile_image = models.ImageField(upload_to='profile_images/',blank=True, null=True)
     GENDER_CHOICES = (
@@ -29,3 +30,18 @@ class UserProfile(AbstractUser):
 def create_user_dashboard(sender, instance, created, **kwargs):
     if created:
         DashBoard.objects.create(user=instance)
+
+# 問題回報
+class ProblemReport(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    TYPE_CHOICES = (
+        ('A', '帳號問題'),
+        ('T', '技術問題'),
+        ('O', '其他問題'),
+    )
+    type = models.CharField(max_length=1, choices=TYPE_CHOICES)
+    problem = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.user.username + "-" + self.type
