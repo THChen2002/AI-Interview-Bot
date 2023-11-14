@@ -68,8 +68,6 @@ def sign_in(request):
                 if not remember_me:
                     request.session.set_expiry(0)
                 return redirect('/')  # 導向到首頁
-        else:
-            message = '驗證碼錯誤!'
     else:
         loginForm = LoginForm()
 
