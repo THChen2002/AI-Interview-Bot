@@ -66,15 +66,15 @@ urlpatterns = [
     path('self_introduction/', contents.self_introduction, name='SelfIntroduction'),
     # 求職信
     path('cover_letter/', contents.cover_letter, name='CoverLetter'),
-    path('cover_letter_result/', contents.cover_letter_result, name='CoverLetterResult'),
+    path('<str:type>/result/', contents.content_result, name='ContentResult'),
     # 推薦信
     path('recommendation_letter/', contents.recommendation_letter, name='RecommendationLetter'),
     # 簡歷
     path('resume/', contents.resume, name='Resume'),
     # 模擬面試
-    path('mock_interview/', contents.mock_interview, name='MockInterview'),
-    path('mock_interview_mode/<str:mode>/', contents.mock_interview_mode, name='MockInterviewMode'),
-    path('mock_interview_result/', contents.mock_interview_result, name='MockInterviewResult'),
+    path('mock_interview_mode/', contents.mock_interview_mode, name='MockInterviewMode'),
+    path('mock_interview/<str:mode>/', contents.mock_interview, name='MockInterview'),
+    path('mock_interview/result/', contents.mock_interview_result, name='MockInterviewResult'),
     # 儀錶板
     path('dashboard/', contents.dashboard, name='Dashboard'),
     path('api/get_chart_data/', contents.get_chart_data, name='GetChartData'),

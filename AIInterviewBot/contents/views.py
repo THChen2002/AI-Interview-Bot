@@ -34,25 +34,25 @@ def self_introduction(request):
     return render(request, 'contents/self_introduction.html', locals())
 
 # 模擬面試頁面
-def mock_interview(request):
+def mock_interview_mode(request):
     if request.method == 'POST':
         form = MockInterviewModeForm(request.POST)
         if form.is_valid():
             mode = form.cleaned_data['mode']
-            return redirect(reverse("MockInterviewMode", kwargs={'mode':mode}))
+            return redirect(reverse("MockInterview", kwargs={'mode':mode}))
     else:
         form = MockInterviewModeForm(request.POST)
-    return render(request, 'contents/mock_interview.html', locals())
+    return render(request, 'contents/mock_interview_mode.html', locals())
 
 # 模擬面試過程頁面
-def mock_interview_mode(request, mode):
+def mock_interview(request, mode):
     amount = 1
     # 多題模式
     if mode == '2':
         amount = 3
     questions = sample(list(InterviewQuestion.objects.all()), amount)
     form = MockInterviewForm()
-    return render(request, 'contents/mock_interview_mode.html', locals())
+    return render(request, 'contents/mock_interview.html', locals())
 
 def mock_interview_result(request):
     if request.method == 'POST':
@@ -142,8 +142,8 @@ def cover_letter(request):
     return render(request, 'contents/cover_letter.html', locals())
 
 #求職信生成頁面
-def cover_letter_result(request):
-    return render(request, 'contents/cover_letter_result.html', locals())
+def content_result(request, type):
+    return render(request, 'contents/content_result.html', locals())
 
 
 # 履歷頁面

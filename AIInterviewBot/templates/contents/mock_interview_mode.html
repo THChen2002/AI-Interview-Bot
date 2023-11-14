@@ -1,98 +1,45 @@
 {% extends "base.html" %}
 {% block title %}模擬面試{% endblock %}
 {% block content %}
-{% load filter %}
-{% load static %}
 
-<link rel="stylesheet" type="text/css" href="{% static 'css/mock_interview.css' %}" />
-
-<div class="contents-title">
-    模擬面試
-</div>
-
-{% for question in questions %}
-<div class="container" id="question_{{ forloop.counter }}" {% if forloop.counter > 1 %} style="display: none;" {% endif %}>
-    <!-- Interviewer's question section -->
-    <div class="question form-control" style="width: 80%;">
-        <img src="{% static 'images/interviewer.png' %}" alt="interviewer" class="interviewer-img"
-            style="position: absolute; top: 10px; width: 110px; height: 110px;">
-        <div style="position: absolute; right: 30px; top: 10px; bottom: 20px; left: 10px; overflow-y: auto;">
-            <p style="padding-left: 40px;">
-                {{ question.question }}
-            </p>
+<div class="container" style="margin-top:10px">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <form method="post">
+                {% csrf_token %}
+                <div class="contents-title">
+                    模擬面試
+                </div>
+                <div class="contents-test">
+                    <label>➊{{ form.company.label }}</label>
+                    
+                    {{ form.company }}
+                </div>
+                <div class="contents-test">
+                    <label>➋{{ form.job.label }}</label>
+                    {{ form.job }}
+                </div>
+                <div class="contents-test">
+                    <label>➌{{ form.self_introduction.label }}</label>
+                    {{ form.self_introduction }}
+                </div>
+                <div class="contents-test">
+                    <label>{{ form.mode.label }}</label>
+                    <div class="form-check-inline form-check-label ">
+                        {{ form.mode.0 }}
+                        <label for="{{ form.mode.0.id_for_label }}"></label>
+                    </div>
+                    <div class="form-check-inline form-check-label">
+                        {{ form.mode.1 }}
+                        <label for="{{ form.mode.1.id_for_label }}"></label>
+                    </div>
+                </div>
+                <div class="d-grid col-10 mx-auto">
+                    <input type="submit" class="btn btn-primary" value="送出" />
+                </div>
+            </form>
         </div>
-        <div class="form-control"
-            style="position: absolute; bottom: -1px; left: -40px;background-color: #FFB755; height: 35px;width: 80px; text-align: center;">
-            <p>面試官</p>
-        </div>
-    </div>
-
-    <!-- User's input section -->
-    <div class="input-area form-control" style="position: relative; width: 80%;">
-        <div>
-            {{ form.answer }}
-            <input type="hidden" name="id" value="{{ question.id }}" />
-        </div>
-
-        <img src="{% static 'images/interviewer.png' %}" alt="interviewer"
-            style="position: absolute; right: -55px; top: 10px; width: 110px; height: 110px;">
-        <div class="form-control interviewer-div"
-            style="position: absolute; bottom: -1px; background-color: #FFB755; height: 35px;width: 80px; text-align: center;">
-            <p>面試者</p>
-        </div>
-    </div>
-    <div class="d-grid gap-2 col-6 mx-auto">
-        {% if forloop.counter == questions|length %}
-        <input type="button" class="btn btn-primary submit-btn" value="送出" />
-        {% else %}
-        <input type="button" class="btn btn-primary submit-btn" value="下一題" />
-        {% endif %}
-        <input type="hidden" class="btn btn-primary currentQuestion" value="{{ forloop.counter }}" />
     </div>
 </div>
-{% endfor %}
-<script>
-    $(document).ready(function () {
-        var records = [];
-        $(".submit-btn").click(function () {
-            debugger;
-            var currentQuestion = $(this).siblings(".currentQuestion").val();
-            var $currentQuestionDiv = $("#question_" + currentQuestion);
-            var answer = $currentQuestionDiv.find("textarea[name='answer']").val();
-            var id = $currentQuestionDiv.find("input[name='id']").val();
-            var record = {
-                "id": id,
-                "answer": answer
-            };
-            records.push(record);
-            if ($(this).val() === '下一題') {
-                var $nextQuestionDiv = $("#question_" + (parseInt(currentQuestion) + 1));
-                $currentQuestionDiv.hide();
-                $nextQuestionDiv.show();
-            } else {
-                submitAnswer();
-            }
-        });
-
-        function submitAnswer() {
-            $.ajax({
-                url: "{% url 'MockInterviewResult' %}",
-                type: "POST",
-                data: {
-                    "records": JSON.stringify(records),
-                    "csrfmiddlewaretoken": "{{ csrf_token }}"
-                },
-                success: function (response) {
-                    if (response.status) {
-                        debugger
-                        var score_id = response.score_id;
-                        window.location.href = "{% url 'MockInterviewResult' %}?score_id=" + score_id;
-                    }
-                }
-            });
-        }
-    });
-
-</script>
 
 {% endblock %}
