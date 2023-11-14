@@ -1,16 +1,23 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm, PasswordChangeForm
-from captcha.fields import CaptchaField, CaptchaTextInput
+from captcha.fields import CaptchaField
 from django.core.exceptions import ValidationError
 from django.forms import ModelForm
-from django.contrib.auth import get_user_model
+from django.utils.translation import gettext_lazy as _
+from django.contrib.auth.forms import SetPasswordForm
+from django.contrib.auth import get_user_model , authenticate
 User = get_user_model()
 
 
 class RegisterForm(UserCreationForm):
 
+    error_messages = {
+        "password_mismatch": _("密碼驗證錯誤，請重新輸入"),
+    }
+
     username = forms.CharField(
         label="帳號",
+        error_messages={'unique':'此使用者名稱已被使用'},
         widget=forms.TextInput(attrs={'class': 'form-control'})
     )
 
@@ -37,10 +44,13 @@ class RegisterForm(UserCreationForm):
        email = self.cleaned_data.get('email')
        if User.objects.filter(email=email).exists():
             raise ValidationError("此電子郵件已被註冊過")
+       # TODO:跳出email重複錯誤訊息
        return self.cleaned_data
 
 class LoginForm(forms.Form):
 
+    error_messages = {"invalid_login":_("帳號或密碼錯誤")}
+    
     username = forms.CharField(
         label="帳號",
         widget=forms.TextInput(attrs={'class': 'form-control'})
@@ -51,7 +61,10 @@ class LoginForm(forms.Form):
         widget=forms.PasswordInput(attrs={'class': 'form-control'})
     )
 
-    captcha = CaptchaField(label="驗證碼")
+    captcha = CaptchaField(
+        label="驗證碼",
+        error_messages={"invalid": "驗證碼錯誤"}
+    )
 
     remember_me = forms.BooleanField(
         label="保持登入",
@@ -59,9 +72,23 @@ class LoginForm(forms.Form):
         widget=forms.CheckboxInput()
     )
 
+    def clean_data(self):
+        username = self.cleaned_data.get('username')
+        password = self.cleaned_data.get('password')
+        user = authenticate(username=username, password=password)
+        if not user:
+            raise forms.ValidationError("invalid_login")
+        # TODO:跳出帳號/密碼錯誤的訊息
+        return self.cleaned_data
+
 # 修改密碼
 class ChangePasswordForm(PasswordChangeForm):
 
+    error_messages = {
+        **SetPasswordForm.error_messages,
+        "password_incorrect": _("舊密碼輸入錯誤，請重新輸入"),
+        "password_mismatch": _("密碼驗證錯誤，請重新輸入"),
+    }
     old_password = forms.CharField(
         label="舊密碼",
         widget=forms.PasswordInput(attrs={"autocomplete": "new-password"})
