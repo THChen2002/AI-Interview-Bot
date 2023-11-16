@@ -57,8 +57,7 @@ urlpatterns = [
     path('help_center/', accounts.help_center, name='HelpCenter'),
     # 問題回報
     path('problem_report/', accounts.problem_report, name='ProblemReport'),
-    # 歷史紀錄
-    path('history/', accounts.history, name='History'),
+
     # ----------accounts end------------
 
     # ----------contents start----------
@@ -79,6 +78,11 @@ urlpatterns = [
     # 儀錶板
     path('dashboard/', contents.dashboard, name='Dashboard'),
     path('api/get_chart_data/', contents.get_chart_data, name='GetChartData'),
+    # 歷史紀錄首頁
+    path('history/', contents.history, name='History'),
+    # 歷史紀錄詳細頁面
+    path('history/detail/', contents.history_detail, name='HistoryDetail'),
+
     # ----------contents end------------
 ]
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
