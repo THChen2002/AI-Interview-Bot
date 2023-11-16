@@ -3,29 +3,23 @@
     aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
-            <div class="modal-header">
-                <h1 class="modal-title fs-5" id="correctModalLabel" style="display: none;">✅ 恭喜</h1>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
-            </div>
+            <div class="modal-body" style="text-align:center; color:#F7A32E"></div>
         </div>
     </div>
 </div>
+
 <script>
 
     // 註冊成功
     function alertSuccess(action, successCallback) {
         const correctModal = new bootstrap.Modal($('#redirectToLogin'));
-        $("#correctModalLabel").show();
-        $("#redirectToLogin .modal-body").html("<p>【" + action + "】完成</p>");
+        $("#redirectToLogin .modal-body").html("<h2><strong>" + action + "完成!</strong></h2><h6>點擊任意處</h6>");
         $("#redirectToLogin").modal("show");
-        $('#redirectToLogin').on('click', function () {
-            successCallback();
+        $(window).click(function (event) {
+            if ($(event.target).is("#redirectToLogin")) {
+                $("#redirectToLogin").modal("hide");
+                successCallback();
+            }
         });
     }
-
 </script>
