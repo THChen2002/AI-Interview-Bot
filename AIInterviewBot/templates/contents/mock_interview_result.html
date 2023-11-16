@@ -6,42 +6,40 @@
     <h2 style="color: #5E4006; font-weight: bold;">模擬面試結果</h2>
 </div>
 
-<h4 style="color: #5E4006; font-weight: bold; margin-top: 20px;">問題</h4>
-<div style="background-color: #FCE9CF; border-radius: 10px; padding: 10px; text-align: left; ">
-    請你分享一個遇到困難並成功解決的案例。
-</div>
+{% for record in interviewScore.records.all %}
+    <h4 style="color: #5E4006; font-weight: bold; margin-top: 20px;">問題{{ forloop.counter}}</h4>
+    <div style="background-color: #FCE9CF; border-radius: 10px; padding: 10px; text-align: left; ">
+        {{ record.question }}
+    </div>
 
-<h4 style="color: #5E4006; font-weight: bold; margin-top: 20px;">回答</h4>
-<div style="background-color: #FCE9CF; border-radius: 10px; padding: 10px; text-align: left; ">
-    <p>在之前的工作中，我負責領導一個跨部門的專案，目標是在短時間內完成一個重要的產品發布。我們面臨的主要挑戰之一是不同部門之間的合作問題。每個部門都有自己的優先事項和目標，導致協作困難，信息傳遞不暢，這直接影響到專案進度。</p>
-    <p>我首先採取了主動的沟通措施，定期舉行跨部門的會議，以確保每個人都了解整個專案的目標和各自的貢獻。然後，我創建了一個共享的專案管理平台，使所有團隊成員都能夠在同一平台上查看和更新進度，同時提供了一個集中討論和解決問題的地方。</p>
-    <p>然而，這並沒有完全解決問題。部門之間的合作仍然存在挑戰，特別是在優先事項發生變化時。在這種情況下，我採取了靈活的領導風格，與各部門緊密合作，及時調整專案計劃，以確保我們能夠應對變化並保持進度。</p>
-    <p>最終，通過我的領導和團隊的共同努力，我們成功地克服了合作困難，按時完成了產品發布。這個經驗教導了我重要的領導和溝通技能，以及在壓力情況下靈活應對的能力。</p>
-</div>
-
+    <h4 style="color: #5E4006; font-weight: bold; margin-top: 20px;">回答</h4>
+    <div style="background-color: #FCE9CF; border-radius: 10px; padding: 10px; text-align: left; ">
+        <p>{{ record.answer }}</p>
+    </div>
+{% endfor %}
 
 <h4 style="color: #5E4006; font-weight: bold; margin-top: 20px;">評分</h4>
 <div style="border: 2px solid #5E4006; border-radius: 10px; padding: 10px; text-align: left;">
-    <p>專業能力：78分
-    </br>你展示了在領導專案方面的堅實知識和技能，有效應用於跨部門合作。然而，在說明如何應對優先事項變化方面，可以提供更具體的例子，以展現更深的理解。</p>
+    <p>專業能力：{{ interviewScore.professional_score }}分
+    </br>{{ interviewScore.professional_suggestion }}</p>
 
-    <p>創意能力：58分
-    </br>你在解決問題時提供了一些創意解決方案，但可以更進一步地展現多元思考和獨特見解，使解決方案更加突出。</p>
+    <p>創意能力：{{ interviewScore.creative_score }}分
+    </br>{{ interviewScore.creative_suggestion }}</p>
     
-    <p>策略能力：82分
-    </br>你在制定計劃和調整行動步驟方面表現出色，清晰地展現出有效的策略思維，考慮了多個因素。</p>
+    <p>策略能力：{{ interviewScore.strategy_score }}分
+    </br>{{ interviewScore.strategy_suggestion }}</p>
     
-    <p>溝通能力：75分
-    </br>你的溝通清晰，能夠有效地傳達信息，但在組織和結構方面仍有些許提升的空間。更多的結構化和組織性的表達可以進一步提高溝通效果。</p>
+    <p>溝通能力：{{ interviewScore.communication_score }}分
+    </br>{{ interviewScore.communication_suggestion }}</p>
     
-    <p>自主學習能力：72分
-    </br>你展現了積極主動學習的態度，願意不斷提升自己。這是一個優秀的特質，有助於應對快速變化的工作環境。</p>
+    <p>自主學習能力：{{ interviewScore.self_learning_score }}分
+    </br>{{ interviewScore.self_learning_suggestion }}</p>
     
 </div>
 <h4 style="color: #5E4006; font-weight: bold; margin-top: 30px;">建議</h4>
 <div style="border: 2px solid #5E4006; border-radius: 10px; padding: 10px; text-align: left;">
-    <p>綜合平均分數：73分
-    </br>你在專業知識和策略能力方面表現優秀，並展現了強烈的自主學習意識。在創意和溝通方面仍有些許提升的空間，可以透過更多的多元思考和組織性的表達來加強。總體而言，你是一位有潛力的候選人，有能力應對挑戰並在團隊中做出積極貢獻。</p>
+    <p>綜合平均分數：{{ interviewScore.comprehensive_score }}分
+    </br>{{ interviewScore.comprehensive_suggestion }}</p>
 </div>
 
 <div style="margin-top: 15px; text-align: center;">

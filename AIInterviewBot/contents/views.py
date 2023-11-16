@@ -95,7 +95,7 @@ def mock_interview_result(request):
         return JsonResponse({'status': True, 'score_id': interview_score.id})
     else:
         score_id = request.GET.get('score_id')
-        # questionScore = InterviewScore.objects.get(id=score_id)
+        interviewScore = InterviewScore.objects.get(id=score_id)
     return render(request, 'contents/mock_interview_result.html', locals())
 
 # 推薦信頁面
