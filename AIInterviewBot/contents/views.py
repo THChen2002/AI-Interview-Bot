@@ -2,11 +2,11 @@ from django.shortcuts import render,redirect
 from django.urls import reverse
 from contents.service import ContentsService
 from contents.forms import CoverLetterForm, MockInterviewModeForm, MockInterviewForm, RecommendationLetterForm, ResumeForm, SelfIntroductionForm
-from contents.models import InterviewQuestion, InterviewRecord, InterviewScore, DashBoard
+from contents.models import InterviewQuestion, InterviewRecord, InterviewScore, DashBoard, ContentRecord
 from django.http import FileResponse, JsonResponse
 import os
 import json
-from datetime import datetime
+from datetime import datetime, timedelta
 from random import sample
 from django.contrib.auth import get_user_model
 User = get_user_model()
@@ -66,17 +66,17 @@ def mock_interview_result(request):
         # 創建評分紀錄
         interview_score = InterviewScore.objects.create(
             user=request.user,
-            professional_score=0,
+            professional_score=20,
             professional_suggestion="",
-            creative_score=0,
+            creative_score=30,
             creative_suggestion="",
-            strategy_score=0,
+            strategy_score=70,
             strategy_suggestion="",
-            communication_score=0,
+            communication_score=90,
             communication_suggestion="",
-            self_learning_score=0,
+            self_learning_score=100,
             self_learning_suggestion="",
-            comprehensive_score=0,
+            comprehensive_score=20,
             comprehensive_suggestion=""
         )
         # 設定評分紀錄的回答紀錄
@@ -160,6 +160,52 @@ def resume(request):
 def dashboard(request):
     dashboard = DashBoard.objects.get(id=request.user.id)
     return render(request, 'contents/dashboard.html', locals())
+
+#歷史紀錄頁面
+def history(request):
+    cover_letter_records = ContentRecord.objects.filter(user=request.user, content_type='CL')
+    recommendation_letter_records = ContentRecord.objects.filter(user=request.user, content_type='RL')
+    self_introduction_records = ContentRecord.objects.filter(user=request.user, content_type='SI')
+    resume_records = ContentRecord.objects.filter(user=request.user, content_type='R')
+    mock_interview_records = InterviewScore.objects.filter(user=request.user)
+    date_filter = request.GET.get('date')
+    # 獲取選擇的頁籤(預設為cover_letter)
+    selected_tab = request.GET.get('tab', 'cover_letter')
+    if date_filter:
+        today = datetime.now().date()
+        start_date, end_date = None, None
+
+        if date_filter == 'today':
+            start_date = today
+            end_date = start_date + timedelta(days=1)
+        elif date_filter == 'week':
+            start_date = today - timedelta(days=today.weekday())
+            end_date = start_date + timedelta(days=7)
+        elif date_filter == 'month':
+            start_date = today.replace(day=1)
+            end_date = (start_date.replace(month=start_date.month % 12 + 1, year=start_date.year)
+                        if start_date.month == 12 else start_date.replace(month=start_date.month + 1))
+        elif date_filter == 'year':
+            start_date = today.replace(month=1, day=1)
+            end_date = today.replace(month=12, day=31)
+
+        cover_letter_records = cover_letter_records.filter(created_at__date__range=[start_date, end_date])
+        recommendation_letter_records = recommendation_letter_records.filter(created_at__date__range=[start_date, end_date])
+        self_introduction_records = self_introduction_records.filter(created_at__date__range=[start_date, end_date])
+        resume_records = resume_records.filter(created_at__date__range=[start_date, end_date])
+        mock_interview_records = mock_interview_records.filter(created_at__date__range=[start_date, end_date])
+
+    return render(request, 'contents/history.html', locals())
+
+def history_detail(request):
+    type = request.GET.get('type')
+    record_id = request.GET.get('id')
+    # 取得該筆紀錄
+    if type == 'MI':
+        record = InterviewScore.objects.get(id=record_id)
+    else:
+        record = ContentRecord.objects.get(id=record_id)
+    return render(request, 'contents/history_detail.html', locals())
 
 # 取得儀表板資訊
 def get_chart_data(request):

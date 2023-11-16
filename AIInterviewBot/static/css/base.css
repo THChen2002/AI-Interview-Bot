@@ -51,7 +51,7 @@
 }
 
 /* 輸入表格的樣式 */
-.form-control {
+.form-control, .form-select{
     background-color: #FCE9CE;
     border: #FCE9CE;
 }

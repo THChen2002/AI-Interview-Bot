@@ -1,0 +1,193 @@
+{% extends "Base.html" %}
+{% block title %}歷史紀錄{% endblock %}
+{% block content %}
+{% load static %}
+{% load filter %}
+
+<link rel="stylesheet" href="{% static 'css/history.css' %}" type="text/css">
+
+<div class="row row justify-content-center" style="margin-top:10px">
+    <div class="col-md-6 max-auto">
+        <div class="row justify-content-center">
+            <div class="accounts-title col-8">
+                歷史紀錄
+            </div>
+            <div class="col-4">
+                <select id="date-filter" class="form-select">
+                    <option value="" {% if date_filter is None %}selected{% endif %}>不限時間</option>
+                    <option value="today" {% if date_filter == "today" %}selected{% endif %}>今天</option>
+                    <option value="week" {% if date_filter == "week" %}selected{% endif %}>本週</option>
+                    <option value="month" {% if date_filter == "month" %}selected{% endif %}>本月</option>
+                    <option value="year" {% if date_filter == "year" %}selected{% endif %}>今年</option>
+                </select>
+            </div>
+            <ul class="nav nav-tabs" id="myTab" role="tablist">
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link btn-primary {% if selected_tab == 'cover_letter' %}active{% endif %}" id="cover_letter-tab" data-bs-toggle="tab"
+                        data-bs-target="#cover_letter" type="button" role="tab" aria-controls="cover_letter"
+                        aria-selected="true"
+                        style="padding-left: 6px;padding-right: 6px; color: #F7A22D;">求職信</button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link btn-primary {% if selected_tab == 'recommendation_letter' %}active{% endif %}" id="recommendation_letter-tab" data-bs-toggle="tab"
+                        data-bs-target="#recommendation_letter" type="button" role="tab"
+                        aria-controls="recommendation_letter" aria-selected="false"
+                        style="padding-left: 6px;padding-right: 6px; color: #F7A22D;">推薦信</button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link btn-primary {% if selected_tab == 'self_introduction' %}active{% endif %}" id="self_introduction-tab" data-bs-toggle="tab"
+                        data-bs-target="#self_introduction" type="button" role="tab"
+                        aria-controls="self_introduction" aria-selected="false"
+                        style="padding-left: 6px;padding-right: 6px; color: #F7A22D;">自我介紹</button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link btn-primary {% if selected_tab == 'resume' %}active{% endif %}" id="resume-tab" data-bs-toggle="tab"
+                        data-bs-target="#resume" type="button" role="tab" aria-controls="resume"
+                        aria-selected="false"
+                        style="padding-left: 6px;padding-right: 6px; color: #F7A22D;">簡歷</button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link btn-primary {% if selected_tab == 'mock_interview' %}active{% endif %}" id="mock_interview-tab" data-bs-toggle="tab"
+                        data-bs-target="#mock_interview" type="button" role="tab" aria-controls="mock_interview"
+                        aria-selected="false"
+                        style="padding-left: 6px;padding-right: 6px;color: #F7A22D; ">模擬面試</button>
+                </li>
+            </ul>
+            <div class="tab-content" id="myTabContent">
+                <div class="tab-pane fade show {% if selected_tab == 'cover_letter' %}active{% endif %}" id="cover_letter" role="tabpanel"
+                    aria-labelledby="cover-letter-tab">
+                    <br>
+                    {% for record in cover_letter_records %}
+                    <div class="card mb-3 border-0" data-content-id="{{ record.id }}"
+                        data-content-type="{{ record.content_type }}">
+                        <div class="row g-0">
+                            <div class="col card date-card border-0">
+                                <div class="card-body">
+                                    <h5 class="card-title">{{ record.created_at.day }}</h5>
+                                    <p class="card-text"><small class="text-muted">{{ record.created_at|get_month_name }}</small></p>
+                                </div>
+                            </div>
+                            <div class="col card bg-transparent border-0">
+                                <div class="card-body" style="padding-left: 40px;">
+                                    <h5 style="color:#5E4104">{{ record.unit }}求職信</h5>
+                                    <p class="card-text"><small class="text-muted">{{ record.result }}</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+                <div class="tab-pane fade {% if selected_tab == 'recommendation_letter' %}active{% endif %}" id="recommendation_letter" role="tabpanel"
+                    aria-labelledby="recommendation-letter-tab">
+                    <br>
+                    {% for record in recommendation_letter_records %}
+                    <div class="card mb-3 border-0" data-content-id="{{ record.id }}"
+                        data-content-type="{{ record.content_type }}">
+                        <div class="row g-0">
+                            <div class="col card date-card border-0">
+                                <div class="card-body">
+                                    <h5 class="card-title">{{ record.created_at.day }}</h5>
+                                    <p class="card-text"><small class="text-muted">{{ record.created_at|get_month_name }}</small></p>
+                                </div>
+                            </div>
+                            <div class="col card bg-transparent border-0">
+                                <div class="card-body" style="padding-left: 40px;">
+                                    <h5 style="color:#5E4104">{{ record.unit }}推薦信</h5>
+                                    <p class="card-text"><small class="text-muted">{{ record.result }}</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+                <div class="tab-pane fade {% if selected_tab == 'self_introduction' %}active{% endif %}" id="self_introduction" role="tabpanel"
+                    aria-labelledby="self-introduction-tab">
+                    <br>
+                    {% for record in self_introduction_records %}
+                    <div class="card mb-3 border-0" data-content-id="{{ record.id }}"
+                        data-content-type="{{ record.content_type }}">
+                        <div class="row g-0">
+                            <div class="col card date-card border-0">
+                                <div class="card-body">
+                                    <h5 class="card-title">{{ record.created_at.day }}</h5>
+                                    <p class="card-text"><small class="text-muted">{{ record.created_at|get_month_name }}</small></p>
+                                </div>
+                            </div>
+                            <div class="col card bg-transparent border-0">
+                                <div class="card-body" style="padding-left: 40px;">
+                                    <h5 style="color:#5E4104">{{ record.unit }}自我介紹</h5>
+                                    <p class="card-text"><small class="text-muted">{{ record.result }}</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+                <div class="tab-pane fade {% if selected_tab == 'resume' %}active{% endif %}" id="resume" role="tabpanel" aria-labelledby="resume-tab">
+                    <br>
+                    {% for record in resume_records %}
+                    <div class="card mb-3 border-0" data-content-id="{{ record.id }}"
+                        data-content-type="{{ record.content_type }}">
+                        <div class="row g-0">
+                            <div class="col card date-card border-0">
+                                <div class="card-body">
+                                    <h5 class="card-title">{{ record.created_at.day }}</h5>
+                                    <p class="card-text"><small class="text-muted">{{ record.created_at|get_month_name }}</small></p>
+                                </div>
+                            </div>
+                            <div class="col card bg-transparent border-0">
+                                <div class="card-body" style="padding-left: 40px;">
+                                    <h5 style="color:#5E4104">{{ record.unit }}簡歷</h5>
+                                    <p class="card-text"><small class="text-muted">{{ record.result }}</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+                <div class="tab-pane fade {% if selected_tab == 'mock_interview' %}active{% endif %}" id="mock_interview" role="tabpanel" aria-labelledby="mock-interview-tab">
+                    <br>
+                    {% for record in mock_interview_records %}
+                    <div class="card mb-3 border-0" data-content-id="{{ record.id }}" data-content-type="MI">
+                        <div class="row g-0">
+                            <div class="col card date-card border-0">
+                                <div class="card-body">
+                                    <h5 class="card-title">{{ record.created_at.day }}</h5>
+                                    <p class="card-text"><small class="text-muted">{{ record.created_at|get_month_name }}</small></p>
+                                </div>
+                            </div>
+                            <div class="col card bg-transparent border-0">
+                                <div class="card-body" style="padding-left: 40px;">
+                                    <h5 style="color:#5E4104">{{ record.unit }}模擬面試</h5>
+                                    <p class="card-text"><small class="text-muted">{{ record.comprehensive_suggestion|default:'A' }}</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        $(document).ready(function () {
+            $('.tab-pane > .card').click(function () {
+                var id = $(this).data('content-id');
+                var type = $(this).data('content-type');
+                var url = "{% url 'HistoryDetail' %}"
+                var data = {
+                    'id': id,
+                    'type': type
+                }
+                window.location.href = url + '?' + $.param(data);
+            })
+
+            $('#date-filter').on('change', function () {
+                var date = $(this).val();
+                var content_type = $('.tab-pane.active').attr('id');
+                window.location.href = "{% url 'History' %}?date=" + date + "&tab=" + content_type;
+            });
+        })
+    </script>
+    {% endblock %}
