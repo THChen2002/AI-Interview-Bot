@@ -154,6 +154,7 @@ SITE_ID = 1
 LOGIN_REDIRECT_URL = '/'  # 登入後的首頁網址
 
 # Additional configuration settings for django-allauth
+SOCIALACCOUNT_LOGIN_ON_GET=True
 SOCIALACCOUNT_QUERY_EMAIL = True
 ACCOUNT_LOGOUT_ON_GET= True
 ACCOUNT_UNIQUE_EMAIL = True
