@@ -29,12 +29,12 @@ class SelfIntroductionForm(forms.Form):
     cultural_fit = forms.CharField(
         label="與要面試的公司文化契合點",
         required=True,
-        widget=forms.Textarea(attrs={'class': 'form-control','rows':4, 'cols':5})
+        widget=forms.Textarea(attrs={'class': 'form-control','rows':4, 'cols':5,'style':'resize:none;'})
     )
     cultural_fit_example = forms.CharField(
         label="針對文化契合度的舉例",
         required=True,
-        widget=forms.Textarea(attrs={'class': 'form-control','rows':4, 'cols':5})
+        widget=forms.Textarea(attrs={'class': 'form-control','rows':6, 'cols':5,'style':'resize:none;'})
     )
 
 class CoverLetterForm(forms.Form):
@@ -55,19 +55,19 @@ class CoverLetterForm(forms.Form):
     attract = forms.CharField(
         label="為什麼想申請應徵的公司吸引你？",
         required=True,
-        widget=forms.Textarea(attrs={'class': 'form-control','rows':4, 'cols':5})
+        widget=forms.Textarea(attrs={'class': 'form-control','rows':4, 'cols':5,'style':'resize:none;'})
     )
 
     strength = forms.CharField(
         label="你有什麼強項？\n為什麼該公司要選擇你？",
         required=True,
-        widget=forms.Textarea(attrs={'class': 'form-control','rows':4, 'cols':5})
+        widget=forms.Textarea(attrs={'class': 'form-control','rows':6, 'cols':5,'style':'resize:none;'})
     )
 
     example = forms.CharField(
         label="你的強項的實際舉例",
         required=True,
-        widget=forms.Textarea(attrs={'class': 'form-control','rows':4, 'cols':5})
+        widget=forms.Textarea(attrs={'class': 'form-control','rows':6, 'cols':5,'style':'resize:none;'})
     )
 
 class RecommendationLetterForm(forms.Form):
@@ -95,19 +95,19 @@ class RecommendationLetterForm(forms.Form):
     experience = forms.CharField(
         label="跟推薦人合作的經驗",
         required=True,
-        widget=forms.Textarea(attrs={'class': 'form-control','rows':4, 'cols':5})
+        widget=forms.Textarea(attrs={'class': 'form-control','rows':4, 'cols':5,'style':'resize:none;'})
     )
 
     reason = forms.CharField(
         label="為何被推薦人值得被推薦",
         required=True,
-        widget=forms.Textarea(attrs={'class': 'form-control','rows':4, 'cols':5})
+        widget=forms.Textarea(attrs={'class': 'form-control','rows':4, 'cols':5,'style':'resize:none;'})
     )
     
     example = forms.CharField(
         label="推薦理由的實際舉例",
         required=True,
-        widget=forms.Textarea(attrs={'class': 'form-control','rows':4, 'cols':5})
+        widget=forms.Textarea(attrs={'class': 'form-control','rows':6, 'cols':5,'style':'resize:none;'})
     )
 
 class ResumeForm(forms.Form):
@@ -159,7 +159,7 @@ class MockInterviewModeForm(forms.Form):
     self_introduction = forms.CharField(
         label="個人簡歷",
         required=True,
-        widget=forms.Textarea(attrs={'class': 'form-control','rows':4, 'cols':5})
+        widget=forms.Textarea(attrs={'class': 'form-control','rows':10, 'cols':5,'style':'resize:none;'})
     )
 
     mode = forms.ChoiceField(
