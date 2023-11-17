@@ -111,35 +111,35 @@ class RecommendationLetterForm(forms.Form):
     )
 
 class ResumeForm(forms.Form):
+    personal_education = forms.CharField(
+        label="輸入最高學歷",
+        required=True,
+        widget=forms.Textarea(attrs={'class': 'form-control','rows':1, 'cols':5,'style':'resize:none;'},)
+    )
     personal_experience = forms.CharField(
         label="輸入個人經歷",
         required=True,
-        widget=forms.Textarea(attrs={'class': 'form-control','rows':1, 'cols':5})
+        widget=forms.Textarea(attrs={'class': 'form-control','rows':1, 'cols':5,'style':'resize:none;'},)
     )
 
     skill = forms.CharField(
         label="輸入專長與技能",
         required=True,
-        widget=forms.Textarea(attrs={'class': 'form-control','rows':1, 'cols':5})
-    )
-
-    enthusiasm = forms.CharField(
-        label="輸入職涯熱情所在",
-        required=True,
-        widget=forms.Textarea(attrs={'class': 'form-control','rows':1, 'cols':5})
+        widget=forms.Textarea(attrs={'class': 'form-control','rows':1, 'cols':5,'style':'resize:none;'},)
     )
 
     interest = forms.CharField(
-        label="工作外的休閒嗜好",
+        label="輸入工作外的休閒嗜好",
         required=True,
-        widget=forms.Textarea(attrs={'class': 'form-control','rows':1, 'cols':5})
+        widget=forms.Textarea(attrs={'class': 'form-control','rows':1, 'cols':5,'style':'resize:none;'},)
     )
 
     style = forms.CharField(
-        label="個人簡介風格",
+        label="簡歷風格",
         required=True,
-        widget=forms.Textarea(attrs={'class': 'form-control','rows':1, 'cols':5})
+        widget=forms.Select(attrs={'class':'form-control'} ,choices=[('0','---------'),('1', '簡約'), ('2', '專業'),('3', '創意')])
     )
+
     
 class MockInterviewModeForm(forms.Form):
     company = forms.CharField(

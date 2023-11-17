@@ -26,8 +26,9 @@ class ContentsService:
     def get_reply(messages):
         try:
             response = openai.ChatCompletion.create(
-                model = "gpt-3.5-turbo",
-                messages = messages,
+                model="gpt-3.5-turbo",
+                messages=messages,
+                max_tokens=1024, 
             )
             reply = response["choices"][0]["message"]["content"]
         except openai.OpenAIError as err:
@@ -49,7 +50,7 @@ class ContentsService:
             reply = f"發生 {err.error.type} 錯誤\n{err.error.message}"
 
     # 匯出簡歷
-    def export_resume():
+    def export_resume(resume):
         # 設定段落格式
         def set_run_font(run, ch_font_name, en_font_name, font_size, bold=False, italic=False, underline=False, font_color=None):
             run.font.name = en_font_name
@@ -58,25 +59,26 @@ class ContentsService:
             run.font.bold = bold
             run.font.italic = italic
             run.font.underline = underline
-
             if font_color:
                 run.font.color.rgb = font_color
 
         # 設定路徑      
         template_path = os.path.join(settings.STATICFILES_DIRS[0], 'template.docx')
         output_path = os.path.join(settings.STATICFILES_DIRS[0], 'resume.docx')
-
         # 載入現有的Word文件
         doc = Document(template_path)
         # 文件的第一個表格
         table = doc.tables[0]
         # 填入數據
-        table.cell(1, 2).text = '張三'
-        table.cell(2, 2).text = '男'
-        table.cell(1, 4).text = '90/01/01'
-        table.cell(2, 4).text = '國立台北教育大學'
-        table.cell(3, 2).text = '0915123456'
-        table.cell(4, 2).text = 'zhangsan@example.com'
+        table.cell(1, 2).text = resume['name']
+        table.cell(2, 2).text = resume['gender']
+        table.cell(1, 4).text = resume['birth_date']
+        table.cell(2, 4).text = resume['education']
+        table.cell(4, 2).text = resume['email']
+        table.cell(5, 2).text = resume['personal_experience']
+        table.cell(6, 2).text = resume['skill']
+        table.cell(7, 2).text = resume['interest']
+        table.cell(9, 0).text = resume['self_introduction']
 
         # 遍歷表格設定樣式
         for row in table.rows:
