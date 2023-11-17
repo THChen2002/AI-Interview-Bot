@@ -11,16 +11,16 @@
                     個人簡歷輸入
                 </div>
                 <div class="contents-test">
-                    <label>➊{{ form.personal_experience.label }}</label>
+                    <label>➊{{ form.personal_education.label }}</label>
+                    {{ form.personal_education }}
+                </div>
+                <div class="contents-test">
+                    <label>➋{{ form.personal_experience.label }}</label>
                     {{ form.personal_experience }}
                 </div>
                 <div class="contents-test">
-                    <label>➋{{ form.skill.label }}</label>
+                    <label>➌{{ form.skill.label }}</label>
                     {{ form.skill }}
-                </div>
-                <div class="contents-test">
-                    <label>➌{{ form.enthusiasm.label }}</label>
-                    {{ form.enthusiasm }}
                 </div>
                 <div class="contents-test">
                     <label>➍{{ form.interest.label }}</label>

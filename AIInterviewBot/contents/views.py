@@ -148,10 +148,29 @@ def content_result(request, type):
 
 # 履歷頁面
 def resume(request):
-    output_path = ContentsService.export_resume()
-    return download_file(output_path)
     if request.method == 'POST':
         form = ResumeForm(request.POST)
+        if form.is_valid():
+            unit = User.objects.get(id=request.user.id)
+            resume = {
+                'name' :unit.first_name + unit.last_name,
+                'gender' :unit.get_gender_display(),
+                'birth_date' :unit.birth_date.strftime("%Y/%m/%d"),
+                'education': form.cleaned_data['personal_education'],
+                'email' :unit.email,
+                'personal_experience': form.cleaned_data['personal_experience'],
+                'skill': form.cleaned_data['skill'],
+                'interest': form.cleaned_data['interest'],
+                'style': form.cleaned_data['style'],
+            }
+            user_prompt = {
+                "role": "user",
+                "content": "你要完成一份正式的個人簡介內容開頭無需「個人簡介」四字，你的個人經驗是" + resume['personal_experience'] + "，而你的專長與技能是" + resume['skill'] + "，另外你工作外的休閒嗜好是" + resume['interest']
+            }
+            messages = ContentsService.get_messages(user_prompt)
+            resume['self_introduction'] = ContentsService.get_reply_s(messages)
+            output_path = ContentsService.export_resume(resume)
+            return download_file(output_path)
     else:
         form = ResumeForm()
     return render(request, 'contents/resume.html', locals())
