@@ -9,13 +9,27 @@ class ContentRecord(models.Model):
     CONTENT_TYPE_CHOICES = (
         ('CL', '求職信'),
         ('RL', '推薦信'),
-        ('R', '履歷'),
         ('SI', '自我介紹'),
     )
     content_type = models.CharField(max_length=10, choices=CONTENT_TYPE_CHOICES)
     unit = models.CharField(max_length=100)
     result = models.TextField()
     is_satisfied = models.BooleanField()
+    created_at = models.DateTimeField(auto_now_add=True)
+
+# 個人簡歷生成紀錄
+class ResumeRecord(models.Model):
+    personal_education = models.CharField(max_length=100)
+    personal_experience = models.TextField()
+    skill = models.TextField()
+    interest = models.TextField()
+    STYLE_CHOICES = (
+        ('1', '簡約'),
+        ('2', '專業'),
+        ('3', '創意'),
+    )
+    style = models.CharField(max_length=10, choices=STYLE_CHOICES)
+    resume_file = models.FileField(upload_to='resume/')
     created_at = models.DateTimeField(auto_now_add=True)
 
 # 模擬面試題庫
@@ -38,6 +52,7 @@ class InterviewRecord(models.Model):
 # 模擬面試評分紀錄
 class InterviewScore(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
+    unit = models.CharField(max_length=100)
     records = models.ManyToManyField(InterviewRecord)
     # 專業能力
     professional_score = models.PositiveIntegerField()

@@ -78,6 +78,7 @@ def mock_interview_result(request):
         # 創建評分紀錄
         interview_score = InterviewScore.objects.create(
             user=request.user,
+            unit="XX公司",
             professional_score=response_data['professional_score'],
             professional_suggestion=response_data['professional_suggestion'],
             creative_score=response_data['creative_score'],
