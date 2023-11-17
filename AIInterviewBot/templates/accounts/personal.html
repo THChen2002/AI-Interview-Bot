@@ -1,15 +1,21 @@
 {% extends "base.html" %}
 {% block title %}Personal{% endblock %}
 {% block content %}
-{% load static %} 
+{% load static %}
 
+<!-- google 字體 -->
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@600&display=swap" rel="stylesheet">
+<!-- CSS -->
+<link rel="stylesheet" type="text/css" href="{% static 'css/personal.css' %}" />
+<!-- bootstrap -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-<section style="background-color: #ffffff;">
-    <div class="container  py-5">
+
+<section style="background-color: #ffffff; font-family: 'Noto Sans TC', sans-serif;">
+    <div class="container  py-3">
         <div class="row justify-content-center">
             <div class="col-lg-3">
                 <div class="card-body text-center">
-                    <div style="position: relative; display: inline-block;" >
+                    <div style="position: relative; display: inline-block;">
                         {% if unit.profile_image %}
                         <img src="/media/{{ unit.profile_image }}" alt="{{ unit.user_name }}'s profile picture"
                             class="rounded-circle img-fluid" style="width: 150px;">
@@ -17,13 +23,12 @@
                         <img src="{% static 'images/avator.png'%}" alt="{{ unit.user_name }}'s profile picture"
                             class="rounded-circle img-fluid" style="width: 150px;">
                         {% endif %}
-                        <form id="photo-form" method="post" action="{% url 'Personal' %}" style="position: absolute; bottom: 0; right: 0;" enctype="multipart/form-data">
+                        <form id="photo-form" method="post" action="{% url 'Personal' %}"
+                            style="position: absolute; bottom: 0; right: 0;" enctype="multipart/form-data">
                             {% csrf_token %}
                             <div class="rounded-circle"
                                 style="position: relative; background-color: white; width: 40px;height: 40px; border: 1px solid rgb(184, 184, 184); ">
-                                <label for="photo"><img
-                                        src="https://django-finalproj.thchen2002.repl.co/static/images/usericon/camera.png"
-                                        width=25px height=25px
+                                <label for="photo"><img src="{% static 'images/camera.png'%}" width=25px height=25px
                                         style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);"></label>
                             </div>
                             <div>
@@ -31,123 +36,223 @@
                             </div>
                         </form>
                     </div>
-                    <h5 class="my-3">{{ unit.username }}</h5>
+                    <h5 class="my-3" style="color: #793C50;">{{ unit.username }}</h5>
                 </div>
             </div>
-            <div class="col-md-6 mx-auto row" style="border: 2px solid #FCE9CF; padding: 3px; border-radius: 10px;  width: 80%; background-color: #FCE9CF;" >
-                <div class="col-6" style="text-align: center; margin:5px 0px">
+            <div class="container mt-3"></div>
+            <div class="col-md-6 mx-auto row registration-date">
+                <div class="col-6" style="text-align: center; margin:5px 0px; color: #793C50;">
                     <h2>{{ dashboard.registration_days }}天</h2><span>註冊天數</span>
                 </div>
-                <div class="col-6" style="text-align: center; margin:5px 0px">
+                <div class="col-6" style="text-align: center; margin:5px 0px; color: #793C50;">
                     <h2>{{ dashboard.comprehensive_score|default:'--' }}分</h2><span>綜合分數</span>
                 </div>
             </div>
             <div class="container mt-3"></div>
-            <div class="col-lg-9">
-                <div class="card mb-4 shadow-sm">
-                    <div class="card-body">
-                        <form id="profile-form" method="post" action="{% url 'Personal' %}">
-                            {% csrf_token %}
-                            <div class="form-group row">
-                                <div class="col-sm-3">
-                                    <label for="username" style="font-weight: bold;">帳號</label>
-                                </div>
-                                <div class="col-sm-9">
-                                    <input type="text" class="form-control" id="username" name="username" value="{{ unit.username }}" disabled>
-                                </div>
+            <div class="col-lg-9 personal-information">
+                <form id="profile-form" method="post" action="{% url 'Personal' %}">
+                    {% csrf_token %}
+                    <div class="personal-data-fields" style="border-top: 2px solid #FFB755;">
+                        <div class="form-group row">
+                            <div class="col-3 form-text">
+                                <label for="username" style="font-weight: bold; color: #F7A22D;">帳號</label>
                             </div>
-                            <hr>
-                            <div class="form-group row">
-                                <div class="col-sm-3">
-                                    <label for="gender" style="font-weight: bold;">性別</label>
-                                </div>
-                                <div class="col-sm-9">
-                                    {{ form.gender }}
-                                </div>
+                            <div class="col-9" style="padding-top: 5px;">
+                                <input type="text" class="form-control" id="username" name="username"
+                                    value="{{ unit.username }}" disabled
+                                    style="text-align: right; padding-right: 30px;">
                             </div>
-                            <hr>
-                            <div class="form-group row">
-                                <div class="col-sm-3">
-                                    <label for="birth_date" style="font-weight: bold;">生日</label>
-                                </div>
-                                <div class="col-sm-9">
-                                    {{ form.birth_date }}
-                                </div>
-                            </div>
-                            <hr>
-                            <div class="form-group row ">
-                                <div class="col-sm-3">
-                                    <label for="email" style="font-weight: bold;">Email</label>
-                                </div>
-                                <div class="col-sm-9  text-end">
-                                    <input type="email" class="form-control" id="email" name="email" value="{{ unit.email }}" disabled>
-                                </div>
-                            </div>
-                            <hr>
-                            <div class="form-group row">
-                                <div class="col-sm-3">
-                                    <label for="degree" style="font-weight: bold;">學位</label>
-                                </div>
-                                <div class="col-sm-9">
-                                    {{ form.degree }}
-                                </div>
-                            </div>
-                            <div class="d-flex justify-content-center">
-                                <button type="button" class="btn btn-primary" id="edit-btn">修改</button>
-                                <button type="submit" class="btn btn-primary" id="save-btn" style="display: none;">保存</button>
-                            </div>
-                        </form>
+                        </div>
                     </div>
+                    <div class="personal-data-fields">
+                        <div class="form-group row">
+                            <div class="col-3 form-text">
+                                <label for="gender" style="font-weight: bold; color: #F7A22D;">性別</label>
+                            </div>
+                            <div class="col-9 position-relative" style="padding-top: 5px; padding-right: 30px;">
+                                {{ form.gender }}
+                                <button type="button" class="edit-btn position-absolute"
+                                    style="top: 13px; right: 12px;">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
+                                        class="bi bi-chevron-right" viewBox="0 0 16 16">
+                                        <path fill-rule="evenodd"
+                                            d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z" />
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="personal-data-fields">
+                        <div class="form-group row d-flex align-items-center">
+                            <div class="col-3 form-text">
+                                <label for="birth_date" style="font-weight: bold; color: #F7A22D;">生日</label>
+                            </div>
+                            <div class="col-9 position-relative" style="padding-top: 5px; ">
+                                {{ form.birth_date }}
+                                <button type="button" class="edit-btn position-absolute"
+                                    style="top: 13px; right: 12px;">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
+                                        class="bi bi-chevron-right" viewBox="0 0 16 16">
+                                        <path fill-rule="evenodd"
+                                            d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z" />
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="personal-data-fields">
+                        <div class="form-group row ">
+                            <div class="col-3 form-text">
+                                <label for="email" style="font-weight: bold; color: #F7A22D;">Email</label>
+                            </div>
+                            <div class="col-9  text-end" style="padding-top: 5px;">
+                                <input type="email" class="form-control" id="email" name="email"
+                                    value="{{ unit.email }}" disabled style="text-align: right; padding-right: 30px;">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="personal-data-fields" style="border-bottom: 2px solid #FFB755;">
+                        <div class="form-group row">
+                            <div class="col-3 form-text">
+                                <label for="degree" style="font-weight: bold; color: #F7A22D;">學位</label>
+                            </div>
+                            <div class="col-9 position-relative" style="padding-top: 5px; padding-right: 30px;">
+                                {{ form.degree }}
+                                <button type="button" class="edit-btn position-absolute"
+                                    style="top: 13px; right: 12px;">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
+                                        class="bi bi-chevron-right" viewBox="0 0 16 16">
+                                        <path fill-rule="evenodd"
+                                            d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z" />
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="row justify-content-center personal-dashboard">
+        <div class="container" style="color: #793C50;">
+            <div class="row align-items-center">
+                <div class="col-4 col-md-2 text-center" style="padding-left: 0px; padding-right: 0px;">
+                    <h6>專業能力</h6>
+                </div>
+                <div class="col-6 col-md-8">
+                    <div class="progress" style="height: 20px;">
+                        <div class="progress-bar" role="progressbar"
+                            style="width: {{ dashboard.professional_score|default:0 }}%; background-color: #808080;"
+                            aria-valuenow="{{ dashboard.professional_score|default:0 }}" aria-valuemin="0"
+                            aria-valuemax="100">
+                            {{ dashboard.professional_score|default:0 }}%
+                        </div>
+                    </div>
+                </div>
+                <div class="col-2 col-md-2 text-center" style="padding-right: 0px; padding-left: 0px;">
+                    <h6>80分</h6>
+                </div>
+            </div>
+        </div>
+        <div class="container mt-3"></div>
+        <div class="container" style="color: #793C50;">
+            <div class="row align-items-center">
+                <div class="col-4 col-md-2 text-center" style="padding-left: 0px; padding-right: 0px;">
+                    <h6>創意能力</h6>
+                </div>
+                <div class="col-6 col-md-8">
+                    <div class="progress" style="height: 20px;">
+                        <div class="progress-bar" role="progressbar"
+                            style="width: {{ dashboard.creative_score|default:0 }}%; background-color: #808080;"
+                            aria-valuenow="{{ dashboard.creative_score|default:0 }}" aria-valuemin="0"
+                            aria-valuemax="100">
+                            {{dashboard.creative_score|default:0 }}
+                        </div>
+                    </div>
+                </div>
+                <div class="col-2 col-md-2 text-center" style="padding-right: 0px; padding-left: 0px;">
+                    <h6>75分</h6>
+                </div>
+            </div>
+        </div>
+        <div class="container mt-3"></div>
+        <div class="container" style="color: #793C50;">
+            <div class="row align-items-center">
+                <div class="col-4 col-md-2 text-center" style="padding-left: 0px; padding-right: 0px;">
+                    <h6>溝通能力</h6>
+                </div>
+                <div class="col-6 col-md-8">
+                    <div class="progress" style="height: 20px;">
+                        <div class="progress-bar" role="progressbar"
+                            style="width: {{ dashboard.communication_score|default:0 }}%; background-color: #808080;"
+                            aria-valuenow="{{ dashboard.communication_score|default:0 }}" aria-valuemin="0"
+                            aria-valuemax="100">
+                            {{dashboard.communication_score|default:0 }}
+                        </div>
+                    </div>
+                </div>
+                <div class="col-2 col-md-2 text-center" style="padding-right: 0px; padding-left: 0px;">
+                    <h6>66分</h6>
+                </div>
+            </div>
+        </div>
+        <div class="container mt-3"></div>
+        <div class="container" style="color: #793C50;">
+            <div class="row align-items-center">
+                <div class="col-4 col-md-2 text-center" style="padding-left: 0px; padding-right: 0px;">
+                    <h6>策略能力</h6>
+                </div>
+                <div class="col-6 col-md-8">
+                    <div class="progress" style="height: 20px;">
+                        <div class="progress-bar" role="progressbar"
+                            style="width: {{ dashboard.strategy_score|default:0 }}%; background-color: #808080;"
+                            aria-valuenow="{{ dashboard.strategy_score|default:0 }}" aria-valuemin="0"
+                            aria-valuemax="100">
+                            {{dashboard.strategy_score|default:0 }}
+                        </div>
+                    </div>
+                </div>
+                <div class="col-2 col-md-2 text-center" style="padding-right: 0px; padding-left: 0px;">
+                    <h6>95分</h6>
+                </div>
+            </div>
+        </div>
+        <div class="container mt-3"></div>
+        <div class="container" style="color: #793C50;">
+            <div class="row align-items-center">
+                <div class="col-4 col-md-2 text-center" style="padding-left: 0px; padding-right: 0px;">
+                    <h6>自主學習能力</h6>
+                </div>
+                <div class="col-6 col-md-8">
+                    <div class="progress" style="height: 20px;">
+                        <div class="progress-bar" role="progressbar"
+                            style="width: {{ dashboard.self_learning_score|default:0 }}%; background-color: #808080;"
+                            aria-valuenow="{{ dashboard.self_learning_score|default:0 }}" aria-valuemin="0"
+                            aria-valuemax="100">
+                            {{dashboard.self_learning_score|default:0 }}
+                        </div>
+                    </div>
+                </div>
+                <div class="col-2 col-md-2 text-center" style="padding-right: 0px; padding-left: 0px;">
+                    <h6>70分</h6>
                 </div>
             </div>
         </div>
     </div>
 </section>
 
-    <div class="row justify-content-center">
-        <div class="col-md-6 mx-auto" style="border: 2px solid #FCE9CF; padding: 10px; border-radius: 10px;  width: 80%; background-color: #FCE9CF;" >
-            <h6 class="text-center">專業能力</h6>
-            <div class="progress mx-auto" style="width: 80%;">
-                <div class="progress-bar" role="progressbar" style="width: {{ dashboard.professional_score|default:0 }}%; background-color: #808080;" aria-valuenow="{{ dashboard.professional_score|default:0 }}" aria-valuemin="0" aria-valuemax="100">{{ dashboard.professional_score|default:0 }}</div>
-            </div>
-            <br>
-            <h6 class="text-center">創意能力</h6>
-            <div class="progress mx-auto" style="width: 80%;">
-                <div class="progress-bar" role="progressbar" style="width: {{ dashboard.creative_score|default:0 }}%; background-color: #808080;" aria-valuenow="{{ dashboard.creative_score|default:0 }}" aria-valuemin="0" aria-valuemax="100">{{ dashboard.creative_score|default:0 }}</div>
-            </div>
-            <br>
-            <h6 class="text-center">溝通能力</h6>
-            <div class="progress mx-auto" style="width: 80%;">
-                <div class="progress-bar" role="progressbar" style="width: {{ dashboard.strategy_score|default:0 }}%; background-color: #808080;" aria-valuenow="{{ dashboard.strategy_score|default:0 }}" aria-valuemin="0" aria-valuemax="100">{{ dashboard.strategy_score|default:0 }}</div>
-            </div>
-            <br>
-            <h6 class="text-center">策略能力</h6>
-            <div class="progress mx-auto" style="width: 80%;">
-                <div class="progress-bar" role="progressbar" style="width: {{ dashboard.communication_score|default:0 }}%; background-color: #808080;" aria-valuenow="{{ dashboard.communication_score|default:0 }}" aria-valuemin="0" aria-valuemax="100">{{ dashboard.communication_score|default:0 }}</div>
-            </div>
-            <br>
-            <h6 class="text-center">自主學習能力</h6>
-            <div class="progress mx-auto" style="width: 80%;">
-                <div class="progress-bar" role="progressbar" style="width: {{ dashboard.self_learning_score|default:0 }}%; background-color: #808080;" aria-valuenow="{{ dashboard.self_learning_score|default:0 }}" aria-valuemin="0" aria-valuemax="100">{{ dashboard.self_learning_score|default:0 }}</div>
-            </div>
-        </div>
-    </div>
-
 <div class="container mt-3">
-    <p class="text-center" ><a href="{% url 'Dashboard' %}">查看我的儀表板</a></p>
+    <p class="text-center">
+        <a href="{% url 'Dashboard' %}"
+            style="color: #793C50; text-decoration: none; font-size: large;font-family: 'Noto Sans TC', sans-serif;">查看我的儀表板</a>
+    </p>
 </div>
+
 
 <script>
     $(document).ready(function () {
-        // 修改按鈕事件
-        $("#edit-btn").click(function () {
-            $("#edit-btn").hide();
-            $("#save-btn").show();
-            $("input:not('#username,#email')").css("background-color", "white");
-            $("select").css("background-color", "white")
-            $("input:not('#username,#email')").removeAttr("disabled");
-            $("select").removeAttr("disabled");
-        });
 
         // 上傳照片
         $("#photo").change(function () {
