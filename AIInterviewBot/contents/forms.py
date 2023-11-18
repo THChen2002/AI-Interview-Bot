@@ -1,5 +1,6 @@
 from django import forms
-from .models import InterviewQuestion
+from .models import ResumeRecord
+from django.forms import ModelForm
 
 class SelfIntroductionForm(forms.Form):
     company = forms.CharField(
@@ -110,35 +111,29 @@ class RecommendationLetterForm(forms.Form):
         widget=forms.Textarea(attrs={'class': 'form-control','rows':6, 'cols':5,'style':'resize:none;'})
     )
 
-class ResumeForm(forms.Form):
-    personal_education = forms.CharField(
-        label="輸入最高學歷",
-        required=True,
-        widget=forms.Textarea(attrs={'class': 'form-control','rows':1, 'cols':5,'style':'resize:none;'},)
-    )
-    personal_experience = forms.CharField(
-        label="輸入個人經歷",
-        required=True,
-        widget=forms.Textarea(attrs={'class': 'form-control','rows':1, 'cols':5,'style':'resize:none;'},)
-    )
-
-    skill = forms.CharField(
-        label="輸入專長與技能",
-        required=True,
-        widget=forms.Textarea(attrs={'class': 'form-control','rows':1, 'cols':5,'style':'resize:none;'},)
-    )
-
-    interest = forms.CharField(
-        label="輸入工作外的休閒嗜好",
-        required=True,
-        widget=forms.Textarea(attrs={'class': 'form-control','rows':1, 'cols':5,'style':'resize:none;'},)
-    )
-
-    style = forms.CharField(
-        label="簡歷風格",
-        required=True,
-        widget=forms.Select(attrs={'class':'form-control'} ,choices=[('0','---------'),('1', '簡約'), ('2', '專業'),('3', '創意')])
-    )
+STYLE_CHOICES = [
+    ('', '請選擇風格'),
+    ('1', '簡約'),
+    ('2', '專業'),
+    ('3', '創意'),
+]
+class ResumeForm(ModelForm):
+    style = forms.ChoiceField(label='簡歷風格', choices=STYLE_CHOICES, widget=forms.Select(attrs={'class': 'form-control'}))
+    class Meta:
+        model = ResumeRecord
+        fields = ['personal_education', 'personal_experience', 'skill', 'interest', 'style']
+        widgets = {
+            'personal_education': forms.Textarea(attrs={'class': 'form-control','rows':1, 'cols':5,'style':'resize:none;'}),
+            'personal_experience': forms.Textarea(attrs={'class': 'form-control','rows':1, 'cols':5,'style':'resize:none;'}),
+            'skill': forms.Textarea(attrs={'class': 'form-control','rows':1, 'cols':5,'style':'resize:none;'}),
+            'interest': forms.Textarea(attrs={'class': 'form-control','rows':1, 'cols':5,'style':'resize:none;'}),
+        }
+        labels = {
+            'personal_education': '最高學歷',
+            'personal_experience': '個人經歷',
+            'skill': '專長與技能',
+            'interest': '工作外的休閒嗜好',
+        }
 
     
 class MockInterviewModeForm(forms.Form):

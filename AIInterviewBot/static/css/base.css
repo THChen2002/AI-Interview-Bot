@@ -56,7 +56,7 @@
     border: #FCE9CE;
 }
 .form-control:disabled {
-    background-color: transparent;
+    background-color: #FCE9CE;
     color: #D57F0A;
 }
 

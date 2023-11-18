@@ -5,7 +5,7 @@
 <div class="container" style="margin-top:10px">
     <div class="row justify-content-center">
         <div class="col-md-8">
-            <form method="post">
+            <form id="resumeForm" method="post">
                 {% csrf_token %}
                 <div class="contents-title">
                     個人簡歷輸入
@@ -31,11 +31,59 @@
                     {{ form.style }}
                 </div>
                 <div class="d-grid col-10 mx-auto">
-                    <input type="submit" class="btn btn-primary" value="生成個人簡歷" />
+                    <input type="submit" id="generate-btn" class="btn btn-primary" value="生成個人簡歷" />
+                    <button id="load-btn" class="btn btn-primary" type="button" disabled style="display: none">
+                        <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                        生成中...
+                    </button>
+                    <div id="result" style="text-align:center; display:none;">
+                        <h5 style="color:#F7A32E">點擊下載</h5>
+                        <a id="download-file" style="text-decoration: underline; cursor: pointer; color:var(--bs-link-color)">a</a>
+                    </div>
                 </div>
+            </form>
+            <form id="download-form" action="{% url 'DownloadFile' %}" method="post">
+                {% csrf_token %}
+                <input type="hidden" name="file_name" value="1e8fd467_resume.docx"/>
             </form>
         </div>
     </div>
 </div>
+
+<script>
+    $(document).ready(function() {
+        $('#resumeForm').submit(function (e) {
+            debugger
+            e.preventDefault();
+            // 隱藏生成按鈕
+            $('#generate-btn').hide();
+            // 顯示生成中按鈕
+            $('#load-btn').show();
+            $.ajax({
+                url: '{% url "Resume" %}',
+                type: 'POST',
+                data: $(this).serialize(),
+                success: function (data) {
+                    // 隱藏生成中按鈕
+                    $('#load-btn').hide();
+                    // 所有輸入欄位改成禁用
+                    $('#id_personal_education, #id_personal_experience, #id_skill, #id_interest, #id_style').prop('disabled', true);
+                    // 顯示下載連結文字
+                    $("#download-file").text(data.file_name);
+                    // 設定檔名到隱藏欄位
+                    $('#download-form input[name=file_name]').val(data.file_name);
+                    // 顯示下載區塊
+                    $('#result').show();
+                },
+                error: function (error) {
+                    console.log(error);
+                }
+            });
+        });
+        $('#download-file').click(function (e) {
+            $('#download-form').submit();
+        });
+    });
+</script>
 
 {% endblock %}

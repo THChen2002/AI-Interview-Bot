@@ -6,8 +6,11 @@ from contents.models import InterviewQuestion, InterviewRecord, InterviewScore, 
 from django.http import FileResponse, JsonResponse
 import os
 import json
+import uuid
 from datetime import datetime, timedelta
+from django.core.files import File
 from random import sample
+from django.conf import settings
 from django.contrib.auth import get_user_model
 User = get_user_model()
 
@@ -156,8 +159,8 @@ def resume(request):
             unit = User.objects.get(id=request.user.id)
             resume = {
                 'name' :unit.first_name + unit.last_name,
-                'gender' :unit.get_gender_display(),
-                'birth_date' :unit.birth_date.strftime("%Y/%m/%d"),
+                'gender' :unit.get_gender_display() if unit.get_gender_display() else '',
+                'birth_date' :unit.birth_date.strftime("%Y/%m/%d") if unit.birth_date else '',
                 'education': form.cleaned_data['personal_education'],
                 'email' :unit.email,
                 'personal_experience': form.cleaned_data['personal_experience'],
@@ -170,9 +173,20 @@ def resume(request):
                 "content": "你要完成一份正式的個人簡介內容開頭無需「個人簡介」四字，你的個人經驗是" + resume['personal_experience'] + "，而你的專長與技能是" + resume['skill'] + "，另外你工作外的休閒嗜好是" + resume['interest']
             }
             messages = ContentsService.get_messages(user_prompt)
-            resume['self_introduction'] = ContentsService.get_reply_s(messages)
+            resume['self_introduction'] = ContentsService.get_reply(messages)
             output_path = ContentsService.export_resume(resume)
-            return download_file(output_path)
+
+            # 儲存履歷紀錄
+            resume_record = form.save(commit=False)
+            resume_record.user = request.user
+            # 儲存履歷檔案到使用者對應的資料夾
+            with open(output_path, 'rb') as file:
+                folder_path = request.user.username
+                file_name = f"{str(uuid.uuid4())[:8]}_resume.docx"
+                file_path = os.path.join(folder_path, file_name)
+                resume_record.resume_file.save(file_path, File(file))
+            resume_record.save()
+            return JsonResponse({'file_name': file_name})
     else:
         form = ResumeForm()
     return render(request, 'contents/resume.html', locals())
@@ -279,8 +293,10 @@ def get_chart_data(request):
     return JsonResponse({'data': data})
 
 # 下載檔案
-def download_file(file_path):
-    file_name = os.path.basename(file_path)
+def download_file(request):
+    file_name = request.POST.get('file_name')
+    file_path = os.path.join(settings.MEDIA_ROOT, 'resume', request.user.username, file_name)
+    # file_name = os.path.basename(file_path)
     file = open(file_path, 'rb')
     response = FileResponse(file)
     response['Content-Type'] = 'application/octet-stream'
