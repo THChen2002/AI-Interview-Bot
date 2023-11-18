@@ -71,6 +71,7 @@ urlpatterns = [
     path('recommendation_letter/', contents.recommendation_letter, name='RecommendationLetter'),
     # 簡歷
     path('resume/', contents.resume, name='Resume'),
+    path('api/download_file/', contents.download_file, name='DownloadFile'),
     # 模擬面試
     path('mock_interview_mode/', contents.mock_interview_mode, name='MockInterviewMode'),
     path('mock_interview/<str:mode>/', contents.mock_interview, name='MockInterview'),
