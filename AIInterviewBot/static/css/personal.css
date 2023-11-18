@@ -1,0 +1,98 @@
+.container {
+    width: 100%;
+    max-width: none;
+}
+
+/* 註冊天數與綜合分數欄位(網頁) */
+.registration-date {
+    width: 60%;
+    margin: 0 auto;
+    border: 2px solid #FCE9CF;
+    padding: 3px;
+    border-radius: 10px;
+    background-color: #FCE9CF;
+}
+
+/* 註冊天數與綜合分數欄位(手機) */
+@media only screen and (max-width: 400px) {
+    .registration-date {
+        width: 100%;
+        margin: 0 auto;
+        border: 2px solid #FCE9CF;
+        padding: 3px;
+        border-radius: 10px;
+        background-color: #FCE9CF;
+    }
+}
+
+/* 個人資訊欄位(網頁) */
+.personal-information {
+    width: 60%;
+    margin: 0 auto;
+    padding-left: 0px;
+    padding-right: 0px;
+}
+
+/* 個人資訊欄位(手機) */
+@media only screen and (max-width: 400px) {
+    .personal-information {
+        width: 100%;
+        margin: 0 auto;
+        padding-left: 0px;
+        padding-right: 0px;
+    }
+}
+
+/* 儀表板(網頁) */
+.personal-dashboard {
+    width: 60%;
+    margin: 0 auto;
+    padding-left: 0px;
+    padding-right: 0px;
+    border: 2px solid #FCE9CF;
+    padding: 10px;
+    border-radius: 10px;
+    background-color: #FCE9CF;
+}
+
+/* 儀表板(手機) */
+@media only screen and (max-width: 400px) {
+    .personal-dashboard {
+        width: 100%;
+        margin: 0 auto;
+        padding-left: 0px;
+        padding-right: 0px;
+        border: 2px solid #FCE9CF;
+        padding: 10px;
+        border-radius: 10px;
+        background-color: #FCE9CF;
+    }
+}
+
+.edit-btn {
+    width: 20px;
+    height: 20px;
+    padding: 0;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: transparent;
+    color: #D57F0A;
+    vertical-align: middle;
+}
+
+.personal-data-fields {
+    width: auto;
+    height: 50px;
+    border: 1px solid #FFB755;
+    border-left: 2px solid #FFB755;
+    border-right: 2px solid #FFB755;
+    border-radius: 10px;
+}
+
+.form-text {
+    padding-top: 5px;
+    padding-left: 20px;
+    font-size: large;
+}
