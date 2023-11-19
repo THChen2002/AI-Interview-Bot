@@ -14,7 +14,7 @@
 
 <div class="row" style="justify-content: center;">
     <a class="col dashboard-box chart-css">
-        <canvas id="lineChart" width="100%" height="100%"></canvas>
+        <canvas id="lineChart" style="width: auto; height: 310px;" ></canvas>
         <!-- 折線圖問號button -->
         <button class="help-button" data-target="content-lineChart">
             <img src="{% static 'images/question.png' %}" alt="幫助-lineChart">
@@ -155,6 +155,8 @@
             type: 'line',
             data: data,
             options: {
+                responsive: true,
+                maintainAspectRatio: false,
                 scales: {
                     y: {
                         type: 'linear',
