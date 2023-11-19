@@ -72,6 +72,19 @@
     --bs-btn-disabled-border-color: #F7A32E;
 }
 
+.btn-secondary {
+    --bs-btn-bg: white;
+    --bs-btn-border-color: #5E4104;
+    --bs-btn-hover-bg: transparent;
+    --bs-btn-hover-color: #F7A32E;
+    --bs-btn-hover-border-color: #5E4104;
+    --bs-btn-active-bg: white;
+    --bs-btn-active-border-color: #F7A32E;
+    --bs-btn-disabled-bg: #F7A32E;
+    --bs-btn-disabled-border-color: #F7A32E;
+    color: #F7A32E;
+}
+
 .btn {
     margin-top: 10px;
     margin-bottom: 18px;
