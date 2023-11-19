@@ -96,3 +96,7 @@
     padding-left: 20px;
     font-size: large;
 }
+
+.form-control:disabled {
+    background-color: transparent;
+}

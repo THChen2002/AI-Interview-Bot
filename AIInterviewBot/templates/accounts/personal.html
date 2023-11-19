@@ -48,8 +48,17 @@
                     <h2>{{ dashboard.comprehensive_score|default:'--' }}分</h2><span>綜合分數</span>
                 </div>
             </div>
-            <div class="container mt-3"></div>
             <div class="col-lg-9 personal-information">
+                <div class="">
+                    <div class="form-group row">
+                        <div class="col-3"></div>
+                            <div class="col-9" style="text-align:end">
+                                <img src="{% static 'images/edit.png' %}" alt="edit" id="edit-btn" style="width:50px; height:50px; cursor: pointer;">
+                                <img src="{% static 'images/cancel.png' %}" alt="cancel" id="cancel-btn" style="width:30px; height:30px; cursor: pointer; margin: 10px 0px; display:none;">
+                                <img src="{% static 'images/save.png' %}" alt="save" id="save-btn" style="width:30px; height:30px; cursor: pointer; margin: 10px; display:none;">
+                            </div>
+                        </div>
+                    </div>
                 <form id="profile-form" method="post" action="{% url 'Personal' %}">
                     {% csrf_token %}
                     <div class="personal-data-fields" style="border-top: 2px solid #FFB755;">
@@ -60,7 +69,7 @@
                             <div class="col-9" style="padding-top: 5px;">
                                 <input type="text" class="form-control" id="username" name="username"
                                     value="{{ unit.username }}" disabled
-                                    style="text-align: right; padding-right: 30px;">
+                                    style="text-align: right;">
                             </div>
                         </div>
                     </div>
@@ -69,16 +78,8 @@
                             <div class="col-3 form-text">
                                 <label for="gender" style="font-weight: bold; color: #F7A22D;">性別</label>
                             </div>
-                            <div class="col-9 position-relative" style="padding-top: 5px; padding-right: 30px;">
+                            <div class="col-9" style="padding-top: 5px;">
                                 {{ form.gender }}
-                                <button type="button" class="edit-btn position-absolute"
-                                    style="top: 13px; right: 12px;">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
-                                        class="bi bi-chevron-right" viewBox="0 0 16 16">
-                                        <path fill-rule="evenodd"
-                                            d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z" />
-                                    </svg>
-                                </button>
                             </div>
                         </div>
                     </div>
@@ -87,16 +88,8 @@
                             <div class="col-3 form-text">
                                 <label for="birth_date" style="font-weight: bold; color: #F7A22D;">生日</label>
                             </div>
-                            <div class="col-9 position-relative" style="padding-top: 5px; ">
+                            <div class="col-9" style="padding-top: 5px; ">
                                 {{ form.birth_date }}
-                                <button type="button" class="edit-btn position-absolute"
-                                    style="top: 13px; right: 12px;">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
-                                        class="bi bi-chevron-right" viewBox="0 0 16 16">
-                                        <path fill-rule="evenodd"
-                                            d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z" />
-                                    </svg>
-                                </button>
                             </div>
                         </div>
                     </div>
@@ -107,7 +100,7 @@
                             </div>
                             <div class="col-9  text-end" style="padding-top: 5px;">
                                 <input type="email" class="form-control" id="email" name="email"
-                                    value="{{ unit.email }}" disabled style="text-align: right; padding-right: 30px;">
+                                    value="{{ unit.email }}" disabled style="text-align: right;">
                             </div>
                         </div>
                     </div>
@@ -116,16 +109,8 @@
                             <div class="col-3 form-text">
                                 <label for="degree" style="font-weight: bold; color: #F7A22D;">學位</label>
                             </div>
-                            <div class="col-9 position-relative" style="padding-top: 5px; padding-right: 30px;">
+                            <div class="col-9" style="padding-top: 5px;">
                                 {{ form.degree }}
-                                <button type="button" class="edit-btn position-absolute"
-                                    style="top: 13px; right: 12px;">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
-                                        class="bi bi-chevron-right" viewBox="0 0 16 16">
-                                        <path fill-rule="evenodd"
-                                            d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z" />
-                                    </svg>
-                                </button>
                             </div>
                         </div>
                     </div>
@@ -141,19 +126,25 @@
                 <div class="col-4 col-md-2 text-center" style="padding-left: 0px; padding-right: 0px;">
                     <h6>專業能力</h6>
                 </div>
+                {% if dashboard.professional_score %}
                 <div class="col-6 col-md-8">
                     <div class="progress" style="height: 20px;">
                         <div class="progress-bar" role="progressbar"
                             style="width: {{ dashboard.professional_score|default:0 }}%; background-color: #808080;"
                             aria-valuenow="{{ dashboard.professional_score|default:0 }}" aria-valuemin="0"
                             aria-valuemax="100">
-                            {{ dashboard.professional_score|default:0 }}%
+                            {{ dashboard.professional_score|default:0 }}
                         </div>
                     </div>
                 </div>
                 <div class="col-2 col-md-2 text-center" style="padding-right: 0px; padding-left: 0px;">
-                    <h6>80分</h6>
+                    <h6>{{ dashboard.professional_score|default:0 }}分</h6>
                 </div>
+                {% else %}
+                <div class="col-8 col-md-10" style="text-align: center;">
+                    <span class="badge rounded-pill" style="vertical-align: top; color: #F7A22D; background-color: white; width: 100%;">尚未進行面試</span>
+                </div>
+                {% endif %}
             </div>
         </div>
         <div class="container mt-3"></div>
@@ -162,6 +153,7 @@
                 <div class="col-4 col-md-2 text-center" style="padding-left: 0px; padding-right: 0px;">
                     <h6>創意能力</h6>
                 </div>
+                {% if dashboard.creative_score %}
                 <div class="col-6 col-md-8">
                     <div class="progress" style="height: 20px;">
                         <div class="progress-bar" role="progressbar"
@@ -173,8 +165,13 @@
                     </div>
                 </div>
                 <div class="col-2 col-md-2 text-center" style="padding-right: 0px; padding-left: 0px;">
-                    <h6>75分</h6>
+                    <h6>{{dashboard.creative_score|default:0 }}分</h6>
                 </div>
+                {% else %}
+                <div class="col-8 col-md-10" style="text-align: center;">
+                    <span class="badge rounded-pill" style="vertical-align: top; color: #F7A22D; background-color: white; width: 100%;">尚未進行面試</span>
+                </div>
+                {% endif %}
             </div>
         </div>
         <div class="container mt-3"></div>
@@ -183,6 +180,7 @@
                 <div class="col-4 col-md-2 text-center" style="padding-left: 0px; padding-right: 0px;">
                     <h6>溝通能力</h6>
                 </div>
+                {% if dashboard.communication_score %}
                 <div class="col-6 col-md-8">
                     <div class="progress" style="height: 20px;">
                         <div class="progress-bar" role="progressbar"
@@ -194,8 +192,13 @@
                     </div>
                 </div>
                 <div class="col-2 col-md-2 text-center" style="padding-right: 0px; padding-left: 0px;">
-                    <h6>66分</h6>
+                    <h6>{{dashboard.communication_score|default:0 }}分</h6>
                 </div>
+                {% else %}
+                <div class="col-8 col-md-10" style="text-align: center;">
+                    <span class="badge rounded-pill" style="vertical-align: top; color: #F7A22D; background-color: white; width: 100%;">尚未進行面試</span>
+                </div>
+                {% endif %}
             </div>
         </div>
         <div class="container mt-3"></div>
@@ -204,6 +207,7 @@
                 <div class="col-4 col-md-2 text-center" style="padding-left: 0px; padding-right: 0px;">
                     <h6>策略能力</h6>
                 </div>
+                {% if dashboard.strategy_score %}
                 <div class="col-6 col-md-8">
                     <div class="progress" style="height: 20px;">
                         <div class="progress-bar" role="progressbar"
@@ -215,8 +219,13 @@
                     </div>
                 </div>
                 <div class="col-2 col-md-2 text-center" style="padding-right: 0px; padding-left: 0px;">
-                    <h6>95分</h6>
+                    <h6>{{dashboard.strategy_score|default:0 }}分</h6>
                 </div>
+                {% else %}
+                <div class="col-8 col-md-10" style="text-align: center;">
+                    <span class="badge rounded-pill" style="vertical-align: top; color: #F7A22D; background-color: white; width: 100%;">尚未進行面試</span>
+                </div>
+                {% endif %}
             </div>
         </div>
         <div class="container mt-3"></div>
@@ -225,6 +234,7 @@
                 <div class="col-4 col-md-2 text-center" style="padding-left: 0px; padding-right: 0px;">
                     <h6>自主學習能力</h6>
                 </div>
+                {% if dashboard.self_learning_score %}
                 <div class="col-6 col-md-8">
                     <div class="progress" style="height: 20px;">
                         <div class="progress-bar" role="progressbar"
@@ -236,8 +246,13 @@
                     </div>
                 </div>
                 <div class="col-2 col-md-2 text-center" style="padding-right: 0px; padding-left: 0px;">
-                    <h6>70分</h6>
+                    <h6>{{dashboard.self_learning_score|default:0 }}分</h6>
                 </div>
+                {% else %}
+                <div class="col-8 col-md-10" style="text-align: center;">
+                    <span class="badge rounded-pill" style="vertical-align: top; color: #F7A22D; background-color: white; width: 100%;">尚未進行面試</span>
+                </div>
+                {% endif %}
             </div>
         </div>
     </div>
@@ -253,6 +268,42 @@
 
 <script>
     $(document).ready(function () {
+        // 修改按鈕事件
+        $("#edit-btn").click(function () {
+            editMode();
+        });
+
+        // 取消按鈕事件
+        $("#cancel-btn").click(function () {
+            readonlyMode();
+        });
+
+        // 儲存按鈕事件
+        $("#save-btn").click(function () {
+            $("#profile-form").submit();
+        });
+
+        // 唯讀模式
+        function readonlyMode(){
+            $("#edit-btn").show();
+            $("#save-btn").hide();
+            $("#cancel-btn").hide();
+            $("input:not('#username,#email')").css("background-color", "transparent");
+            $("select").css("background-color", "transparent")
+            $("input:not('#username,#email')").attr("disabled", "disabled");
+            $("select").attr("disabled", "disabled");
+        }
+
+        // 修改模式
+        function editMode(){
+            $("#edit-btn").hide();
+            $("#save-btn").show();
+            $("#cancel-btn").show();
+            $("input:not('#username,#email')").css("background-color", "white");
+            $("select").css("background-color", "white")
+            $("input:not('#username,#email')").removeAttr("disabled");
+            $("select").removeAttr("disabled");
+        }
 
         // 上傳照片
         $("#photo").change(function () {
