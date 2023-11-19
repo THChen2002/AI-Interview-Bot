@@ -48,6 +48,10 @@
         <input type="button" class="btn btn-primary submit-btn" value="下一題" />
         {% endif %}
         <input type="hidden" class="btn btn-primary currentQuestion" value="{{ forloop.counter }}" />
+        <button id="load-btn" class="btn btn-primary" type="button" disabled style="display: none">
+            <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" style="vertical-align: baseline;"></span>
+            評分中...
+        </button>
     </div>
 </div>
 {% endfor %}
@@ -69,6 +73,9 @@
                 $currentQuestionDiv.hide();
                 $nextQuestionDiv.show();
             } else {
+                $(this).hide();
+                $('#id_answer').prop('disabled', true);
+                $("#load-btn").show();
                 submitAnswer();
             }
         });
