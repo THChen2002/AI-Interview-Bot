@@ -111,16 +111,30 @@ class ForgotPasswordForm(forms.Form):
         widget=forms.EmailInput(attrs={'class': 'form-control'})
     )
 
+
+GENDER_CHOICES = (
+    ('', '請選擇性別'),
+    ('M', '男性'),
+    ('F', '女性'),
+    ('O', '其他'),
+)
+DEGREE_CHOICES = (
+    ('', '請選擇學位'),
+    ('S', '高中'),
+    ('B', '學士'),
+    ('M', '碩士'),
+    ('D', '博士'),
+)
 # 個人檔案
 class PersonalForm(ModelForm):
+    gender = forms.ChoiceField(choices=GENDER_CHOICES, widget=forms.Select(attrs={'class': 'form-control', 'style': 'text-align: right;', 'disabled':''}), required=False)
+    degree = forms.ChoiceField(choices=DEGREE_CHOICES, widget=forms.Select(attrs={'class': 'form-control', 'style': 'text-align: right;', 'disabled':''}), required=False)
     class Meta:
         model = User
         fields = ('profile_image', 'gender', 'birth_date', 'degree')
         widgets = {
             'profile_image': forms.FileInput(attrs={'class': 'form-control', 'id': 'photo', 'accept': 'image/*', 'style': 'display: none;'}),
-            'gender': forms.Select(attrs={'class': 'form-control', 'style': 'text-align: right;', 'disabled':''}),
             'birth_date': forms.DateInput(attrs={'type':'date', 'class': 'form-control', 'style': 'text-align: right;', 'disabled':''}),
-            'degree': forms.Select(attrs={'class': 'form-control', 'style': 'text-align: right;', 'disabled':''}),
         }
 
 
