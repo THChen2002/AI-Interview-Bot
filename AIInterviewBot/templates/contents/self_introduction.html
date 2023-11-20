@@ -35,11 +35,47 @@
                     {{ form.cultural_fit_example }}
                 </div>
                 <div class="d-grid col-10 mx-auto">
-                    <input type="submit" class="btn btn-primary" value="生成自我介紹" />
+                    <input type="submit" id="submit-btn" class="btn btn-primary" value="生成自我介紹" />
+                    <button class="btn btn-primary load-btn" type="button" disabled style="display: none">
+                        <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" style="vertical-align: baseline;"></span>
+                        生成中...
+                    </button>
                 </div>
             </form>
         </div>
     </div>
 </div>
 
+<script>
+    $(document).ready(function () {
+        $("#submit-btn").click(function (e) {
+            e.preventDefault();
+            $(this).hide();
+            $('#id_company, #id_job, #id_skill1, #id_skill2, #id_cultural_fit, #id_cultural_fit_example').prop('disabled', true);
+            $(this).siblings(".load-btn").show();
+            $.ajax({
+                url: "{% url 'SelfIntroduction' %}",
+                type: "POST",
+                data: {
+                    "company": $('#id_company').val(),
+                    "job": $('#id_job').val(),
+                    "skill1": $('#id_skill1').val(),
+                    "skill2": $('#id_skill2').val(),
+                    "cultural_fit": $('#id_cultural_fit').val(),
+                    "cultural_fit_example": $('#id_cultural_fit_example').val(),
+                    "csrfmiddlewaretoken": "{{ csrf_token }}"
+                },
+                success: function (response) {
+                    if (response.status) {
+                        var content_id = response.content_id;
+                        window.location.href = "{% url 'ContentResult' 'self_introduction' %}?content_id=" + content_id;
+                    }
+                },
+                fail: function (response) {
+                    window.location.reload();
+                }
+            });
+        });
+    });
+</script>
 {% endblock %}

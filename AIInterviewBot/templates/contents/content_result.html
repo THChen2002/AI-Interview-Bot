@@ -3,37 +3,79 @@
 {% block content %}
 {% load static %}
 <div style="margin-top: 30px; text-align: center;">
-  <h2 style="color: #5E4006; font-weight: bold;">求職信生成結果</h2>
-  <div style="border: 2px solid #FFB755; border-radius: 10px; padding: 10px; margin-top: 20px; text-align: left;">
-    <p>華碩有限公司<br>人力資源部門<br>親愛的招聘經理，</p>
+    <h2 style="color: #5E4006; font-weight: bold;">{{ record.get_content_type_display }}生成結果</h2>
+    <div id="content" contenteditable="true" style="border: 2px solid #FFB755; border-radius: 10px; padding: 10px; margin-top: 20px; text-align: left;">
+        {{ record.result|linebreaksbr }}
+    </div>
 
-    <p>我寫信是希望能展示對華碩這間公司和應聘軟體工程師職位的浓厚興趣。我非常欣賞華碩始終對科技充滿熱情，以創新驅動發展的做法。我相信自己具備應聘該職位所需的能力，並且可以在團隊中有效合作，確保專案在時限內達成目標。
-    </br>
-       作爲一名軟體工程師，我從事了多個與華碩類似的專案。與設計師、產品經理和測試人員密切合作的經驗，使我更加意識到團隊合作對於專案成功的重要性。我擅長與其他成員協作，確保專案在預定時間內完成，同時保持高品質的交付。
-    </br>  
-       此外，我經常參與解決技術挑戰和編寫高效的代碼。我不斷學習新的技術和工具，以提升我的技能水平，並確保我在快速變化的科技領域保持競爭力。我也注重細節，並且深刻理解軟體發展的生命周期和品質保證的重要性。
-    </br>    
-       透過支持設計和研發團隊，我希望能在華碩的軟體工程團隊中發揮自己的專業知識和經驗。我認為這是一個理想的機會，可以結合我的技術能力和對創新的熱忱，為華碩的科技產品做出貢獻。
-    </br>  
-       我非常期待有機會與您進一步探討我的應聘。請參考附上的簡歷，以了解我更詳細的經歷和技能。感謝您撥冗閱讀此份求職信，並願意給予我的申請重視。
-    </p>
-
-    <p>感謝您撥冗閱讀此份求職信，並願意給予我的申請重視。</p>
-
-    <p>祝福，順祈照您</p>
-    
-    <p>[你的名字]<br>[你的聯繫方式]</p>
-  </div>
-
-  <div style="margin-top: 30px;"></div>
-  <h5 style="color: #F7A22D; font-weight: bold;">滿意這個回答嗎？</h5>
-  <table style="margin: 0 auto; border: 2px solid #FCEEDB; border-radius: 10px;">
-    <tr>
-      <td><img src="{% static 'images/good.png' %}" style="width: 40px; height: 40px;"></td>
-      <td style="width: 10px;"></td>
-      <td><img src="{% static 'images/bad.png' %}" style="width: 40px; height: 40px;"></td>
-    </tr>
-  </table>
-  <div style="margin-top: 30px;"></div>
+    <div style="margin-top: 30px;"></div>
+        <button id="save-btn" class="btn btn-secondary" type="button">
+            保存{{ record.get_content_type_display }}
+        </button>
+        <h5 style="color: #F7A22D; font-weight: bold;">滿意這個回答嗎？</h5>
+        <input type="hidden" name="content_id" value="{{ record.id }}" />
+        <input type="hidden" name="is_satisfied" value="False" />
+        <img src="{% static 'images/good.png' %}" id="good-btn" style="width: 40px; height: 40px; cursor: pointer;">
+        <img src="{% static 'images/bad.png' %}" id="bad-btn" style="width: 40px; height: 40px; cursor: pointer;">
+    <div style="margin-top: 30px;"></div>
 </div>
+
+
+<script>
+    $(document).ready(function () {
+        var isSatisfied = null;
+
+        $("#good-btn").click(function () {
+            isSatisfied = true;
+            updateButtonState();
+        });
+
+        $("#bad-btn").click(function () {
+            isSatisfied = false;
+            updateButtonState();
+        });
+
+        // 更新按鈕狀態
+        function updateButtonState() {
+            if (isSatisfied === true) {
+                $("#good-btn").attr("src", "{% static 'images/good_selected.png' %}");
+                $("#bad-btn").attr("src", "{% static 'images/bad.png' %}");
+            } else if (isSatisfied === false) {
+                $("#good-btn").attr("src", "{% static 'images/good.png' %}");
+                $("#bad-btn").attr("src", "{% static 'images/bad_selected.png' %}");
+            } else {
+                $("#good-btn").attr("src", "{% static 'images/good.png' %}");
+                $("#bad-btn").attr("src", "{% static 'images/bad.png' %}");
+            }
+            $("input[name='is_satisfied']").val(isSatisfied);
+        }
+
+        $("#save-btn").click(function () {
+            saveContent();
+        });
+        
+        // 儲存內容
+        function saveContent() {
+            // innerText會把前一行的<h5>文字也抓進來，所以要去掉
+            var originalContent = document.getElementById("content").innerText;
+            var resultContent = originalContent.substring(originalContent.indexOf('\n')+1);
+            var data = {
+                content_id: $("input[name='content_id']").val(),
+                content: resultContent,
+                is_satisfied: $("input[name='is_satisfied']").val(),
+                csrfmiddlewaretoken: "{{ csrf_token }}",
+            };
+            $.ajax({
+                url: "{% url 'ContentResult' 'content' %}",
+                type: "POST",
+                data: data,
+                success: function (response) {
+                    if (response.status) {
+                        window.location.href = "{% url 'Index' %}";
+                    }
+                }
+            });
+        }
+    });
+</script>
 {% endblock %}
