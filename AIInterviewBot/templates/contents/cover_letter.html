@@ -31,10 +31,46 @@
                     {{ form.example }}
                 </div>
                 <div class="d-grid col-10 mx-auto">
-                    <input type="submit" class="btn btn-primary" value="生成求職信" />
+                    <input type="submit" id="submit-btn" class="btn btn-primary" value="生成求職信" />
+                    <button class="btn btn-primary load-btn" type="button" disabled style="display: none">
+                        <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" style="vertical-align: baseline;"></span>
+                        生成中...
+                    </button>
                 </div>
             </form>
         </div>
     </div>
 </div>
+
+<script>
+    $(document).ready(function () {
+        $("#submit-btn").click(function (e) {
+            e.preventDefault();
+            $(this).hide();
+            $('#id_company, #id_job, #id_attract, #id_strength, #id_example').prop('disabled', true);
+            $(this).siblings(".load-btn").show();
+            $.ajax({
+                url: "{% url 'CoverLetter' %}",
+                type: "POST",
+                data: {
+                    "company": $('#id_company').val(),
+                    "job": $('#id_job').val(),
+                    "attract": $('#id_attract').val(),
+                    "strength": $('#id_strength').val(),
+                    "example": $('#id_example').val(),
+                    "csrfmiddlewaretoken": "{{ csrf_token }}"
+                },
+                success: function (response) {
+                    if (response.status) {
+                        var content_id = response.content_id;
+                        window.location.href = "{% url 'ContentResult' 'cover_letter' %}?content_id=" + content_id;
+                    }
+                },
+                fail: function (response) {
+                    window.location.reload();
+                }
+            });
+        });
+    });
+</script>
 {% endblock %}

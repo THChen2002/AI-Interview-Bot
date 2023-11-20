@@ -1,4 +1,4 @@
-from django.shortcuts import render,redirect
+from django.shortcuts import render,redirect, get_object_or_404
 from django.urls import reverse
 from contents.service import ContentsService
 from contents.forms import CoverLetterForm, MockInterviewModeForm, MockInterviewForm, RecommendationLetterForm, ResumeForm, SelfIntroductionForm
@@ -13,6 +13,51 @@ from random import sample
 from django.conf import settings
 from django.contrib.auth import get_user_model
 User = get_user_model()
+
+# 求職信頁面
+def cover_letter(request):
+    if request.method == 'POST':
+        form = CoverLetterForm(request.POST)
+        if form.is_valid():
+            company = form.cleaned_data['company']
+            job = form.cleaned_data['job']
+            attract = form.cleaned_data['attract']
+            strength = form.cleaned_data['strength']
+            example = form.cleaned_data['example']
+            user_prompt = {
+                "role": "user",
+                "content": "你現在想要要應徵 " + company + "的" + job  +",這間公司吸引你的原因是" + attract + "而你的強項以及你認為公司為何錄取你的原因是" + strength + "實際的例子有" + example + "請您撰寫一份出色的求職信,並盡可能具備以下3個要點:\n1.開頭精簡、結尾推銷\n2.「關鍵字」在中間的佈局最為重要，可利用重點式說明優勢與經歷，以方便對方閱讀。\n3.「關鍵字」都必須與企業職缺的工作敘述有連結性，沒有連結性的部分可省略"
+            }
+            messages = ContentsService.get_messages(user_prompt)
+            replyMsg = ContentsService.get_reply(messages)
+            content = ContentRecord.objects.create(user=request.user, content_type='CL', unit=company, result=replyMsg, is_satisfied=False)
+        return JsonResponse({'status': True, 'content_id': content.id})
+    else:
+        form = CoverLetterForm()
+    return render(request, 'contents/cover_letter.html', locals())
+
+# 推薦信頁面
+def recommendation_letter(request):
+    if request.method == 'POST':
+        form = RecommendationLetterForm(request.POST)
+        if form.is_valid():
+            self = form.cleaned_data['self']
+            recommender = form.cleaned_data['recommender']
+            position = form.cleaned_data['position']
+            experience = form.cleaned_data['experience']
+            reason = form.cleaned_data['reason']
+            example = form.cleaned_data['example']
+            user_prompt = {
+                "role": "user",
+                "content": "今天你是" + self + "的推薦人" + recommender + "您要將他推薦到" + position + "，您與推薦人的合作經驗是" + experience + "，您推薦他的原因是推薦人" + reason + "實際的例子有" + example + "，請您為推薦人撰寫一份推薦信。"
+            }
+            messages = ContentsService.get_messages(user_prompt)
+            replyMsg = ContentsService.get_reply(messages)
+            content = ContentRecord.objects.create(user=request.user, content_type='RL', unit=position, result=replyMsg, is_satisfied=False)
+        return JsonResponse({'status': True, 'content_id': content.id})
+    else:
+        form = RecommendationLetterForm()
+    return render(request, 'contents/recommendation_letter.html', locals())
 
 # 自我介紹頁面
 def self_introduction(request):
@@ -31,10 +76,68 @@ def self_introduction(request):
             }
             messages = ContentsService.get_messages(user_prompt)
             replyMsg = ContentsService.get_reply(messages)
-        return render(request, 'contents/self_introduction.html', locals())
+            content = ContentRecord.objects.create(user=request.user, content_type='SI', unit=company, result=replyMsg, is_satisfied=False)
+        return JsonResponse({'status': True, 'content_id': content.id})
     else:
         form = SelfIntroductionForm()
     return render(request, 'contents/self_introduction.html', locals())
+
+#生成結果頁面
+def content_result(request, type):
+    if request.method == 'POST':
+        content_id = request.POST.get('content_id')
+        content = request.POST.get('content')
+        is_satisfied = request.POST.get('is_satisfied').lower() == 'true'
+        record = ContentRecord.objects.get(id=content_id)
+        record.result = content
+        record.is_satisfied = is_satisfied
+        record.save()
+        return JsonResponse({'status': True})
+    else:
+        content_id = request.GET.get('content_id')
+        record = get_object_or_404(ContentRecord, id=content_id)
+    return render(request, 'contents/content_result.html', locals())
+
+
+# 履歷頁面
+def resume(request):
+    if request.method == 'POST':
+        form = ResumeForm(request.POST)
+        if form.is_valid():
+            unit = User.objects.get(id=request.user.id)
+            resume = {
+                'name' :unit.first_name + unit.last_name,
+                'gender' :unit.get_gender_display() if unit.get_gender_display() else '',
+                'birth_date' :unit.birth_date.strftime("%Y/%m/%d") if unit.birth_date else '',
+                'education': form.cleaned_data['personal_education'],
+                'email' :unit.email,
+                'personal_experience': form.cleaned_data['personal_experience'],
+                'skill': form.cleaned_data['skill'],
+                'interest': form.cleaned_data['interest'],
+                'style': form.cleaned_data['style'],
+            }
+            user_prompt = {
+                "role": "user",
+                "content": "你要完成一份正式的個人簡介內容開頭無需「個人簡介」四字，你的個人經驗是" + resume['personal_experience'] + "，而你的專長與技能是" + resume['skill'] + "，另外你工作外的休閒嗜好是" + resume['interest']
+            }
+            messages = ContentsService.get_messages(user_prompt)
+            resume['self_introduction'] = ContentsService.get_reply(messages)
+            output_path = ContentsService.export_resume(resume)
+
+            # 儲存履歷紀錄
+            resume_record = form.save(commit=False)
+            resume_record.user = request.user
+            # 儲存履歷檔案到使用者對應的資料夾
+            with open(output_path, 'rb') as file:
+                folder_path = request.user.username
+                file_name = f"{str(uuid.uuid4())[:8]}_resume.docx"
+                file_path = os.path.join(folder_path, file_name)
+                resume_record.resume_file.save(file_path, File(file))
+            resume_record.save()
+            return JsonResponse({'file_name': file_name})
+    else:
+        form = ResumeForm()
+    return render(request, 'contents/resume.html', locals())
 
 # 模擬面試頁面
 def mock_interview_mode(request):
@@ -100,96 +203,8 @@ def mock_interview_result(request):
         return JsonResponse({'status': True, 'score_id': interview_score.id, 'msg':replyMsg})
     else:
         score_id = request.GET.get('score_id')
-        interviewScore = InterviewScore.objects.get(id=score_id)
+        interviewScore = get_object_or_404(InterviewScore, id=score_id)
     return render(request, 'contents/mock_interview_result.html', locals())
-
-# 推薦信頁面
-def recommendation_letter(request):
-    if request.method == 'POST':
-        form = RecommendationLetterForm(request.POST)
-        if form.is_valid():
-            referee = form.cleaned_data['referee']
-            referrer = form.cleaned_data['referrer']
-            department = form.cleaned_data['department']
-            experience = form.cleaned_data['experience']
-            reason = form.cleaned_data['reason']
-            example = form.cleaned_data['example']
-            user_prompt = {
-                "role": "user",
-                "content": "今天你是" + referee + "的推薦人" + referrer + "您要將他推薦到" + department + "，您與推薦人的合作經驗是" + experience + "，您推薦他的原因是推薦人" + reason + "實際的例子有" + example + "，請您為推薦人撰寫一份推薦信。"
-            }
-            messages = ContentsService.get_messages(user_prompt)
-            replyMsg = ContentsService.get_reply_s(messages)
-        return render(request, 'contents/recommendation_letter.html', locals())
-    else:
-        form = RecommendationLetterForm()
-    return render(request, 'contents/recommendation_letter.html', locals())
-
-# 求職信頁面
-def cover_letter(request):
-    if request.method == 'POST':
-        form = CoverLetterForm(request.POST)
-        if form.is_valid():
-            company = form.cleaned_data['company']
-            job = form.cleaned_data['job']
-            reason = form.cleaned_data['reason']
-            strengths = form.cleaned_data['strengths']
-            example = form.cleaned_data['example']
-            user_prompt = {
-                "role": "user",
-                "content": "你現在想要要應徵 " + company + "的" + job  +",這間公司吸引你的原因是" + reason + "而你的強項以及你認為公司為何錄取你的原因是" + strengths + "實際的例子有" + example + "請您撰寫一份出色的求職信,並盡可能具備以下3個要點:\n1.開頭精簡、結尾推銷\n2.「關鍵字」在中間的佈局最為重要，可利用重點式說明優勢與經歷，以方便對方閱讀。\n3.「關鍵字」都必須與企業職缺的工作敘述有連結性，沒有連結性的部分可省略"
-            }
-            messages = ContentsService.get_messages(user_prompt)
-            replyMsg = ContentsService.get_reply_s(messages)
-        return render(request, 'contents/cover_letter.html', locals())
-    else:
-        form = CoverLetterForm()
-    return render(request, 'contents/cover_letter.html', locals())
-
-#生成結果頁面
-def content_result(request, type):
-    return render(request, 'contents/content_result.html', locals())
-
-
-# 履歷頁面
-def resume(request):
-    if request.method == 'POST':
-        form = ResumeForm(request.POST)
-        if form.is_valid():
-            unit = User.objects.get(id=request.user.id)
-            resume = {
-                'name' :unit.first_name + unit.last_name,
-                'gender' :unit.get_gender_display() if unit.get_gender_display() else '',
-                'birth_date' :unit.birth_date.strftime("%Y/%m/%d") if unit.birth_date else '',
-                'education': form.cleaned_data['personal_education'],
-                'email' :unit.email,
-                'personal_experience': form.cleaned_data['personal_experience'],
-                'skill': form.cleaned_data['skill'],
-                'interest': form.cleaned_data['interest'],
-                'style': form.cleaned_data['style'],
-            }
-            user_prompt = {
-                "role": "user",
-                "content": "你要完成一份正式的個人簡介內容開頭無需「個人簡介」四字，你的個人經驗是" + resume['personal_experience'] + "，而你的專長與技能是" + resume['skill'] + "，另外你工作外的休閒嗜好是" + resume['interest']
-            }
-            messages = ContentsService.get_messages(user_prompt)
-            resume['self_introduction'] = ContentsService.get_reply(messages)
-            output_path = ContentsService.export_resume(resume)
-
-            # 儲存履歷紀錄
-            resume_record = form.save(commit=False)
-            resume_record.user = request.user
-            # 儲存履歷檔案到使用者對應的資料夾
-            with open(output_path, 'rb') as file:
-                folder_path = request.user.username
-                file_name = f"{str(uuid.uuid4())[:8]}_resume.docx"
-                file_path = os.path.join(folder_path, file_name)
-                resume_record.resume_file.save(file_path, File(file))
-            resume_record.save()
-            return JsonResponse({'file_name': file_name})
-    else:
-        form = ResumeForm()
-    return render(request, 'contents/resume.html', locals())
 
 # 儀表板頁面
 def dashboard(request):
