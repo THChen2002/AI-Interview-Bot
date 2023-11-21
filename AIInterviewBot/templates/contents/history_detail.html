@@ -9,8 +9,11 @@
 <div class="row row justify-content-center" style="margin-top:10px">
     <div class="col-md-6 max-auto">
         <div class="row justify-content-center">
-            <div class="accounts-title">
+            <div class="col-6 accounts-title">
                 歷史紀錄
+            </div>
+            <div class="col-6" style="text-align:end;">
+                <img src="{% static 'images/back-y.png'%}" alt="back" id="back" style="width: 40px; height: 40px; margin-top: 10px; cursor: pointer;">
             </div>
             <div class="card detail-card mb-3 border-0" data-content-id="{{ record.id }}">
                 <div class="row g-0">
@@ -37,17 +40,24 @@
             </div>
         </div>
     </div>
+</div>
 
-    <script>
-        $(document).ready(function(){
-            $('#copy-img').click(function(){
-                copyToClipboard();
-            })
-
-            function copyToClipboard() {
-                result = $('#record_result').text();
-                navigator.clipboard.writeText(result);
-            }
+{% include 'modal_template.html' %}
+<script>
+    $(document).ready(function(){
+        $('#back').click(function(){
+            window.location.href = "{% url 'History' %}";
         })
-    </script>
-    {% endblock %}
+
+        $('#copy-img').click(function(){
+            copyToClipboard();
+        })
+        
+        function copyToClipboard() {
+            result = $('#record_result').text();
+            navigator.clipboard.writeText(result);
+            alertCopy();
+        }
+    })
+</script>
+{% endblock %}

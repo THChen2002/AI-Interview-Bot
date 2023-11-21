@@ -1,5 +1,12 @@
 {% load static %}
-<!-- 彈跳視窗 -->
+<style>
+    #copy-Modal {
+        --bs-modal-bg: rgba(255, 255, 255, 0.7);
+        --bs-modal-width: 170px;
+    }
+</style>
+
+<!-- 成功視窗 -->
 <div class="modal fade" id="redirectToLogin" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
     aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog">
@@ -10,8 +17,19 @@
     </div>
 </div>
 
-<script>
+<!-- 複製成功 -->
+<div class="modal modal fade" id="copy-Modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content" style="text-align: center;">
+            <div class="modal-body" style="text-align: center;" style="background-color: rgba(242, 242, 242, 0.8);">
+                <h4 style="margin:0px;"><strong>已複製!</strong></h4>
+            </div>
+        </div>
+    </div>
+</div>
 
+<script>
     // 註冊成功
     function alertSuccess(action, successCallback) {
         const correctModal = new bootstrap.Modal($('#redirectToLogin'));
@@ -22,6 +40,23 @@
                 $("#redirectToLogin").modal("hide");
                 successCallback();
             }
+        });
+    }
+
+    // 複製成功
+    function alertCopy() {
+        const copyModal = new bootstrap.Modal($('#copy-Modal'), {
+            backdrop: false
+        });
+
+        $("#copy-Modal").modal("show");
+        // 淡入
+        $("#copy-Modal").fadeIn(10, function() {
+            setTimeout(function() {
+                $("#copy-Modal").fadeOut(300, function() {
+                    copyModal.hide();
+                });
+            }, 1000);
         });
     }
 </script>
