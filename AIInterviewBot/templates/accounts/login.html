@@ -4,7 +4,7 @@
 {% load static %}
 {% load socialaccount %}
 
-<div class="center logo">
+<div class="center logo" style="box-shadow: none;">
 	<img src="{% static 'images/LOGO.png' %}" alt="LOGO" width="90" height="108">
 	<h1 class="custom-title" style="text-align: left; margin-left: -70px;">使用者登入</h1>
 	<form method="post" id="login-form">
@@ -54,7 +54,7 @@
 		<input type="submit" class="btn-submit" value="登入" />
 		<div class="signup_link">
 			<span style="color: #F7A22D;">還沒註冊嗎&nbsp?</span>
-			<a href="{% url 'Register' %}" style="color: #D57F0A;">&nbsp&nbsp立即註冊</a>
+			<a href="{% url 'Register' %}" style="color: #D57F0A; text-decoration: none;">&nbsp&nbsp立即註冊</a>
 		</div>
 		<!--第三方登入-->
 		<button class="btn-google" onclick="location.href='{% provider_login_url 'google' method='oauth2' %}'"
