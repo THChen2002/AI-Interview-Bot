@@ -93,7 +93,11 @@
                         var score_id = response.score_id;
                         window.location.href = "{% url 'MockInterviewResult' %}?score_id=" + score_id;
                     }
-                }
+                },
+                error: function () {
+                    alert("系統錯誤，請稍後再試");
+                    window.location.reload();
+                }                
             });
         }
     });

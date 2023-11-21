@@ -145,7 +145,9 @@ def mock_interview_mode(request):
         form = MockInterviewModeForm(request.POST)
         if form.is_valid():
             mode = form.cleaned_data['mode']
-            return redirect(reverse("MockInterview", kwargs={'mode':mode}))
+            company = form.cleaned_data['company']
+            request.session['company'] = company
+            return redirect(reverse("MockInterview", kwargs={'mode': mode}))
     else:
         form = MockInterviewModeForm()
     return render(request, 'contents/mock_interview_mode.html', locals())
@@ -184,7 +186,7 @@ def mock_interview_result(request):
         # 創建評分紀錄
         interview_score = InterviewScore.objects.create(
             user=request.user,
-            unit="XX公司",
+            unit=request.session.get('company', ''),
             professional_score=response_data['professional_score'],
             professional_suggestion=response_data['professional_suggestion'],
             creative_score=response_data['creative_score'],
