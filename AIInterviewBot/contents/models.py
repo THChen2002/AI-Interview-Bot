@@ -19,6 +19,7 @@ class ContentRecord(models.Model):
 
 # 個人簡歷生成紀錄
 class ResumeRecord(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     personal_education = models.CharField(max_length=100)
     personal_experience = models.TextField()
     skill = models.TextField()
