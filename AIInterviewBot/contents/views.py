@@ -218,7 +218,7 @@ def history(request):
     cover_letter_records = ContentRecord.objects.filter(user=request.user, content_type='CL')
     recommendation_letter_records = ContentRecord.objects.filter(user=request.user, content_type='RL')
     self_introduction_records = ContentRecord.objects.filter(user=request.user, content_type='SI')
-    resume_records = ResumeRecord.objects.filter(User=request.user)
+    resume_records = ResumeRecord.objects.filter(user=request.user)
     mock_interview_records = InterviewScore.objects.filter(user=request.user)
     date_filter = request.GET.get('date')
     # 獲取選擇的頁籤(預設為cover_letter)
