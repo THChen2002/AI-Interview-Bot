@@ -56,12 +56,10 @@
         
         // 儲存內容
         function saveContent() {
-            // innerText會把前一行的<h5>文字也抓進來，所以要去掉
-            var originalContent = document.getElementById("content").innerText;
-            var resultContent = originalContent.substring(originalContent.indexOf('\n')+1);
+            var content = $('#content').html();
             var data = {
                 content_id: $("input[name='content_id']").val(),
-                content: resultContent,
+                content: content,
                 is_satisfied: $("input[name='is_satisfied']").val(),
                 csrfmiddlewaretoken: "{{ csrf_token }}",
             };
