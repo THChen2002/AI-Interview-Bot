@@ -1,0 +1,11 @@
+.container {
+    width: 65%;
+}
+
+/* 手機 */
+@media screen and (max-width: 428px) {
+    .container {
+        width: 100%;
+    }
+    
+}

@@ -1,0 +1,17 @@
+.accordion-button:not(.collapsed) {
+    color: #ffffff;
+    background-color: #F7A22D;
+
+}
+
+.container {
+    width: 65%;
+}
+
+/* 手機 */
+@media screen and (max-width: 428px) {
+    .container {
+        width: 100%;
+    }
+    
+}
