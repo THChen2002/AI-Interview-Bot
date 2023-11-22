@@ -148,7 +148,7 @@
                     <br>
                     {% for record in resume_records %}
                     <div class="card mb-3 border-0" data-content-id="{{ record.id }}"
-                        data-content-type="{{ record.content_type }}">
+                        data-content-type="R">
                         <div class="row g-0">
                             <div class="col card date-card border-0">
                                 <div class="card-body">
@@ -158,8 +158,8 @@
                             </div>
                             <div class="col card bg-transparent border-0">
                                 <div class="card-body" style="padding-left: 40px;">
-                                    <h5 style="color:#5E4104">{{ record.unit }}簡歷</h5>
-                                    <p class="card-text"><small class="text-muted">{{ record.result }}</small>
+                                    <h5 style="color:#5E4104">{{ record.get_style_display }}簡歷</h5>
+                                    <p class="card-text"><small class="text-muted">點擊進入下載</small>
                                 </div>
                             </div>
                         </div>

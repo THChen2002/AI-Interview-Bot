@@ -255,6 +255,11 @@ def history_detail(request):
     # 取得該筆紀錄
     if type == 'MI':
         record = InterviewScore.objects.get(id=record_id)
+    elif type == 'R':
+        history = True
+        record = ResumeRecord.objects.get(id=record_id)
+        form = ResumeForm(instance=record)
+        return render(request, 'contents/resume.html', locals())
     else:
         record = ContentRecord.objects.get(id=record_id)
     return render(request, 'contents/history_detail.html', locals())

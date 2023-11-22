@@ -81,6 +81,15 @@
 
 <script>
     $(document).ready(function () {
+        // 判斷是否為歷史紀錄頁面
+        var history = '{{ history }}' === 'True';
+        if (history) {
+            var file_path = '{{ record.resume_file }}';
+            var parts = file_path.split('/');
+            var file_name = parts[parts.length - 1];
+            downloadMode(file_name);
+        }
+
         $('#resumeForm').submit(function (e) {
             e.preventDefault();
             // 隱藏生成按鈕
@@ -92,14 +101,7 @@
                 type: 'POST',
                 data: $(this).serialize(),
                 success: function (data) {
-                    // 隱藏生成中按鈕
-                    $('#load-btn').hide();
-                    // 所有輸入欄位改成禁用
-                    $('#id_personal_education, #id_personal_experience, #id_skill, #id_interest, #id_style').prop('disabled', true);
-                    // 設定檔名到隱藏欄位
-                    $('#download-form input[name=file_name]').val(data.file_name);
-                    // 顯示下載按鈕
-                    $('#download-btn').show();
+                    downloadMode(data.file_name);
                 },
                 error: function (error) {
                     console.log(error);
@@ -109,6 +111,20 @@
         $('#download-btn').click(function (e) {
             $('#download-form').submit();
         });
+        
+        // 下載模式
+        function downloadMode(fileName) {
+            // 隱藏生成按鈕
+            $('#generate-btn').hide();
+            // 隱藏生成中按鈕
+            $('#load-btn').hide();
+            // 所有輸入欄位改成禁用
+            $('#id_personal_education, #id_personal_experience, #id_skill, #id_interest, #id_style').prop('disabled', true);
+            // 設定檔名到隱藏欄位
+            $('#download-form input[name=file_name]').val(file_name);
+            // 顯示下載按鈕
+            $('#download-btn').show();
+        }
     });
 </script>
 
