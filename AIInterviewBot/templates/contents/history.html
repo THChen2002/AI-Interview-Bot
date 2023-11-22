@@ -61,17 +61,24 @@
                     <div class="card mb-3 border-0" data-content-id="{{ record.id }}"
                         data-content-type="{{ record.content_type }}">
                         <div class="row g-0">
-                            <div class="col card date-card border-0">
+                            <div class="col-2 card date-card border-0">
                                 <div class="card-body">
                                     <h5 class="card-title">{{ record.created_at.day }}</h5>
                                     <p class="card-text"><small class="text-muted">{{ record.created_at|get_month_name }}</small></p>
                                 </div>
                             </div>
-                            <div class="col card bg-transparent border-0">
+                            <div class="col-9 card bg-transparent border-0">
                                 <div class="card-body" style="padding-left: 40px;">
                                     <h5 style="color:#5E4104">{{ record.unit }}求職信</h5>
                                     <p class="card-text"><small class="text-muted">{{ record.result }}</small>
                                 </div>
+                            </div>
+                            <div class="col-1" style="display: flex; justify-content: end; align-items: center;">
+                                {% if record.is_satisfied %}
+                                <img src="{% static 'images/good_selected.png' %}" alt="good" style="width:40px; height: 40px;">
+                                {% else %}
+                                <img src="{% static 'images/bad_selected.png' %}" alt="bad" style="width:40px; height: 40px;">
+                                {% endif %}
                             </div>
                         </div>
                     </div>
@@ -84,17 +91,24 @@
                     <div class="card mb-3 border-0" data-content-id="{{ record.id }}"
                         data-content-type="{{ record.content_type }}">
                         <div class="row g-0">
-                            <div class="col card date-card border-0">
+                            <div class="col-2 card date-card border-0">
                                 <div class="card-body">
                                     <h5 class="card-title">{{ record.created_at.day }}</h5>
                                     <p class="card-text"><small class="text-muted">{{ record.created_at|get_month_name }}</small></p>
                                 </div>
                             </div>
-                            <div class="col card bg-transparent border-0">
+                            <div class="col-9 card bg-transparent border-0">
                                 <div class="card-body" style="padding-left: 40px;">
                                     <h5 style="color:#5E4104">{{ record.unit }}推薦信</h5>
                                     <p class="card-text"><small class="text-muted">{{ record.result }}</small>
                                 </div>
+                            </div>
+                            <div class="col-1" style="display: flex; justify-content: end; align-items: center;">
+                                {% if record.is_satisfied %}
+                                <img src="{% static 'images/good_selected.png' %}" alt="good" style="width:40px; height: 40px;">
+                                {% else %}
+                                <img src="{% static 'images/bad_selected.png' %}" alt="bad" style="width:40px; height: 40px;">
+                                {% endif %}
                             </div>
                         </div>
                     </div>
@@ -107,17 +121,24 @@
                     <div class="card mb-3 border-0" data-content-id="{{ record.id }}"
                         data-content-type="{{ record.content_type }}">
                         <div class="row g-0">
-                            <div class="col card date-card border-0">
+                            <div class="col-2 card date-card border-0">
                                 <div class="card-body">
                                     <h5 class="card-title">{{ record.created_at.day }}</h5>
                                     <p class="card-text"><small class="text-muted">{{ record.created_at|get_month_name }}</small></p>
                                 </div>
                             </div>
-                            <div class="col card bg-transparent border-0">
+                            <div class="col-9 card bg-transparent border-0">
                                 <div class="card-body" style="padding-left: 40px;">
                                     <h5 style="color:#5E4104">{{ record.unit }}自我介紹</h5>
                                     <p class="card-text"><small class="text-muted">{{ record.result }}</small>
                                 </div>
+                            </div>
+                            <div class="col-1" style="display: flex; justify-content: end; align-items: center;">
+                                {% if record.is_satisfied %}
+                                <img src="{% static 'images/good_selected.png' %}" alt="good" style="width:40px; height: 40px;">
+                                {% else %}
+                                <img src="{% static 'images/bad_selected.png' %}" alt="bad" style="width:40px; height: 40px;">
+                                {% endif %}
                             </div>
                         </div>
                     </div>
