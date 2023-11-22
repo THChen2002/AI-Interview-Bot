@@ -275,6 +275,7 @@
         };
         // 修改按鈕事件
         $("#edit-btn").click(function () {
+            $('#id_birth_date').css('margin-left', '0px');
             editMode();
         });
 
@@ -282,6 +283,7 @@
         $("#cancel-btn").click(function () {
             $('#id_gender').val(init_value.gender);
             $('#id_birth_date').val(init_value.birth_date);
+            $('#id_birth_date').css('margin-left', '20px');
             $('#id_degree').val(init_value.degree);
             readonlyMode();
         });

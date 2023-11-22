@@ -134,7 +134,7 @@ class PersonalForm(ModelForm):
         fields = ('profile_image', 'gender', 'birth_date', 'degree')
         widgets = {
             'profile_image': forms.FileInput(attrs={'class': 'form-control', 'id': 'photo', 'accept': 'image/*', 'style': 'display: none;'}),
-            'birth_date': forms.DateInput(attrs={'type':'date', 'class': 'form-control', 'style': 'text-align: right;', 'disabled':''}),
+            'birth_date': forms.DateInput(attrs={'type':'date', 'class': 'form-control', 'style': 'text-align: right; margin-left: 20px;', 'disabled':''}),
         }
 
 
