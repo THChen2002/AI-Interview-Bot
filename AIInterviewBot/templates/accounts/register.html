@@ -5,10 +5,11 @@
 {% block content %}
 
 {% load static %}
-<div class="center" style="box-shadow: none;">
-	<div style="text-align: center;">
-		<img src="{% static 'images/LOGO.png' %}" alt="LOGO" width="90" height="108">
-	</div>
+<div class="center" style="box-shadow: none; padding-top: 50px;">
+	<div style="text-align: center;	">
+        <img src="{% static 'images/LOGO.png' %}" alt="LOGO" width="90" height="108" >
+        <h1 style="font-size: 30px; font-weight: 600;">JOBEASE</h1>
+    </div>
 	<h1 class="register-title" style="text-align: left;">使用者註冊</h1>
 	<form method="post" id="register-form">
 		{% csrf_token %}
@@ -55,7 +56,7 @@
 		<input type="submit" class="btn-submit" value="註冊" style="text-align: center;"><br>
 	</form>
 	<div class="signup_link">
-		已經是會員?<a href="{% url 'Login'%}" style="color: #F7A22D;">&nbsp;立即登入</a>
+		已經是會員?<a href="{% url 'Login'%}" style="color: #F7A22D; text-decoration: none;">&nbsp;立即登入</a>
 	</div>
 </div>
 

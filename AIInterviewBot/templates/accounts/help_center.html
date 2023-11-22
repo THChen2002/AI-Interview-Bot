@@ -2,13 +2,11 @@
 {% block title %}幫助中心{% endblock %}
 {% block content %}
 {% load static %}
+<!-- CSS -->
+<link rel="stylesheet" type="text/css" href="{% static 'css/help_center.css' %}" />
+<h1 class="problem-report" style="color: #F7A32E;">幫助中心</h1>
+<hr>
 <!-- 問題下拉選單 -->
-<style>
-  .accordion-button:not(.collapsed){
-    color: #ffffff;
-    background-color: #F7A22D;
-  }
-</style>
 <div class="accordion accordion-flush" id="QuestionSet">
   <div class="accordion-item">
     <h2 class="accordion-header" id="flush-headingOne">

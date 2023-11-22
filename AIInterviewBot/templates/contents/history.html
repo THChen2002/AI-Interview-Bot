@@ -6,13 +6,13 @@
 
 <link rel="stylesheet" href="{% static 'css/history.css' %}" type="text/css">
 
-<div class="row row justify-content-center" style="margin-top:10px">
+<div class="row row justify-content-center" style="margin-top:0px">
     <div class="col-md-6 max-auto">
         <div class="row justify-content-center">
-            <div class="accounts-title col-8">
+            <div class="accounts-title col-8 col-md-9" style="font-size: 35px;">
                 歷史紀錄
             </div>
-            <div class="col-4">
+            <div class="col-4 col-md-3" style="margin-top: 19px;">
                 <select id="date-filter" class="form-select">
                     <option value="" {% if date_filter is None %}selected{% endif %}>不限時間</option>
                     <option value="today" {% if date_filter == "today" %}selected{% endif %}>今天</option>

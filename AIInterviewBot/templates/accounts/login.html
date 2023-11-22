@@ -5,8 +5,11 @@
 {% load socialaccount %}
 
 <div class="center logo" style="box-shadow: none;">
-	<img src="{% static 'images/LOGO.png' %}" alt="LOGO" width="90" height="108">
-	<h1 class="custom-title" style="text-align: left; margin-left: -70px;">使用者登入</h1>
+	<div style="text-align: center;	">
+        <img src="{% static 'images/LOGO.png' %}" alt="LOGO" width="90" height="108" >
+        <h1 style="font-size: 30px; font-weight: 600; padding-bottom: 0px;">JOBEASE</h1>
+    </div>
+	<h1 class="custom-title" style="text-align: left; margin-left: 0px; width: 350px;">使用者登入</h1>
 	<form method="post" id="login-form">
 		{% csrf_token %}
 		<div class="txt_field">

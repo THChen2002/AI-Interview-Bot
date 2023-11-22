@@ -151,5 +151,5 @@ class ProblemReportForm(ModelForm):
         model = ProblemReport
         fields = ('type', 'problem')
         widgets = {
-            'problem': forms.Textarea(attrs={'class': 'form-control', 'placeholder':'遇到問題了嗎?若無法在幫助中心找到相關的解決方式，請在此簡單敘述您遇到的問題。'}),
+            'problem': forms.Textarea(attrs={'class': 'form-control', 'placeholder':'遇到問題了嗎?若無法在幫助中心找到相關的解決方式，請在此簡單敘述您遇到的問題。','style': 'resize:none;'}),
         }
