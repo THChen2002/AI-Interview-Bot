@@ -5,7 +5,7 @@
 <div class="container" style="margin-top:10px">
     <div class="row justify-content-center">
         <div class="col-md-8">
-            <form method="post">
+            <form id="cover_letter-form" method="post">
                 {% csrf_token %}
                 <div class="contents-title">
                     求職信輸入
@@ -44,11 +44,11 @@
 
 <script>
     $(document).ready(function () {
-        $("#submit-btn").click(function (e) {
+        $("#cover_letter-form").submit(function (e) {
             e.preventDefault();
-            $(this).hide();
+            $("#submit-btn").hide();
             $('#id_company, #id_job, #id_attract, #id_strength, #id_example').prop('disabled', true);
-            $(this).siblings(".load-btn").show();
+            $("#submit-btn").siblings(".load-btn").show();
             $.ajax({
                 url: "{% url 'CoverLetter' %}",
                 type: "POST",

@@ -78,7 +78,7 @@
 
         // 儲存內容
         function saveContent() {
-            var content = $('#content').html();
+            var content = $('#content').html().replace(/<br>/g, "\n");
             var data = {
                 content_id: $("input[name='content_id']").val(),
                 content: content,

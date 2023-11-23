@@ -5,7 +5,7 @@
 <div class="container" style="margin-top:10px">
     <div class="row justify-content-center">
         <div class="col-md-8">
-            <form method="post">
+            <form id="self_introduction-form" method="post">
                 {% csrf_token %}
                 <div class="contents-title">
                     自我介紹輸入
@@ -48,11 +48,11 @@
 
 <script>
     $(document).ready(function () {
-        $("#submit-btn").click(function (e) {
+        $("#self_introduction-form").submit(function (e) {
             e.preventDefault();
-            $(this).hide();
+            $("#submit-btn").hide();
             $('#id_company, #id_job, #id_skill1, #id_skill2, #id_cultural_fit, #id_cultural_fit_example').prop('disabled', true);
-            $(this).siblings(".load-btn").show();
+            $("#submit-btn").siblings(".load-btn").show();
             $.ajax({
                 url: "{% url 'SelfIntroduction' %}",
                 type: "POST",
