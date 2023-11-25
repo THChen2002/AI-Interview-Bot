@@ -50,7 +50,7 @@ class ContentsService:
             reply = f"發生 {err.error.type} 錯誤\n{err.error.message}"
 
     # 匯出簡歷
-    def export_resume(resume):
+    def export_resume(resume, file_path):
         # 設定段落格式
         def set_run_font(run, ch_font_name, en_font_name, font_size, bold=False, italic=False, underline=False, font_color=None):
             run.font.name = en_font_name
@@ -61,35 +61,78 @@ class ContentsService:
             run.font.underline = underline
             if font_color:
                 run.font.color.rgb = font_color
+                
+        # 根據風格選擇模板
+        template_file = {
+            '1': 'SimpleResume.docx',
+            '2': 'ProfessionalResume.docx',
+            '3': 'CreativeResume.docx'
+        }.get(resume['style'], 'DefaultResume.docx')
 
-        # 設定路徑      
-        template_path = os.path.join(settings.STATICFILES_DIRS[0], 'template.docx')
-        output_path = os.path.join(settings.STATICFILES_DIRS[0], 'resume.docx')
-        # 載入現有的Word文件
+        template_path = os.path.join(settings.STATICFILES_DIRS[0], template_file)
+        # output_path = os.path.join(settings.STATICFILES_DIRS[0], 'resume.docx')
+        output_path = os.path.join(settings.MEDIA_ROOT, 'resume', file_path)
+
+        # 載入模板文檔
         doc = Document(template_path)
-        # 文件的第一個表格
-        table = doc.tables[0]
-        # 填入數據
-        table.cell(1, 2).text = resume['name']
-        table.cell(2, 2).text = resume['gender']
-        table.cell(1, 4).text = resume['birth_date']
-        table.cell(2, 4).text = resume['education']
-        table.cell(4, 2).text = resume['email']
-        table.cell(5, 2).text = resume['personal_experience']
-        table.cell(6, 2).text = resume['skill']
-        table.cell(7, 2).text = resume['interest']
-        table.cell(9, 0).text = resume['self_introduction']
+
+        # 根據風格調用對應的填充函式
+        if resume['style'] == '1':
+            fill_simple_resume(resume, doc)
+        elif resume['style'] == '2':
+            fill_professional_resume(resume, doc)
+        elif resume['style'] == '3':
+            fill_creative_resume(resume, doc)
 
         # 遍歷表格設定樣式
-        for row in table.rows:
-            for cell in row.cells:
-                for paragraph in cell.paragraphs:
-                    for run in paragraph.runs:
-                        set_run_font(run, '標楷體', 'Times New Roman', 12)
-                        # Set vertical alignment for cell text
-                        cell.vertical_alignment = WD_CELL_VERTICAL_ALIGNMENT.CENTER
+        # for row in table.rows:
+        #     for cell in row.cells:
+        #         for paragraph in cell.paragraphs:
+        #             for run in paragraph.runs:
+        #                 set_run_font(run, '標楷體', 'Times New Roman', 12)
+        #                 # Set vertical alignment for cell text
+        #                 cell.vertical_alignment = WD_CELL_VERTICAL_ALIGNMENT.CENTER
 
         # 保存文件
         doc.save(output_path)
 
         return output_path
+    
+def fill_simple_resume(resume, doc):
+    # 使用已傳入的Document對象的第一個表格
+    table = doc.tables[0]
+    
+    # 填入數據
+    table.cell(1, 2).text = resume['name']
+    table.cell(2, 2).text = resume['gender']
+    table.cell(3, 2).text = resume['birth_date']
+    table.cell(5, 2).text = resume['email']
+    table.cell(7, 1).text = resume['self_introduction']
+    table.cell(9, 1).text = resume['education']
+    table.cell(9, 3).text = resume['personal_experience']
+    table.cell(11,1).text = resume['skill']       
+    table.cell(13, 3).text = resume['interest']
+
+def fill_professional_resume(resume, doc):
+    table = doc.tables[0]
+    table.cell(1, 3).text = resume['name']
+    table.cell(3, 2).text = resume['birth_date']
+    table.cell(5, 2).text = resume['gender']
+    table.cell(5, 5).text = resume['email']
+    table.cell(7, 0).text = resume['education']
+    table.cell(7, 4).text = resume['self_introduction']
+    table.cell(9, 0).text = resume['skill']
+    table.cell(10, 0).text = resume['interest']
+    table.cell(11, 4).text = resume['personal_experience']
+
+def fill_creative_resume(resume, doc):
+    table = doc.tables[0]
+    table.cell(2, 5).text = resume['name']
+    table.cell(3, 5).text = resume['self_introduction']
+    table.cell(4, 1).text = resume['education']
+    table.cell(6, 1).text = resume['skill']
+    table.cell(9, 1).text = resume['personal_experience']
+    table.cell(10, 1).text = resume['interest'] #興趣沒在表格上
+    table.cell(10, 6).text = resume['gender']
+    table.cell(12, 6).text = resume['birth_date']
+    table.cell(16, 6).text = resume['email']
