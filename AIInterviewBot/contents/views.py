@@ -118,21 +118,23 @@ def resume(request):
             }
             user_prompt = {
                 "role": "user",
-                "content": "你要完成一份正式的個人簡介內容開頭無需「個人簡介」四字，你的個人經驗是" + resume['personal_experience'] + "，而你的專長與技能是" + resume['skill'] + "，另外你工作外的休閒嗜好是" + resume['interest']
+                "content": "你要完成一份約150字簡單的個人簡介內容開頭無需「個人簡介」四字，你的個人經驗是" + resume['personal_experience'] + "，而你的專長與技能是" + resume['skill'] + "，另外你工作外的休閒嗜好是" + resume['interest']
             }
             messages = ContentsService.get_messages(user_prompt)
             resume['self_introduction'] = ContentsService.get_reply(messages)
-            output_path = ContentsService.export_resume(resume)
+            
+            # 儲存履歷檔案到使用者對應的資料夾
+            folder_path = request.user.username
+            file_name = f"{str(uuid.uuid4())[:8]}_resume.docx"
+            file_path = os.path.join(folder_path, file_name)
+
+            output_path = ContentsService.export_resume(resume, file_path)
 
             # 儲存履歷紀錄
             resume_record = form.save(commit=False)
             resume_record.user = request.user
-            # 儲存履歷檔案到使用者對應的資料夾
             with open(output_path, 'rb') as file:
-                folder_path = request.user.username
-                file_name = f"{str(uuid.uuid4())[:8]}_resume.docx"
-                file_path = os.path.join(folder_path, file_name)
-                resume_record.resume_file.save(file_path, File(file))
+                resume_record.resume_file.save(file_name, File(file))
             resume_record.save()
             return JsonResponse({'file_name': file_name})
     else:
