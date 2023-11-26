@@ -19,22 +19,22 @@ class RegisterForm(UserCreationForm):
     username = forms.CharField(
         label="帳號",
         error_messages={'unique':'此使用者名稱已被使用'},
-        widget=forms.TextInput(attrs={'class': 'form-control'})
+        widget=forms.TextInput(attrs={'class': 'form-control','style': 'margin-left: 5px;'})
     )
 
     email = forms.EmailField(
         label="電子郵件",
-        widget=forms.EmailInput(attrs={'class': 'form-control'})
+        widget=forms.EmailInput(attrs={'class': 'form-control','style': 'margin-left: 5px;'})
     )
 
     password1 = forms.CharField(
         label="密碼",
-        widget=forms.PasswordInput(attrs={'class': 'form-control'})
+        widget=forms.PasswordInput(attrs={'class': 'form-control','style': 'margin-left: 5px;'})
     )
 
     password2 = forms.CharField(
         label="密碼確認",
-        widget=forms.PasswordInput(attrs={'class': 'form-control'})
+        widget=forms.PasswordInput(attrs={'class': 'form-control','style': 'margin-left: 5px;'})
     )
 
     class Meta:
@@ -54,12 +54,12 @@ class LoginForm(forms.Form):
     
     username = forms.CharField(
         label="帳號",
-        widget=forms.TextInput(attrs={'class': 'form-control'})
+        widget=forms.TextInput(attrs={'class': 'form-control','style': 'width: 100%;'})
     )
 
     password = forms.CharField(
         label="密碼",
-        widget=forms.PasswordInput(attrs={'class': 'form-control'})
+        widget=forms.PasswordInput(attrs={'class': 'form-control','style': 'width: 90%;'})
     )
 
     captcha = CaptchaField(
@@ -92,15 +92,15 @@ class ChangePasswordForm(PasswordChangeForm):
     }
     old_password = forms.CharField(
         label="舊密碼",
-        widget=forms.PasswordInput(attrs={"autocomplete": "new-password"})
+        widget=forms.PasswordInput(attrs={"autocomplete": "new-password",'style': 'width: 90%; margin-left: 15px;'})
     )
     new_password1 = forms.CharField(
         label="新密碼",
-        widget=forms.PasswordInput(attrs={"autocomplete": "new-password"})
+        widget=forms.PasswordInput(attrs={"autocomplete": "new-password",'style': 'width: 90%; margin-left: 15px;'})
     )
     new_password2 = forms.CharField(
         label="新密碼確認",
-        widget=forms.PasswordInput(attrs={"autocomplete": "new-password"})
+        widget=forms.PasswordInput(attrs={"autocomplete": "new-password",'style': 'width: 90%; margin-left: 15px;'})
     )
 
 # 忘記密碼
@@ -108,7 +108,7 @@ class ForgotPasswordForm(forms.Form):
     
     email = forms.EmailField(
         label="電子郵件",
-        widget=forms.EmailInput(attrs={'class': 'form-control'})
+        widget=forms.EmailInput(attrs={'class': 'form-control','style': 'margin-left: 6px;'})
     )
 
 
