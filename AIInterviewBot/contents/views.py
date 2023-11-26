@@ -128,13 +128,12 @@ def resume(request):
             file_name = f"{str(uuid.uuid4())[:8]}_resume.docx"
             file_path = os.path.join(folder_path, file_name)
 
-            output_path = ContentsService.export_resume(resume, file_path)
+            ContentsService.export_resume(resume, file_path)
 
             # 儲存履歷紀錄
             resume_record = form.save(commit=False)
             resume_record.user = request.user
-            with open(output_path, 'rb') as file:
-                resume_record.resume_file.save(file_name, File(file))
+            resume_record.resume_file = os.path.join('resume', file_path)
             resume_record.save()
             return JsonResponse({'file_name': file_name})
     else:

@@ -95,8 +95,6 @@ class ContentsService:
 
         # 保存文件
         doc.save(output_path)
-
-        return output_path
     
 def fill_simple_resume(resume, doc):
     # 使用已傳入的Document對象的第一個表格
