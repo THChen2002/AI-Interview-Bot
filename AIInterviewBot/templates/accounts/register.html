@@ -7,9 +7,9 @@
 {% load static %}
 <div class="center" style="box-shadow: none; padding-top: 50px;">
 	<div style="text-align: center;	">
-        <img src="{% static 'images/LOGO.png' %}" alt="LOGO" width="90" height="108" >
-        <h1 style="font-size: 30px; font-weight: 600;">JOBEASE</h1>
-    </div>
+		<img src="{% static 'images/LOGO.png' %}" alt="LOGO" width="90" height="108">
+		<h1 style="font-size: 30px; font-weight: 600;">JOBEASE</h1>
+	</div>
 	<h1 class="register-title" style="text-align: left;">使用者註冊</h1>
 	<form method="post" id="register-form">
 		{% csrf_token %}
@@ -18,28 +18,34 @@
 			<div class="input-container">
 				<img src="{% static 'images/user.png' %}" alt="lock" width="18px" height="18px">
 				{{registerForm.username}}
-				<label>{{ registerForm.username.label }}</label>
+				<label style="margin-left: 8px;">{{ registerForm.username.label }}</label>
 			</div>
 		</div>
 		<div class="txt_field">
 			<div class="input-container">
 				<img src="{% static 'images/lock.png' %}" alt="lock" width="18px" height="18px">
 				{{ registerForm.password1 }}
-				<label>{{ registerForm.password1.label }}</label>
+				<label style="margin-left: 8px;">{{ registerForm.password1.label }}</label>
+				<button type="button" id="password1-eye" style="margin-left: 5px;">
+					<img src="{% static 'images/eye-slash-solid.png' %}" alt="顯示密碼" width="20" height="20">
+				</button>
 			</div>
 		</div>
 		<div class="txt_field">
 			<div class="input-container">
 				<img src="{% static 'images/lock.png' %}" alt="lock" width="18px" height="18px">
 				{{ registerForm.password2 }}
-				<label>{{ registerForm.password2.label }}</label>
+				<label style="margin-left: 8px;">{{ registerForm.password2.label }}</label>
+				<button type="button" id="password2-eye" style="margin-left: 5px;">
+					<img src="{% static 'images/eye-slash-solid.png' %}" alt="顯示密碼" width="20" height="20">
+				</button>
 			</div>
 		</div>
 		<div class="txt_field">
 			<div class="input-container">
 				<img src="{% static 'images/mail.png' %}" alt="lock" width="18px" height="18px">
 				{{ registerForm.email }}
-				<label>{{ registerForm.email.label }}</label>
+				<label style="margin-left: 8px;">{{ registerForm.email.label }}</label>
 			</div>
 		</div>
 		{% if registerForm.errors %}
@@ -59,7 +65,36 @@
 		已經是會員?<a href="{% url 'Login'%}" style="color: #F7A22D; text-decoration: none;">&nbsp;立即登入</a>
 	</div>
 </div>
+<script>
+	$(document).ready(function () {
+		// 顯示/隱藏 password1
+		const password1Input = $("#id_password1");
+		const togglePassword1Button = $("#password1-eye");
+		togglePassword1Button.click(function () {
+			if (password1Input.attr("type") === "password") {
+				password1Input.attr("type", "text");
+				togglePassword1Button.find("img").attr("src", "{% static 'images/eye-solid1.png' %}");
+			} else {
+				password1Input.attr("type", "password");
+				togglePassword1Button.find("img").attr("src", "{% static 'images/eye-slash-solid.png' %}");
+			}
+		});
 
+		// 顯示/隱藏 password2
+		const password2Input = $("#id_password2");
+		const togglePassword2Button = $("#password2-eye");
+		togglePassword2Button.click(function () {
+			if (password2Input.attr("type") === "password") {
+				password2Input.attr("type", "text");
+				togglePassword2Button.find("img").attr("src", "{% static 'images/eye-solid1.png' %}");
+			} else {
+				password2Input.attr("type", "password");
+				togglePassword2Button.find("img").attr("src", "{% static 'images/eye-slash-solid.png' %}");
+			}
+		});
+
+	});
+</script>
 {% include 'modal_template.html' %}
 {% if registration_success %}
 <script>
