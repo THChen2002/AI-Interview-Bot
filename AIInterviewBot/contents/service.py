@@ -50,7 +50,7 @@ class ContentsService:
             reply = f"發生 {err.error.type} 錯誤\n{err.error.message}"
 
     # 匯出簡歷
-    def export_resume(resume, file_path):
+    def export_resume(resume, output_path):
         # 設定段落格式
         def set_run_font(run, ch_font_name, en_font_name, font_size, bold=False, italic=False, underline=False, font_color=None):
             run.font.name = en_font_name
@@ -69,9 +69,7 @@ class ContentsService:
             '3': 'CreativeResume.docx'
         }.get(resume['style'], 'DefaultResume.docx')
 
-        template_path = os.path.join(settings.STATICFILES_DIRS[0], template_file)
-        # output_path = os.path.join(settings.STATICFILES_DIRS[0], 'resume.docx')
-        output_path = os.path.join(settings.MEDIA_ROOT, 'resume', file_path)
+        template_path = os.path.join(settings.STATICFILES_DIRS[0], 'resume_templates', template_file)
 
         # 載入模板文檔
         doc = Document(template_path)

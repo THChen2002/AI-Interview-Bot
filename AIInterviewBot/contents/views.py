@@ -124,9 +124,12 @@ def resume(request):
             resume['self_introduction'] = ContentsService.get_reply(messages)
             
             # 儲存履歷檔案到使用者對應的資料夾
-            folder_path = request.user.username
+            folder_path = os.path.join(settings.MEDIA_ROOT, 'resume', request.user.username)
             file_name = f"{str(uuid.uuid4())[:8]}_resume.docx"
             file_path = os.path.join(folder_path, file_name)
+            # 確認改使用者的資料夾是否存在，不存在則創建
+            if not os.path.exists(folder_path):
+                os.makedirs(folder_path)
 
             ContentsService.export_resume(resume, file_path)
 
