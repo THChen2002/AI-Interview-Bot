@@ -55,6 +55,8 @@
     </div>
 </div>
 {% endfor %}
+
+{% include 'modal_template.html' %}
 <script>
     $(document).ready(function () {
         var records = [];
@@ -94,10 +96,9 @@
                         window.location.href = "{% url 'MockInterviewResult' %}?score_id=" + score_id;
                     }
                 },
-                error: function () {
-                    alert("系統錯誤，請稍後再試");
-                    window.location.reload();
-                }                
+                error: function (error) {
+                    alertFail('送出');
+                }          
             });
         }
     });

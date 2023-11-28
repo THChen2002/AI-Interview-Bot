@@ -93,6 +93,11 @@
                     if (response.status) {
                         window.location.href = "{% url 'Index' %}";
                     }
+                },
+                error: function (error) {
+                    alertFail('儲存', function () {
+                        window.location.reload();
+                    });
                 }
             });
         }

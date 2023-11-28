@@ -79,6 +79,7 @@
     </div>
 </div>
 
+{% include 'modal_template.html' %}
 <script>
     $(document).ready(function () {
         // 判斷是否為歷史紀錄頁面
@@ -104,7 +105,9 @@
                     downloadMode(data.file_name);
                 },
                 error: function (error) {
-                    console.log(error);
+                    alertFail('生成簡歷', function () {
+                        window.location.reload();
+                    });
                 }
             });
         });

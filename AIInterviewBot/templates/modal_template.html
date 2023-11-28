@@ -7,12 +7,28 @@
 </style>
 
 <!-- 成功視窗 -->
-<div class="modal fade" id="redirectToLogin" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+<div class="modal fade" id="successModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
     aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content" style="text-align:center;">
             <img src="{% static 'images/success.gif' %}" alt="success" style="width:200px; height:200px; margin:auto; display:block;">
-            <div class="modal-body" style="text-align:center; color:#F7A32E"></div>
+            <div class="modal-body" style="text-align:center; color:#61D5AD">
+                <h6 style="color:black;">點擊任意處</h6>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- 失敗視窗 -->
+<div class="modal fade" id="failModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content" style="text-align:center;">
+            <img src="{% static 'images/warning.gif' %}" alt="success" style="width:200px; height:200px; margin:auto; display:block;">
+            <div class="modal-body" style="text-align:center; color:#F05654">
+                <h6 style="color:black">請洽系統管理員</h6>
+                <h6 style="color:black">點擊任意處</h6>
+            </div>
         </div>
     </div>
 </div>
@@ -30,15 +46,28 @@
 </div>
 
 <script>
-    // 註冊成功
+    // 成功彈窗
     function alertSuccess(action, successCallback) {
-        const correctModal = new bootstrap.Modal($('#redirectToLogin'));
-        $("#redirectToLogin .modal-body").html("<h2><strong>" + action + "完成!</strong></h2><h6>點擊任意處</h6>");
-        $("#redirectToLogin").modal("show");
+        const correctModal = new bootstrap.Modal($('#successModal'));
+        $("#successModal .modal-body").prepend("<h2><strong>" + action + "完成!</strong></h2>");
+        $("#successModal").modal("show");
         $(window).click(function (event) {
-            if ($(event.target).is("#redirectToLogin")) {
-                $("#redirectToLogin").modal("hide");
+            if ($(event.target).is("#successModal")) {
+                $("#successModal").modal("hide");
                 successCallback();
+            }
+        });
+    }
+
+    // 失敗彈窗
+    function alertFail(action, failCallback) {
+        const failModal = new bootstrap.Modal($('#failModal'));
+        $("#failModal .modal-body").prepend("<h2><strong>" + action + "失敗!</strong></h2>");
+        $("#failModal").modal("show");
+        $(window).click(function (event) {
+            if ($(event.target).is("#failModal")) {
+                $("#failModal").modal("hide");
+                failCallback();
             }
         });
     }

@@ -42,6 +42,7 @@
     </div>
 </div>
 
+{% include 'modal_template.html' %}
 <script>
     $(document).ready(function () {
         $("#cover_letter-form").submit(function (e) {
@@ -66,8 +67,10 @@
                         window.location.href = "{% url 'ContentResult' 'cover_letter' %}?content_id=" + content_id;
                     }
                 },
-                fail: function (response) {
-                    window.location.reload();
+                error: function (error) {
+                    alertFail('生成', function () {
+                        window.location.reload();
+                    });
                 }
             });
         });
