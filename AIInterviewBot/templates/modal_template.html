@@ -54,7 +54,9 @@
         $(window).click(function (event) {
             if ($(event.target).is("#successModal")) {
                 $("#successModal").modal("hide");
-                successCallback();
+                if (successCallback && typeof successCallback === 'function') {
+                    successCallback();
+                }
             }
         });
     }
@@ -67,7 +69,9 @@
         $(window).click(function (event) {
             if ($(event.target).is("#failModal")) {
                 $("#failModal").modal("hide");
-                failCallback();
+                if (failCallback && typeof failCallback === 'function') {
+                    failCallback();
+                }
             }
         });
     }

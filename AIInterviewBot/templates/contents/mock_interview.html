@@ -59,6 +59,7 @@
 {% include 'modal_template.html' %}
 <script>
     $(document).ready(function () {
+        alertFail('A')
         var records = [];
         $(".submit-btn").click(function () {
             var currentQuestion = $(this).siblings(".currentQuestion").val();
@@ -97,7 +98,9 @@
                     }
                 },
                 error: function (error) {
-                    alertFail('送出');
+                    alertFail('送出', function () {
+                        window.location.href = "{% url 'MockInterviewMode' %}"
+                    });
                 }          
             });
         }
