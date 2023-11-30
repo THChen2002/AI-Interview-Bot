@@ -54,7 +54,7 @@
                 </li>
             </ul>
             <div class="tab-content" id="myTabContent">
-                <div class="tab-pane fade show {% if selected_tab == 'cover_letter' %}active{% endif %}" id="cover_letter" role="tabpanel"
+                <div class="tab-pane fade show {% if selected_tab == 'cover_letter' %}active show{% endif %}" id="cover_letter" role="tabpanel"
                     aria-labelledby="cover-letter-tab">
                     <br>
                     {% for record in cover_letter_records %}
@@ -84,7 +84,7 @@
                     </div>
                     {% endfor %}
                 </div>
-                <div class="tab-pane fade {% if selected_tab == 'recommendation_letter' %}active{% endif %}" id="recommendation_letter" role="tabpanel"
+                <div class="tab-pane fade {% if selected_tab == 'recommendation_letter' %}active show{% endif %}" id="recommendation_letter" role="tabpanel"
                     aria-labelledby="recommendation-letter-tab">
                     <br>
                     {% for record in recommendation_letter_records %}
@@ -114,7 +114,7 @@
                     </div>
                     {% endfor %}
                 </div>
-                <div class="tab-pane fade {% if selected_tab == 'self_introduction' %}active{% endif %}" id="self_introduction" role="tabpanel"
+                <div class="tab-pane fade {% if selected_tab == 'self_introduction' %}active show{% endif %}" id="self_introduction" role="tabpanel"
                     aria-labelledby="self-introduction-tab">
                     <br>
                     {% for record in self_introduction_records %}
@@ -144,7 +144,7 @@
                     </div>
                     {% endfor %}
                 </div>
-                <div class="tab-pane fade {% if selected_tab == 'resume' %}active{% endif %}" id="resume" role="tabpanel" aria-labelledby="resume-tab">
+                <div class="tab-pane fade {% if selected_tab == 'resume' %}active show{% endif %}" id="resume" role="tabpanel" aria-labelledby="resume-tab">
                     <br>
                     {% for record in resume_records %}
                     <div class="card mb-3 border-0" data-content-id="{{ record.id }}"
@@ -166,7 +166,7 @@
                     </div>
                     {% endfor %}
                 </div>
-                <div class="tab-pane fade {% if selected_tab == 'mock_interview' %}active{% endif %}" id="mock_interview" role="tabpanel" aria-labelledby="mock-interview-tab">
+                <div class="tab-pane fade {% if selected_tab == 'mock_interview' %}active show{% endif %}" id="mock_interview" role="tabpanel" aria-labelledby="mock-interview-tab">
                     <br>
                     {% for record in mock_interview_records %}
                     <div class="card mb-3 border-0" data-content-id="{{ record.id }}" data-content-type="MI">
