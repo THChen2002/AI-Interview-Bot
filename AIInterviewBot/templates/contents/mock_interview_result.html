@@ -2,9 +2,39 @@
 {% block title %}模擬面試{% endblock %}
 {% block content %}
 {% load static %}
+{% load filter %}
+
+<link rel="stylesheet" href="{% static 'css/history.css' %}" type="text/css">
+
 <div style="margin-top: 30px; text-align: center;">
     <h2 style="color: #5E4006; font-weight: bold;">模擬面試結果</h2>
 </div>
+{% if history %}
+<div class="row">
+    <div class="col accounts-title">
+        歷史紀錄
+    </div>
+    <div id="back" class="col" style="text-align: end;">
+        <img src="{% static 'images/back-y.png' %}" alt="back" style="width: 40px; height: 40px; cursor: pointer;">
+    </div>
+    <div class="rpw card detail-card mb-3 border-0" style="background-color: #FFFF"
+        data-content-id="{{ record.id }}">
+        <div class="row g-0">
+            <div class="col card date-card border-0" style="left: 0px; top: 0px;  background-color: #FCE9CF">
+                <div class="card-body">
+                    <h5 class="card-title">{{ interviewScore.created_at.day }}</h5>
+                    <p class="card-text"><small class="text-muted">{{ interviewScore.created_at|get_month_name }}</small></p>
+                </div>
+            </div>
+            <div class="col card bg-transparent border-0">
+                <div class="card-body" style="padding-left: 40px;">
+                    <h5 style="color:#5E4104">{{ interviewScore.unit }}模擬面試</h5>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endif %}
 
 {% for record in interviewScore.records.all %}
     <h4 style="color: #5E4006; font-weight: bold; margin-top: 20px;">問題{{ forloop.counter}}</h4>
@@ -42,8 +72,17 @@
     </br>{{ interviewScore.comprehensive_suggestion }}</p>
 </div>
 
+{% if not history %}
 <div style="margin-top: 15px; text-align: center;">
     <a href="{% url 'Index' %}" class="btn btn-primary" style="width:80%;">結束面試</a>
 </div>
+{% endif %}
 
+<script>
+    $(document).ready(function () {
+        $('#back').click(function(){
+            window.location.href = "{% url 'History' %}";
+        })
+    })
+</script>
 {% endblock %}

@@ -10,8 +10,11 @@
     <div class="col-md-6 max-auto">
         {% if history %}
         <div class="row">
-            <div class="accounts-title">
+            <div class="col accounts-title">
                 歷史紀錄
+            </div>
+            <div id="back" class="col" style="text-align: end;">
+                <img src="{% static 'images/back-y.png' %}" alt="back" style="width: 40px; height: 40px; cursor: pointer;">
             </div>
             <div class="rpw card detail-card mb-3 border-0" style="background-color: #FFFF"
                 data-content-id="{{ record.id }}">
@@ -85,9 +88,7 @@
         // 判斷是否為歷史紀錄頁面
         var history = '{{ history }}' === 'True';
         if (history) {
-            var file_path = '{{ record.resume_file }}';
-            var parts = file_path.split('/');
-            var file_name = parts[parts.length - 1];
+            var file_name = '{{ file_name }}';
             downloadMode(file_name);
         }
 
@@ -114,6 +115,10 @@
         $('#download-btn').click(function (e) {
             $('#download-form').submit();
         });
+
+        $('#back').click(function(){
+            window.location.href = "{% url 'History' %}";
+        })
         
         // 下載模式
         function downloadMode(fileName) {

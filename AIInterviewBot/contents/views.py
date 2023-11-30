@@ -227,11 +227,11 @@ def dashboard(request):
 
 #歷史紀錄頁面
 def history(request):
-    cover_letter_records = ContentRecord.objects.filter(user=request.user, content_type='CL')
-    recommendation_letter_records = ContentRecord.objects.filter(user=request.user, content_type='RL')
-    self_introduction_records = ContentRecord.objects.filter(user=request.user, content_type='SI')
-    resume_records = ResumeRecord.objects.filter(user=request.user)
-    mock_interview_records = InterviewScore.objects.filter(user=request.user)
+    cover_letter_records = ContentRecord.objects.filter(user=request.user, content_type='CL').order_by('-created_at')
+    recommendation_letter_records = ContentRecord.objects.filter(user=request.user, content_type='RL').order_by('-created_at')
+    self_introduction_records = ContentRecord.objects.filter(user=request.user, content_type='SI').order_by('-created_at')
+    resume_records = ResumeRecord.objects.filter(user=request.user).order_by('-created_at')
+    mock_interview_records = InterviewScore.objects.filter(user=request.user).order_by('-created_at')
     date_filter = request.GET.get('date')
     # 獲取選擇的頁籤(預設為cover_letter)
     selected_tab = request.GET.get('tab', 'cover_letter')
@@ -264,12 +264,14 @@ def history(request):
 def history_detail(request):
     type = request.GET.get('type')
     record_id = request.GET.get('id')
+    history = True
     # 取得該筆紀錄
     if type == 'MI':
-        record = InterviewScore.objects.get(id=record_id)
+        interviewScore = InterviewScore.objects.get(id=record_id)
+        return render(request, 'contents/mock_interview_result.html', locals())
     elif type == 'R':
-        history = True
         record = ResumeRecord.objects.get(id=record_id)
+        file_name = os.path.basename(record.resume_file.path)
         form = ResumeForm(instance=record)
         return render(request, 'contents/resume.html', locals())
     else:
