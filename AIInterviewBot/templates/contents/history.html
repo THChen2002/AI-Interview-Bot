@@ -5,20 +5,25 @@
 {% load filter %}
 
 <link rel="stylesheet" href="{% static 'css/history.css' %}" type="text/css">
-
+<style>
+    .form-control, .form-select {
+        color: white;
+        background-color: #F7A22D;
+    }
+</style>
 <div class="row row justify-content-center" style="margin-top:0px">
     <div class="col-md-6 max-auto">
         <div class="row justify-content-center">
-            <div class="accounts-title col-8 col-md-9" style="font-size: 35px;">
+            <div class="accounts-title col-7 col-md-9" style="font-size: 35px;">
                 歷史紀錄
             </div>
-            <div class="col-4 col-md-3" style="margin-top: 19px;">
-                <select id="date-filter" class="form-select">
-                    <option value="" {% if date_filter is None %}selected{% endif %}>不限時間</option>
-                    <option value="today" {% if date_filter == "today" %}selected{% endif %}>今天</option>
-                    <option value="week" {% if date_filter == "week" %}selected{% endif %}>本週</option>
-                    <option value="month" {% if date_filter == "month" %}selected{% endif %}>本月</option>
-                    <option value="year" {% if date_filter == "year" %}selected{% endif %}>今年</option>
+            <div class="col-5 col-md-3" style="margin-top: 19px;">
+                <select id="date-filter" class="form-select" style="color: #ffffff; text-align: center;">
+                    <option value="" {% if date_filter is None %}selected{% endif %} style="color: white;">不限時間</option>
+                    <option value="today" {% if date_filter == "today" %}selected{% endif %} style="color: white;">今天</option>
+                    <option value="week" {% if date_filter == "week" %}selected{% endif %} style="color: white;">本週</option>
+                    <option value="month" {% if date_filter == "month" %}selected{% endif %} style="color: white;">本月</option>
+                    <option value="year" {% if date_filter == "year" %}selected{% endif %} style="color: white;">今年</option>
                 </select>
             </div>
             <ul class="nav nav-tabs" id="myTab" role="tablist">

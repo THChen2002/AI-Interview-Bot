@@ -4,11 +4,39 @@
 {% load static %}
 <!-- CSS -->
 <link rel="stylesheet" type="text/css" href="{% static 'css/problem_report.css' %}" />
+<style>
+  .form-control::placeholder {
+    color: #D9D9D9;
+  }
+
+  .form-control {
+    color: white;
+    background-color: #F7A22D;
+  }
+
+  .form-control:focus {
+    color: white;
+    background-color: #F7A22D;
+    outline: none;
+    border: 1px solid transparent;
+    box-shadow: none;
+  }
+
+  .form-control:focus {
+    outline: none;
+    border: 1px solid transparent;
+    box-shadow: none;
+  }
+  
+  #id_problem {
+    color: black;
+  }
+</style>
 
 <h1 class="problem-report" style="color: #F7A32E;">問題回報</h1>
 <hr style="background-color: #F7A32E;">
 <form method="post">
-  {% csrf_token %} 
+  {% csrf_token %}
   <div>{{ form.type }}</div>
   <div style="margin-top: 15px">{{ form.problem }}</div>
   <div style="margin-top: 15px; text-align: center;">
@@ -19,8 +47,8 @@
 {% include 'modal_template.html' %}
 {% if success %}
 <script>
-	$(document).ready(function () {
-		alertSuccess('表單送出', function () {
+  $(document).ready(function () {
+    alertSuccess('表單送出', function () {
       window.location.href = '{% url "ProblemReport" %}';
     });
   });
