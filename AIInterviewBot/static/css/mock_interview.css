@@ -73,11 +73,11 @@ button {
 }
 
 .interviewer-div {
-    left: 84%;
+    left: 91.5%;
 }
-@media screen and (min-width: 400px) and (max-width: 1171px) {
+@media screen and (min-width: 390px) and (max-width: 1171px) {
     .interviewer-div {
-        left: 90%;
+        left: 85.5%;
     }
 }
 
