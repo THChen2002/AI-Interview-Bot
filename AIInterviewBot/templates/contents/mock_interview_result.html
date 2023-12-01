@@ -6,13 +6,16 @@
 
 <link rel="stylesheet" href="{% static 'css/history.css' %}" type="text/css">
 
+<div style="margin-top: 30px; text-align: center;">
+    <h2 style="color: #5E4006; font-weight: bold;">模擬面試結果</h2>
+</div>
 {% if history %}
 <div class="row">
     <div class="col accounts-title">
         歷史紀錄
     </div>
-    <div class="col-6" style="text-align: end;">
-        <img src="{% static 'images/back-y.png' %}" alt="back" id="back" style="width: 35px; height: 35px; margin-top: 10px;cursor: pointer;">
+    <div id="back" class="col" style="text-align: end;">
+        <img src="{% static 'images/back-y.png' %}" alt="back" style="width: 35px; height: 35px; cursor: pointer;">
     </div>
     <div class="rpw card detail-card mb-3 border-0" style="background-color: #FFFF"
         data-content-id="{{ record.id }}">
@@ -30,10 +33,6 @@
             </div>
         </div>
     </div>
-</div>
-{% else %}
-<div style="margin-top: 30px; text-align: center;">
-    <h2 style="color: #5E4006; font-weight: bold;">模擬面試結果</h2>
 </div>
 {% endif %}
 
