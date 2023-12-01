@@ -6,14 +6,14 @@
 
 <link rel="stylesheet" href="{% static 'css/history.css' %}" type="text/css">
 
-<div class="row row justify-content-center" style="margin-top:10px">
+<div class="row justify-content-center" style="margin-top:10px">
     <div class="col-md-6 max-auto">
         <div class="row justify-content-center">
             <div class="col-6 accounts-title" style="padding-left: 20px;">
                 歷史紀錄
             </div>
             <div class="col-6" style="text-align:end;">
-                <img src="{% static 'images/back-y.png'%}" alt="back" id="back" style="width: 35px; height: 35px; margin-top: 10px; cursor: pointer; margin-right: 35px;">
+                <img src="{% static 'images/back-y.png'%}" alt="back" id="back" style="width: 35px; height: 35px; margin-top: 10px; cursor: pointer;">
             </div>
             <div class="card detail-card mb-3 border-0" data-content-id="{{ record.id }}" style="width: 95%;">
                 <div class="row g-0">
@@ -23,9 +23,9 @@
                             <p class="card-text"><small class="text-muted">{{ record.created_at|get_month_name }}</small></p>
                         </div>
                     </div>
-                    <div class="col" style="display: flex; align-items: flex-end;">
-                        <div class="" style="padding-left: 40px;">
-                            <h5 style="color:#5E4104; padding-bottom: 15px;">{{ record.unit }}求職信</h5>
+                    <div class="col-7" style="display: flex; align-items: flex-end;">
+                        <div style="padding-left: 40px;">
+                            <h5 style="color:#5E4104; padding-bottom: 15px;">{{ record.unit }}{{ record.get_content_type_display }}</h5>
                         </div>
                     </div>
                     <div class="col" style="text-align: end">
