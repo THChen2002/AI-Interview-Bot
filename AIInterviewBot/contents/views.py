@@ -6,7 +6,7 @@ from contents.models import InterviewQuestion, InterviewRecord, InterviewScore, 
 from django.http import FileResponse, JsonResponse
 import os
 import json
-import uuid
+import uuid,calendar
 from datetime import datetime, timedelta
 from django.core.files import File
 from random import sample
@@ -247,8 +247,8 @@ def history(request):
             end_date = start_date + timedelta(days=7)
         elif date_filter == 'month':
             start_date = today.replace(day=1)
-            end_date = (start_date.replace(month=start_date.month % 12 + 1, year=start_date.year)
-                        if start_date.month == 12 else start_date.replace(month=start_date.month + 1))
+            _, last_day = calendar.monthrange(start_date.year, start_date.month)
+            end_date = start_date.replace(day=last_day)
         elif date_filter == 'year':
             start_date = today.replace(month=1, day=1)
             end_date = today.replace(month=12, day=31)
