@@ -61,18 +61,25 @@
             <div class="tab-content" id="myTabContent">
                 <div class="tab-pane fade show {% if selected_tab == 'cover_letter' %}active show{% endif %}" id="cover_letter" role="tabpanel"
                     aria-labelledby="cover-letter-tab">
-                    <br>
+                    <div style="text-align: end; margin: 10px">
+                        <span style="color:#F7A22D">依日期排序</span>
+                        {% if order == 'desc' %}
+                        <img src="{% static 'images/desc_order.png' %}" alt="desc" class="order-img" style="width:20px; height:20px; cursor: pointer; vertical-align: sub;">
+                        {% else %}
+                        <img src="{% static 'images/asc_order.png' %}" alt="asc" class="order-img" style="width:20px; height:20px; cursor: pointer; vertical-align: sub;">
+                        {% endif %}
+                    </div>
                     {% for record in cover_letter_records %}
                     <div class="card mb-3 border-0" data-content-id="{{ record.id }}"
                         data-content-type="{{ record.content_type }}">
                         <div class="row g-0">
-                            <div class="col-2 card date-card border-0">
+                            <div class="col card date-card border-0">
                                 <div class="card-body">
                                     <h5 class="card-title">{{ record.created_at.day }}</h5>
                                     <p class="card-text"><small class="text-muted">{{ record.created_at|get_month_name }}</small></p>
                                 </div>
                             </div>
-                            <div class="col-9 card bg-transparent border-0">
+                            <div class="col card bg-transparent border-0">
                                 <div class="card-body" style="padding-left: 40px;">
                                     <h5 style="color:#5E4104">{{ record.unit }}{{ record.get_content_type_display }}</h5>
                                     <p class="card-text"><small class="text-muted">{{ record.result }}</small>
@@ -91,18 +98,25 @@
                 </div>
                 <div class="tab-pane fade {% if selected_tab == 'recommendation_letter' %}active show{% endif %}" id="recommendation_letter" role="tabpanel"
                     aria-labelledby="recommendation-letter-tab">
-                    <br>
+                    <div style="text-align: end; margin: 10px">
+                        <span style="color:#F7A22D">依日期排序</span>
+                        {% if order == 'desc' %}
+                        <img src="{% static 'images/desc_order.png' %}" alt="desc" class="order-img" style="width:20px; height:20px; cursor: pointer; vertical-align: sub;">
+                        {% else %}
+                        <img src="{% static 'images/asc_order.png' %}" alt="asc" class="order-img" style="width:20px; height:20px; cursor: pointer; vertical-align: sub;">
+                        {% endif %}
+                    </div>
                     {% for record in recommendation_letter_records %}
                     <div class="card mb-3 border-0" data-content-id="{{ record.id }}"
                         data-content-type="{{ record.content_type }}">
                         <div class="row g-0">
-                            <div class="col-2 card date-card border-0">
+                            <div class="col card date-card border-0">
                                 <div class="card-body">
                                     <h5 class="card-title">{{ record.created_at.day }}</h5>
                                     <p class="card-text"><small class="text-muted">{{ record.created_at|get_month_name }}</small></p>
                                 </div>
                             </div>
-                            <div class="col-9 card bg-transparent border-0">
+                            <div class="col card bg-transparent border-0">
                                 <div class="card-body" style="padding-left: 40px;">
                                     <h5 style="color:#5E4104">{{ record.unit }}{{ record.get_content_type_display }}</h5>
                                     <p class="card-text"><small class="text-muted">{{ record.result }}</small>
@@ -121,18 +135,25 @@
                 </div>
                 <div class="tab-pane fade {% if selected_tab == 'self_introduction' %}active show{% endif %}" id="self_introduction" role="tabpanel"
                     aria-labelledby="self-introduction-tab">
-                    <br>
+                    <div style="text-align: end; margin: 10px">
+                        <span style="color:#F7A22D">依日期排序</span>
+                        {% if order == 'desc' %}
+                        <img src="{% static 'images/desc_order.png' %}" alt="desc" class="order-img" style="width:20px; height:20px; cursor: pointer; vertical-align: sub;">
+                        {% else %}
+                        <img src="{% static 'images/asc_order.png' %}" alt="asc" class="order-img" style="width:20px; height:20px; cursor: pointer; vertical-align: sub;">
+                        {% endif %}
+                    </div>
                     {% for record in self_introduction_records %}
                     <div class="card mb-3 border-0" data-content-id="{{ record.id }}"
                         data-content-type="{{ record.content_type }}">
                         <div class="row g-0">
-                            <div class="col-2 card date-card border-0">
+                            <div class="col card date-card border-0">
                                 <div class="card-body">
                                     <h5 class="card-title">{{ record.created_at.day }}</h5>
                                     <p class="card-text"><small class="text-muted">{{ record.created_at|get_month_name }}</small></p>
                                 </div>
                             </div>
-                            <div class="col-9 card bg-transparent border-0">
+                            <div class="col card bg-transparent border-0">
                                 <div class="card-body" style="padding-left: 40px;">
                                     <h5 style="color:#5E4104">{{ record.unit }}{{ record.get_content_type_display }}</h5>
                                     <p class="card-text"><small class="text-muted">{{ record.result }}</small>
@@ -150,7 +171,14 @@
                     {% endfor %}
                 </div>
                 <div class="tab-pane fade {% if selected_tab == 'resume' %}active show{% endif %}" id="resume" role="tabpanel" aria-labelledby="resume-tab">
-                    <br>
+                    <div style="text-align: end; margin: 10px">
+                        <span style="color:#F7A22D">依日期排序</span>
+                        {% if order == 'desc' %}
+                        <img src="{% static 'images/desc_order.png' %}" alt="desc" class="order-img" style="width:20px; height:20px; cursor: pointer; vertical-align: sub;">
+                        {% else %}
+                        <img src="{% static 'images/asc_order.png' %}" alt="asc" class="order-img" style="width:20px; height:20px; cursor: pointer; vertical-align: sub;">
+                        {% endif %}
+                    </div>
                     {% for record in resume_records %}
                     <div class="card mb-3 border-0" data-content-id="{{ record.id }}"
                         data-content-type="R">
@@ -163,7 +191,7 @@
                             </div>
                             <div class="col card bg-transparent border-0">
                                 <div class="card-body" style="padding-left: 40px;">
-                                    <h5 style="color:#5E4104">{{ record.get_style_display }}簡歷</h5>
+                                    <h5 style="color:#5E4104">{{ record.get_style_display }}風簡歷</h5>
                                     <p class="card-text"><small class="text-muted">點擊進入下載</small>
                                 </div>
                             </div>
@@ -172,7 +200,14 @@
                     {% endfor %}
                 </div>
                 <div class="tab-pane fade {% if selected_tab == 'mock_interview' %}active show{% endif %}" id="mock_interview" role="tabpanel" aria-labelledby="mock-interview-tab">
-                    <br>
+                    <div style="text-align: end; margin: 10px">
+                        <span style="color:#F7A22D">依日期排序</span>
+                        {% if order == 'desc' %}
+                        <img src="{% static 'images/desc_order.png' %}" alt="desc" class="order-img" style="width:20px; height:20px; cursor: pointer; vertical-align: sub;">
+                        {% else %}
+                        <img src="{% static 'images/asc_order.png' %}" alt="asc" class="order-img" style="width:20px; height:20px; cursor: pointer; vertical-align: sub;">
+                        {% endif %}
+                    </div>
                     {% for record in mock_interview_records %}
                     <div class="card mb-3 border-0" data-content-id="{{ record.id }}" data-content-type="MI">
                         <div class="row g-0">
@@ -195,25 +230,40 @@
             </div>
         </div>
     </div>
+</div>
 
-    <script>
-        $(document).ready(function () {
-            $('.tab-pane > .card').click(function () {
-                var id = $(this).data('content-id');
-                var type = $(this).data('content-type');
-                var url = "{% url 'HistoryDetail' %}"
-                var data = {
-                    'id': id,
-                    'type': type
-                }
-                window.location.href = url + '?' + $.param(data);
-            })
-
-            $('#date-filter').on('change', function () {
-                var date = $(this).val();
-                var content_type = $('.tab-pane.active').attr('id');
-                window.location.href = "{% url 'History' %}?date=" + date + "&tab=" + content_type;
-            });
+<script>
+    $(document).ready(function () {
+        $('.tab-pane > .card').click(function () {
+            var id = $(this).data('content-id');
+            var type = $(this).data('content-type');
+            var url = "{% url 'HistoryDetail' %}"
+            var data = {
+                'id': id,
+                'type': type
+            }
+            window.location.href = url + '?' + $.param(data);
         })
-    </script>
-    {% endblock %}
+
+        $('#date-filter').on('change', function () {
+            var date = $(this).val();
+            var $active_content = $('.tab-pane.active');
+            var content_type = $active_content.attr('id');
+            var order = $active_content.find('.order-img').attr('src').includes('asc_order') ? 'asc' : 'desc';
+            window.location.href = "{% url 'History' %}?date=" + date + "&tab=" + content_type + "&order=" + order;
+        });
+
+        $('.order-img').click(function () {
+            if ($(this).attr('src').includes('desc_order')) {
+                $(this).attr('src', "{% static 'images/asc_order.png' %}");
+            } else {
+                $(this).attr('src', "{% static 'images/desc_order.png' %}");
+            }
+            var date = $('#date-filter').val();
+            var content_type = $('.tab-pane.active').attr('id');
+            var order = $(this).attr('src').includes('asc_order') ? 'asc' : 'desc';
+            window.location.href = "{% url 'History' %}?date=" + date + "&tab=" + content_type + "&order=" + order;
+        });
+    })
+</script>
+{% endblock %}
