@@ -61,6 +61,7 @@
             <div class="tab-content" id="myTabContent">
                 <div class="tab-pane fade show {% if selected_tab == 'cover_letter' %}active show{% endif %}" id="cover_letter" role="tabpanel"
                     aria-labelledby="cover-letter-tab">
+                    {% if cover_letter_records %}
                     <div style="text-align: end; margin: 10px">
                         <span style="color:#F7A22D">依日期排序</span>
                         {% if order == 'desc' %}
@@ -69,6 +70,11 @@
                         <img src="{% static 'images/asc_order.png' %}" alt="asc" class="order-img" style="width:20px; height:20px; cursor: pointer; vertical-align: sub;">
                         {% endif %}
                     </div>
+                    {% else %}
+                    <div style="display: flex; align-items: center; justify-content: center; height: 50vh;">
+                        <h1 style="color: #D0C9C0">目前無資料</h1>
+                    </div>
+                    {% endif %}
                     {% for record in cover_letter_records %}
                     <div class="card mb-3 border-0" data-content-id="{{ record.id }}"
                         data-content-type="{{ record.content_type }}">
@@ -98,6 +104,7 @@
                 </div>
                 <div class="tab-pane fade {% if selected_tab == 'recommendation_letter' %}active show{% endif %}" id="recommendation_letter" role="tabpanel"
                     aria-labelledby="recommendation-letter-tab">
+                    {% if recommendation_letter_records %}
                     <div style="text-align: end; margin: 10px">
                         <span style="color:#F7A22D">依日期排序</span>
                         {% if order == 'desc' %}
@@ -106,6 +113,11 @@
                         <img src="{% static 'images/asc_order.png' %}" alt="asc" class="order-img" style="width:20px; height:20px; cursor: pointer; vertical-align: sub;">
                         {% endif %}
                     </div>
+                    {% else %}
+                    <div style="display: flex; align-items: center; justify-content: center; height: 50vh;">
+                        <h1 style="color: #D0C9C0">目前無資料</h1>
+                    </div>
+                    {% endif %}
                     {% for record in recommendation_letter_records %}
                     <div class="card mb-3 border-0" data-content-id="{{ record.id }}"
                         data-content-type="{{ record.content_type }}">
@@ -135,6 +147,7 @@
                 </div>
                 <div class="tab-pane fade {% if selected_tab == 'self_introduction' %}active show{% endif %}" id="self_introduction" role="tabpanel"
                     aria-labelledby="self-introduction-tab">
+                    {% if self_introduction_records %}
                     <div style="text-align: end; margin: 10px">
                         <span style="color:#F7A22D">依日期排序</span>
                         {% if order == 'desc' %}
@@ -143,6 +156,11 @@
                         <img src="{% static 'images/asc_order.png' %}" alt="asc" class="order-img" style="width:20px; height:20px; cursor: pointer; vertical-align: sub;">
                         {% endif %}
                     </div>
+                    {% else %}
+                    <div style="display: flex; align-items: center; justify-content: center; height: 50vh;">
+                        <h1 style="color: #D0C9C0">目前無資料</h1>
+                    </div>
+                    {% endif %}
                     {% for record in self_introduction_records %}
                     <div class="card mb-3 border-0" data-content-id="{{ record.id }}"
                         data-content-type="{{ record.content_type }}">
@@ -171,6 +189,7 @@
                     {% endfor %}
                 </div>
                 <div class="tab-pane fade {% if selected_tab == 'resume' %}active show{% endif %}" id="resume" role="tabpanel" aria-labelledby="resume-tab">
+                    {% if resume_records %}
                     <div style="text-align: end; margin: 10px">
                         <span style="color:#F7A22D">依日期排序</span>
                         {% if order == 'desc' %}
@@ -179,6 +198,11 @@
                         <img src="{% static 'images/asc_order.png' %}" alt="asc" class="order-img" style="width:20px; height:20px; cursor: pointer; vertical-align: sub;">
                         {% endif %}
                     </div>
+                    {% else %}
+                    <div style="display: flex; align-items: center; justify-content: center; height: 70vh;">
+                        <h1 style="color: #D0C9C0">目前無資料</h1>
+                    </div>
+                    {% endif %}
                     {% for record in resume_records %}
                     <div class="card mb-3 border-0" data-content-id="{{ record.id }}"
                         data-content-type="R">
@@ -200,6 +224,7 @@
                     {% endfor %}
                 </div>
                 <div class="tab-pane fade {% if selected_tab == 'mock_interview' %}active show{% endif %}" id="mock_interview" role="tabpanel" aria-labelledby="mock-interview-tab">
+                    {% if mock_interview_records %}
                     <div style="text-align: end; margin: 10px">
                         <span style="color:#F7A22D">依日期排序</span>
                         {% if order == 'desc' %}
@@ -207,6 +232,10 @@
                         {% else %}
                         <img src="{% static 'images/asc_order.png' %}" alt="asc" class="order-img" style="width:20px; height:20px; cursor: pointer; vertical-align: sub;">
                         {% endif %}
+                    </div>
+                    {% else %}
+                    <div style="display: flex; align-items: center; justify-content: center; height: 70vh;">
+                        <h1 style="color: #D0C9C0">目前無資料</h1>
                     </div>
                     {% for record in mock_interview_records %}
                     <div class="card mb-3 border-0" data-content-id="{{ record.id }}" data-content-type="MI">
