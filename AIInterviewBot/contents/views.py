@@ -227,14 +227,23 @@ def dashboard(request):
 
 #歷史紀錄頁面
 def history(request):
-    cover_letter_records = ContentRecord.objects.filter(user=request.user, content_type='CL').order_by('-created_at')
-    recommendation_letter_records = ContentRecord.objects.filter(user=request.user, content_type='RL').order_by('-created_at')
-    self_introduction_records = ContentRecord.objects.filter(user=request.user, content_type='SI').order_by('-created_at')
-    resume_records = ResumeRecord.objects.filter(user=request.user).order_by('-created_at')
-    mock_interview_records = InterviewScore.objects.filter(user=request.user).order_by('-created_at')
+    cover_letter_records = ContentRecord.objects.filter(user=request.user, content_type='CL')
+    recommendation_letter_records = ContentRecord.objects.filter(user=request.user, content_type='RL')
+    self_introduction_records = ContentRecord.objects.filter(user=request.user, content_type='SI')
+    resume_records = ResumeRecord.objects.filter(user=request.user)
+    mock_interview_records = InterviewScore.objects.filter(user=request.user)
     date_filter = request.GET.get('date')
     # 獲取選擇的頁籤(預設為cover_letter)
     selected_tab = request.GET.get('tab', 'cover_letter')
+    # 獲取排序方式(預設為desc)
+    order = request.GET.get('order', 'desc')
+    if order == 'desc':
+        cover_letter_records = cover_letter_records.order_by('-created_at')
+        recommendation_letter_records = recommendation_letter_records.order_by('-created_at')
+        self_introduction_records = self_introduction_records.order_by('-created_at')
+        resume_records = resume_records.order_by('-created_at')
+        mock_interview_records = mock_interview_records.order_by('-created_at')
+
     if date_filter:
         today = datetime.now().date()
         start_date, end_date = None, None
