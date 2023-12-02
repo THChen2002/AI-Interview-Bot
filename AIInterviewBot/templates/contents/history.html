@@ -237,6 +237,7 @@
                     <div style="display: flex; align-items: center; justify-content: center; height: 70vh;">
                         <h1 style="color: #D0C9C0">目前無資料</h1>
                     </div>
+                    {% endif %}
                     {% for record in mock_interview_records %}
                     <div class="card mb-3 border-0" data-content-id="{{ record.id }}" data-content-type="MI">
                         <div class="row g-0">
