@@ -90,29 +90,29 @@ class DashBoard(models.Model):
     @property
     def professional_score(self):
         avg_score = InterviewScore.objects.filter(user=self.user).aggregate(models.Avg('professional_score'))['professional_score__avg']
-        return round(avg_score, 2) if avg_score else ''
+        return round(avg_score, 1) if avg_score else ''
     
     @property
     def creative_score(self):
         avg_score = InterviewScore.objects.filter(user=self.user).aggregate(models.Avg('creative_score'))['creative_score__avg']
-        return round(avg_score, 2) if avg_score else ''
+        return round(avg_score, 1) if avg_score else ''
     
     @property
     def strategy_score(self):
         avg_score = InterviewScore.objects.filter(user=self.user).aggregate(models.Avg('strategy_score'))['strategy_score__avg']
-        return round(avg_score, 2) if avg_score else ''
+        return round(avg_score, 1) if avg_score else ''
     
     @property
     def communication_score(self):
         avg_score = InterviewScore.objects.filter(user=self.user).aggregate(models.Avg('communication_score'))['communication_score__avg']
-        return round(avg_score, 2) if avg_score else ''
+        return round(avg_score, 1) if avg_score else ''
     
     @property
     def self_learning_score(self):
         avg_score = InterviewScore.objects.filter(user=self.user).aggregate(models.Avg('self_learning_score'))['self_learning_score__avg']
-        return round(avg_score, 2) if avg_score else ''
+        return round(avg_score, 1) if avg_score else ''
     
     @property
     def comprehensive_score(self):
         avg_score = InterviewScore.objects.filter(user=self.user).aggregate(models.Avg('comprehensive_score'))['comprehensive_score__avg']
-        return round(avg_score, 2) if avg_score else ''
+        return round(avg_score, 1) if avg_score else ''
