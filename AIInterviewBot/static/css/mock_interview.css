@@ -80,4 +80,9 @@ button {
         left: 85.5%;
     }
 }
-
+.d-grid {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}

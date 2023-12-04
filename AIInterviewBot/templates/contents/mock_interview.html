@@ -42,6 +42,12 @@
         </div>
     </div>
     <div class="d-grid gap-2 col-6 mx-auto">
+        <div class="failMessage" style="width: 200px; color: red; font-size: 12px; display: none; margin-left: 30px;">
+            <img src="{% static 'images/warning.png' %}" alt="Warning" class="warning-icon" style="width: 10px; height: 10px;">
+            回答不可為空白，請重新輸入
+        </div>
+    </div>  
+    <div class="d-grid gap-2 col-6 mx-auto">
         {% if forloop.counter == questions|length %}
         <input type="button" class="btn btn-primary submit-btn" value="送出" />
         {% else %}
@@ -65,6 +71,10 @@
             var $currentQuestionDiv = $("#question_" + currentQuestion);
             var answer = $currentQuestionDiv.find("textarea[name='answer']").val();
             var id = $currentQuestionDiv.find("input[name='id']").val();
+            if (answer.trim() === '') {
+                $currentQuestionDiv.find(".failMessage").show();
+                return;
+            }
             var record = {
                 "id": id,
                 "answer": answer
