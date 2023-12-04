@@ -1,5 +1,6 @@
 from django.shortcuts import render,redirect, get_object_or_404
 from django.urls import reverse
+from django.contrib.auth.decorators import login_required
 from contents.service import ContentsService
 from contents.forms import CoverLetterForm, MockInterviewModeForm, MockInterviewForm, RecommendationLetterForm, ResumeForm, SelfIntroductionForm
 from contents.models import InterviewQuestion, InterviewRecord, InterviewScore, DashBoard, ContentRecord, ResumeRecord
@@ -16,6 +17,7 @@ from django.contrib.auth import get_user_model
 User = get_user_model()
 
 # 求職信頁面
+@login_required(login_url="Login")
 def cover_letter(request):
     if request.method == 'POST':
         form = CoverLetterForm(request.POST)
@@ -38,6 +40,7 @@ def cover_letter(request):
     return render(request, 'contents/cover_letter.html', locals())
 
 # 推薦信頁面
+@login_required(login_url="Login")
 def recommendation_letter(request):
     if request.method == 'POST':
         form = RecommendationLetterForm(request.POST)
@@ -60,6 +63,7 @@ def recommendation_letter(request):
     return render(request, 'contents/recommendation_letter.html', locals())
 
 # 自我介紹頁面
+@login_required(login_url="Login")
 def self_introduction(request):
     if request.method == 'POST':
         form = SelfIntroductionForm(request.POST)
@@ -83,6 +87,7 @@ def self_introduction(request):
     return render(request, 'contents/self_introduction.html', locals())
 
 #生成結果頁面
+@login_required(login_url="Login")
 def content_result(request, type):
     if request.method == 'POST':
         content_id = request.POST.get('content_id')
@@ -100,6 +105,7 @@ def content_result(request, type):
 
 
 # 履歷頁面
+@login_required(login_url="Login")
 def resume(request):
     if request.method == 'POST':
         form = ResumeForm(request.POST)
@@ -144,6 +150,7 @@ def resume(request):
     return render(request, 'contents/resume.html', locals())
 
 # 模擬面試頁面
+@login_required(login_url="Login")
 def mock_interview_mode(request):
     if request.method == 'POST':
         form = MockInterviewModeForm(request.POST)
@@ -157,6 +164,7 @@ def mock_interview_mode(request):
     return render(request, 'contents/mock_interview_mode.html', locals())
 
 # 模擬面試過程頁面
+@login_required(login_url="Login")
 def mock_interview(request, mode):
     amount = 1
     # 多題模式
@@ -166,6 +174,8 @@ def mock_interview(request, mode):
     form = MockInterviewForm()
     return render(request, 'contents/mock_interview.html', locals())
 
+# 模擬面試結果頁面
+@login_required(login_url="Login")
 def mock_interview_result(request):
     if request.method == 'POST':
         records = json.loads(request.POST.get('records'))
@@ -220,11 +230,13 @@ def mock_interview_result(request):
     return render(request, 'contents/mock_interview_result.html', locals())
 
 # 儀表板頁面
+@login_required(login_url="Login")
 def dashboard(request):
     dashboard = DashBoard.objects.get(id=request.user.id)
     return render(request, 'contents/dashboard.html', locals())
 
 #歷史紀錄頁面
+@login_required(login_url="Login")
 def history(request):
     cover_letter_records = ContentRecord.objects.filter(user=request.user, content_type='CL')
     recommendation_letter_records = ContentRecord.objects.filter(user=request.user, content_type='RL')
@@ -269,6 +281,8 @@ def history(request):
 
     return render(request, 'contents/history.html', locals())
 
+# 歷史紀錄詳細頁面
+@login_required(login_url="Login")
 def history_detail(request):
     type = request.GET.get('type')
     record_id = request.GET.get('id')

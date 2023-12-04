@@ -141,6 +141,7 @@ def forgot_password(request):
     return render(request, 'accounts/forgot_password.html', locals())
   
 #修改密碼
+@login_required(login_url="Login")
 def change_password(request):
     user = request.user
     if request.method == 'POST':
@@ -183,6 +184,7 @@ def password_reset_complete(request):
     return render(request, 'accounts/reset_password_complete.html')
   
 #個人檔案頁面
+@login_required(login_url="Login")
 def personal(request):
     unit = User.objects.get(id=request.user.id)
     if request.method == 'POST':
@@ -196,10 +198,12 @@ def personal(request):
     return render(request, 'accounts/personal.html', locals())
 
 #幫助中心頁面
+@login_required(login_url="Login")
 def help_center(request):
     return render(request, 'accounts/help_center.html')
 
 #問題回報頁面
+@login_required(login_url="Login")
 def problem_report(request):
     if request.method == 'POST':
         form = ProblemReportForm(request.POST)

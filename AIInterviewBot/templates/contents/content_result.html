@@ -22,14 +22,15 @@
     </div>
 
     <div style="margin-top: 30px;"></div>
-        <button id="save-btn" class="btn btn-secondary" type="button">
-            保存{{ record.get_content_type_display }}
-        </button>
         <h5 style="color: #F7A22D; font-weight: bold;">滿意這個回答嗎？</h5>
         <input type="hidden" name="content_id" value="{{ record.id }}" />
         <input type="hidden" name="is_satisfied" value="False" />
         <img src="{% static 'images/good.png' %}" id="good-btn" style="width: 40px; height: 40px; cursor: pointer;">
         <img src="{% static 'images/bad.png' %}" id="bad-btn" style="width: 40px; height: 40px; cursor: pointer;">
+        <br>        
+        <button id="save-btn" class="btn btn-secondary" type="button">
+            保存{{ record.get_content_type_display }}
+        </button>
     <div style="margin-top: 30px;"></div>
 </div>
 
