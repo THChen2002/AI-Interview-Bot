@@ -63,10 +63,10 @@
                     {% csrf_token %}
                     <div class="personal-data-fields" style="border-top: 2px solid #FFB755;">
                         <div class="form-group row">
-                            <div class="col-3 form-text">
+                            <div class="col-4 form-text">
                                 <label for="username" style="font-weight: bold; color: #F7A22D;">帳號</label>
                             </div>
-                            <div class="col-9" style="padding-top: 5px;">
+                            <div class="col-8" style="padding-top: 5px;">
                                 <input type="text" class="form-control" id="username" name="username"
                                     value="{{ unit.username }}" disabled
                                     style="text-align: right;">
@@ -75,30 +75,30 @@
                     </div>
                     <div class="personal-data-fields">
                         <div class="form-group row">
-                            <div class="col-3 form-text">
+                            <div class="col-4 form-text">
                                 <label for="gender" style="font-weight: bold; color: #F7A22D;">性別</label>
                             </div>
-                            <div class="col-9" style="padding-top: 5px;">
+                            <div class="col-8" style="padding-top: 5px;">
                                 {{ form.gender }}
                             </div>
                         </div>
                     </div>
                     <div class="personal-data-fields">
                         <div class="form-group row d-flex align-items-center">
-                            <div class="col-3 form-text">
+                            <div class="col-4 form-text">
                                 <label for="birth_date" style="font-weight: bold; color: #F7A22D;">生日</label>
                             </div>
-                            <div class="col-9" style="padding-top: 5px; ">
+                            <div class="col-8" style="padding-top: 5px; ">
                                 {{ form.birth_date }}
                             </div>
                         </div>
                     </div>
                     <div class="personal-data-fields">
                         <div class="form-group row ">
-                            <div class="col-3 form-text">
+                            <div class="col-4 form-text">
                                 <label for="email" style="font-weight: bold; color: #F7A22D;">Email</label>
                             </div>
-                            <div class="col-9  text-end" style="padding-top: 5px;">
+                            <div class="col-8 text-end" style="padding-top: 5px;">
                                 <input type="email" class="form-control" id="email" name="email"
                                     value="{{ unit.email }}" disabled style="text-align: right;">
                             </div>
@@ -106,10 +106,10 @@
                     </div>
                     <div class="personal-data-fields" style="border-bottom: 2px solid #FFB755;">
                         <div class="form-group row">
-                            <div class="col-3 form-text">
+                            <div class="col-4 form-text">
                                 <label for="degree" style="font-weight: bold; color: #F7A22D;">學位</label>
                             </div>
-                            <div class="col-9" style="padding-top: 5px;">
+                            <div class="col-8" style="padding-top: 5px;">
                                 {{ form.degree }}
                             </div>
                         </div>

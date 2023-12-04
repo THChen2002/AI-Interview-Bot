@@ -54,13 +54,13 @@ class CoverLetterForm(forms.Form):
     )
 
     attract = forms.CharField(
-        label="為什麼想申請應徵的公司吸引你？",
+        label="想應徵的公司吸引你的原因？",
         required=True,
         widget=forms.Textarea(attrs={'class': 'form-control','rows':4, 'cols':5,'style':'resize:none;'})
     )
 
     strength = forms.CharField(
-        label="你有什麼強項？\n為什麼該公司要選擇你？",
+        label="你有什麼強項？ 為什麼該公司要選擇你？",
         required=True,
         widget=forms.Textarea(attrs={'class': 'form-control','rows':6, 'cols':5,'style':'resize:none;'})
     )
