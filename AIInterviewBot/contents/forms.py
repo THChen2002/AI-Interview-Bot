@@ -33,7 +33,7 @@ class SelfIntroductionForm(forms.Form):
         widget=forms.Textarea(attrs={'class': 'form-control','rows':4, 'cols':5,'style':'resize:none;'})
     )
     cultural_fit_example = forms.CharField(
-        label="針對文化契合度的舉例",
+        label="請列舉文化契合度的實例",
         required=True,
         widget=forms.Textarea(attrs={'class': 'form-control','rows':6, 'cols':5,'style':'resize:none;'})
     )
@@ -66,14 +66,14 @@ class CoverLetterForm(forms.Form):
     )
 
     example = forms.CharField(
-        label="你的強項的實際舉例",
+        label="請列舉你的強項",
         required=True,
         widget=forms.Textarea(attrs={'class': 'form-control','rows':6, 'cols':5,'style':'resize:none;'})
     )
 
 class RecommendationLetterForm(forms.Form):
     self = forms.CharField(
-        label="被推薦人職稱",
+        label="被推薦人稱呼",
         max_length=100,
         required=True,
         widget=forms.TextInput(attrs={'class': 'form-control'})
@@ -100,15 +100,9 @@ class RecommendationLetterForm(forms.Form):
     )
 
     reason = forms.CharField(
-        label="為何被推薦人值得被推薦",
+        label="請列舉值得被推薦原因",
         required=True,
         widget=forms.Textarea(attrs={'class': 'form-control','rows':4, 'cols':5,'style':'resize:none;'})
-    )
-    
-    example = forms.CharField(
-        label="推薦理由的實際舉例",
-        required=True,
-        widget=forms.Textarea(attrs={'class': 'form-control','rows':6, 'cols':5,'style':'resize:none;'})
     )
 
 STYLE_CHOICES = [

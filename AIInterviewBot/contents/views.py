@@ -47,10 +47,9 @@ def recommendation_letter(request):
             position = form.cleaned_data['position']
             experience = form.cleaned_data['experience']
             reason = form.cleaned_data['reason']
-            example = form.cleaned_data['example']
             user_prompt = {
                 "role": "user",
-                "content": "今天你是" + self + "的推薦人" + recommender + "您要將他推薦到" + position + "，您與推薦人的合作經驗是" + experience + "，您推薦他的原因是推薦人" + reason + "實際的例子有" + example + "，請您為推薦人撰寫一份推薦信。"
+                "content": "今天你是" + self + "的推薦人" + recommender + "您要將他推薦到" + position + "，您與推薦人的合作經驗是" + experience + "，您推薦他的原因是推薦人" + reason + "，請您為推薦人撰寫一份推薦信。"
             }
             messages = ContentsService.get_messages(user_prompt)
             replyMsg = ContentsService.get_reply(messages)
