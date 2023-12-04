@@ -124,7 +124,7 @@ def resume(request):
             }
             user_prompt = {
                 "role": "user",
-                "content": "你要完成一份約150字簡單的個人簡介內容開頭無需「個人簡介」四字，你的個人經驗是" + resume['personal_experience'] + "，而你的專長與技能是" + resume['skill'] + "，另外你工作外的休閒嗜好是" + resume['interest']
+                "content": "你要完成一份150字以內簡單的個人簡介內容開頭無需「個人簡介」四字，你的個人經驗是" + resume['personal_experience'] + "，而你的專長與技能是" + resume['skill'] + "，另外你工作外的休閒嗜好是" + resume['interest']
             }
             messages = ContentsService.get_messages(user_prompt)
             resume['self_introduction'] = ContentsService.get_reply(messages)

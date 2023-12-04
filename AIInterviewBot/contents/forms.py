@@ -100,7 +100,7 @@ class RecommendationLetterForm(forms.Form):
     )
 
     reason = forms.CharField(
-        label="請列舉值得被推薦原因",
+        label="請列舉值得被推薦的原因",
         required=True,
         widget=forms.Textarea(attrs={'class': 'form-control','rows':4, 'cols':5,'style':'resize:none;'})
     )

@@ -25,7 +25,8 @@
     <div class="modal-dialog">
         <div class="modal-content" style="text-align:center;">
             <img src="{% static 'images/warning.gif' %}" alt="success" style="width:200px; height:200px; margin:auto; display:block;">
-            <div class="modal-body" style="text-align:center; color:#F05654">
+            <div class="modal-body" style="text-align:center; color:#F05654">                
+                <div id="failModalContentContainer"></div>
                 <h6 style="color:black">請洽系統管理員</h6>
                 <h6 style="color:black">點擊任意處</h6>
             </div>
@@ -64,7 +65,11 @@
     // 失敗彈窗
     function alertFail(action, failCallback) {
         const failModal = new bootstrap.Modal($('#failModal'));
-        $("#failModal .modal-body").prepend("<h2><strong>" + action + "失敗!</strong></h2>");
+        var modalContentContainer = $("#failModalContentContainer");
+        // 清空容器内容
+        modalContentContainer.empty();
+        // 添加新的内容
+        modalContentContainer.prepend("<h2><strong>" + action + "失敗!</strong></h2>");
         $("#failModal").modal("show");
         $(window).click(function (event) {
             if ($(event.target).is("#failModal")) {
