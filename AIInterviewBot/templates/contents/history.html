@@ -279,7 +279,11 @@
             var date = $(this).val();
             var $active_content = $('.tab-pane.active');
             var content_type = $active_content.attr('id');
-            var order = $active_content.find('.order-img').attr('src').includes('asc_order') ? 'asc' : 'desc';
+            var $order_img = $active_content.find('.order-img');
+            var order = 'desc';
+            if($order_img.length > 0 && $order_img.attr('src').includes('asc_order')){
+                order = 'asc';
+            }
             window.location.href = "{% url 'History' %}?date=" + date + "&tab=" + content_type + "&order=" + order;
         });
 
