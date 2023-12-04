@@ -23,12 +23,12 @@ class ContentsService:
         return messages
     
     # 取得OPEN AI API回覆訊息
-    def get_reply(messages):
+    def get_reply(messages, model="gpt-3.5-turbo"):
         try:
             response = openai.ChatCompletion.create(
-                model="gpt-3.5-turbo",
+                model=model,
                 messages=messages,
-                max_tokens=1024, 
+                # max_tokens=1024, 
             )
             reply = response["choices"][0]["message"]["content"]
         except openai.OpenAIError as err:

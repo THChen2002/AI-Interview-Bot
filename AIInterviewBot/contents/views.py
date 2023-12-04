@@ -183,11 +183,11 @@ def mock_interview_result(request):
         messages=[
             { 
             "role": "system",
-            "content": "You are an excellent interviewer.\n 需要有以下這些欄位，professional_score,professional_suggestion,creative_score,creative_suggestion,strategy_score,strategy_suggestion,communication_score,communication_suggestion,self_learning_score,self_learning_suggestion,comprehensive_score,comprehensive_suggestion，請用標準的json格式回傳，除了字串內可以換行其餘不要有換行符號"
+            "content": "You are an excellent interviewer.\n 需要有以下這些欄位，professional_score,professional_suggestion,creative_score,creative_suggestion,strategy_score,strategy_suggestion,communication_score,communication_suggestion,self_learning_score,self_learning_suggestion,comprehensive_score,comprehensive_suggestion"
             },
             {
             "role": "user",
-            "content": "你現在是個面試官,您給予面試者一些問題，請你根據以下求職者的回答整理給予綜合評分,同時請依照下方的的5點的評分標準嚴格給予面試者的回答各項目確切分數並回饋。\n\n1.專業能力評分標準：\n0-30分:展示出缺乏基本的領域知識和技能,無法適應相關情境。\n31-60分:擁有基本的專業知識，但在應用和解釋方面可能需要進一步的發展。\n61-90分:具備堅實的領域知識和技能,能夠有效應用於不同情境,並提供有價值的洞察和解決方案。\n91-100分:展現出卓越的專業知識和技能，能夠在複雜的情況下提供創新和高效的解決方案，對領域有深刻的理解。\n\n2.創意能力評分標準：\n0-30分:缺乏創意思維,難以提供新穎或獨特的解決方案。\n31-60分:能夠在某些情境下提出一些創意想法，但可能需要更多的多元思考。\n61-90分:展現出在解決問題時能夠提供創意解決方案，能夠從不同角度思考並提供獨特的見解。\n91-100分:具備高度創意思維,能夠在各種情境下提供極具創新性和實用性的解決方案。\n\n3.策略能力評分標準：\n0-30分:缺乏有效的計劃和目標，難以制定明確的行動步驟。\n31-60分:能夠制定一般的計劃,但可能需要更多的分析和策略性思考。\n61-90分:具備有效的策略思維,能夠考慮多個因素並制定有系統的行動計劃。\n91-100分:展示出卓越的策略能力,能夠在複雜情境下制定高效且有效的長遠計劃和目標。\n\n4.溝通能力評分標準：\n0-30分:表達不清晰,難以有效地傳達信息和意圖。\n31-60分:能夠基本表達想法,但可能需要更多的組織和結構。\n61-90分:具備清晰、適切和有力的溝通技巧,能夠在團隊內外有效地傳達信息。\n91-100分:展現出優秀的溝通能力,能夠以影響力和說服力與他人交流和協作。\n\n5.自主學習能力評分標準：\n0-30分:缺乏持續學習的動機,無法主動探索新知識和技能。\n31-60分:能夠在一些情境下展示出主動學習的態度.但可能需要更積極地提升。\n61-90分:具備持續自我提升的意願,能夠積極地學習新知識和技能。\n91-100分:展現出卓越的自主學習能力,能夠不斷掌握新知識,並將其應用於不同領域。\n不需要都給5為單位的分數，只要是整數分數即可，如83分。"
+            "content": "你現在是個面試官,您給予面試者一些問題，請你根據以下求職者的回答整理給予綜合評分,同時請依照下方的的5點的評分標準嚴格給予面試者的回答各項目確切分數並回饋。\n\n1.專業能力評分標準：\n0-30分:展示出缺乏基本的領域知識和技能,無法適應相關情境。\n31-60分:擁有基本的專業知識，但在應用和解釋方面可能需要進一步的發展。\n61-90分:具備堅實的領域知識和技能,能夠有效應用於不同情境,並提供有價值的洞察和解決方案。\n91-100分:展現出卓越的專業知識和技能，能夠在複雜的情況下提供創新和高效的解決方案，對領域有深刻的理解。\n\n2.創意能力評分標準：\n0-30分:缺乏創意思維,難以提供新穎或獨特的解決方案。\n31-60分:能夠在某些情境下提出一些創意想法，但可能需要更多的多元思考。\n61-90分:展現出在解決問題時能夠提供創意解決方案，能夠從不同角度思考並提供獨特的見解。\n91-100分:具備高度創意思維,能夠在各種情境下提供極具創新性和實用性的解決方案。\n\n3.策略能力評分標準：\n0-30分:缺乏有效的計劃和目標，難以制定明確的行動步驟。\n31-60分:能夠制定一般的計劃,但可能需要更多的分析和策略性思考。\n61-90分:具備有效的策略思維,能夠考慮多個因素並制定有系統的行動計劃。\n91-100分:展示出卓越的策略能力,能夠在複雜情境下制定高效且有效的長遠計劃和目標。\n\n4.溝通能力評分標準：\n0-30分:表達不清晰,難以有效地傳達信息和意圖。\n31-60分:能夠基本表達想法,但可能需要更多的組織和結構。\n61-90分:具備清晰、適切和有力的溝通技巧,能夠在團隊內外有效地傳達信息。\n91-100分:展現出優秀的溝通能力,能夠以影響力和說服力與他人交流和協作。\n\n5.自主學習能力評分標準：\n0-30分:缺乏持續學習的動機,無法主動探索新知識和技能。\n31-60分:能夠在一些情境下展示出主動學習的態度.但可能需要更積極地提升。\n61-90分:具備持續自我提升的意願,能夠積極地學習新知識和技能。\n91-100分:展現出卓越的自主學習能力,能夠不斷掌握新知識,並將其應用於不同領域。\n不需要都給5為單位的分數，只要是整數分數即可，如83分，請用標準的json格式回傳，除了字串內可以換行其餘不要有換行符號。"
             }
         ]
         # 包個transaction，避免API請求失敗時，資料庫紀錄不一致(record已建立，但score未建立)
@@ -202,7 +202,7 @@ def mock_interview_result(request):
                 })
                 # 創建回答紀錄並存入saved_records
                 saved_records.append(InterviewRecord.objects.create(user=request.user, question_id=question_id, answer=answer))
-            replyMsg = ContentsService.get_reply(messages)
+            replyMsg = ContentsService.get_reply(messages, model="gpt-4")
             response_data = json.loads(replyMsg)
             # 創建評分紀錄
             interview_score = InterviewScore.objects.create(
