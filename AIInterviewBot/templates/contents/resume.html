@@ -61,6 +61,10 @@
                 <label>➎{{ form.style.label }}</label>
                 {{ form.style }}
             </div>
+            <div class="GeneratingMessage">
+                <img src="{% static 'images/warning-y.png' %}" alt="Warning" class="warning-icon" style="width: 10px; height: 10px;">
+                評分結果須等待2分鐘，請勿重新載入頁面
+            </div>
             <div class="d-grid col-10 mx-auto">
                 {% if not history %}
                 <input type="submit" id="generate-btn" class="btn btn-primary" value="生成個人簡歷" />
@@ -100,6 +104,8 @@
             $('#generate-btn').hide();
             // 顯示生成中按鈕
             $('#load-btn').show();
+            // 顯示生成中訊息
+            $(".GeneratingMessage").show();
             $.ajax({
                 url: '{% url "Resume" %}',
                 type: 'POST',
@@ -134,6 +140,8 @@
             $('#download-form input[name=file_name]').val(fileName);
             // 顯示下載按鈕
             $('#download-btn').show();
+            // 隱藏生成中訊息
+            $(".GeneratingMessage").hide();
         }
     });
 </script>

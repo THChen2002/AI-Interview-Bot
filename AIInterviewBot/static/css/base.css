@@ -132,3 +132,17 @@
     color: #D57F0A;
     text-align: left;
 }
+
+.GeneratingMessage {
+    width: 300px;
+    color: #F7A22D;
+    font-size: 12px;
+    margin-left: 290px;
+    display: none;
+}
+
+@media screen and (max-width: 414px) {
+    .GeneratingMessage {
+        margin-left: 50px;
+    }
+}
