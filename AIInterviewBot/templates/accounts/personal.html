@@ -18,10 +18,10 @@
                     <div style="position: relative; display: inline-block;">
                         {% if unit.profile_image %}
                         <img src="/media/{{ unit.profile_image }}" alt="{{ unit.user_name }}'s profile picture"
-                            class="rounded-circle img-fluid" style="width: 150px;">
+                            class="rounded-circle img-fluid" style="width: 150px; height: 150px;">
                         {% else %}
                         <img src="{% static 'images/avator.png'%}" alt="{{ unit.user_name }}'s profile picture"
-                            class="rounded-circle img-fluid" style="width: 150px;">
+                            class="rounded-circle img-fluid" style="width: 150px; height: 150px;">
                         {% endif %}
                         <form id="photo-form" method="post" action="{% url 'Personal' %}"
                             style="position: absolute; bottom: 0; right: 0;" enctype="multipart/form-data">
