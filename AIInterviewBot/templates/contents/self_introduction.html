@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 {% block title %}首頁{% endblock %}
 {% block content %}
+{% load static %}
 
 <div class="container" style="margin-top:10px">
     <div class="row justify-content-center">
@@ -34,6 +35,10 @@
                     <label>➏{{ form.cultural_fit_example.label }}</label>
                     {{ form.cultural_fit_example }}
                 </div>
+                <div class="GeneratingMessage">
+                    <img src="{% static 'images/warning-y.png' %}" alt="Warning" class="warning-icon" style="width: 10px; height: 10px;">
+                    評分結果須等待2分鐘，請勿重新載入頁面
+                </div>
                 <div class="d-grid col-10 mx-auto">
                     <input type="submit" id="submit-btn" class="btn btn-primary" value="生成自我介紹" />
                     <button class="btn btn-primary load-btn" type="button" disabled style="display: none">
@@ -54,6 +59,7 @@
             $("#submit-btn").hide();
             $('#id_company, #id_job, #id_skill1, #id_skill2, #id_cultural_fit, #id_cultural_fit_example').prop('disabled', true);
             $("#submit-btn").siblings(".load-btn").show();
+            $(".GeneratingMessage").show();
             $.ajax({
                 url: "{% url 'SelfIntroduction' %}",
                 type: "POST",

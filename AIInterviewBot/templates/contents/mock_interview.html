@@ -41,6 +41,16 @@
             <p>面試者</p>
         </div>
     </div>
+    <div class="empty-warning gap-2 col-6 mx-auto">
+        <div class="failMessage" style="width: 200px; color: red; font-size: 12px; display: none; margin-left: 45px;">
+            <img src="{% static 'images/warning.png' %}" alt="Warning" class="warning-icon" style="width: 10px; height: 10px;">
+            回答不可為空白，請重新輸入
+        </div>
+    </div>  
+    <div class="GeneratingMessage">
+        <img src="{% static 'images/warning-y.png' %}" alt="Warning" class="warning-icon" style="width: 10px; height: 10px;">
+        評分結果須等待2分鐘，請勿重新載入頁面
+    </div>
     <div class="d-grid gap-2 col-6 mx-auto">
         {% if forloop.counter == questions|length %}
         <input type="button" class="btn btn-primary submit-btn" value="送出" />
@@ -48,10 +58,11 @@
         <input type="button" class="btn btn-primary submit-btn" value="下一題" />
         {% endif %}
         <input type="hidden" class="btn btn-primary currentQuestion" value="{{ forloop.counter }}" />
-        <button class="btn btn-primary load-btn" type="button" disabled style="display: none">
+        <button class="btn btn-primary load-btn" type="button" disabled style="display: none;">
             <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" style="vertical-align: baseline;"></span>
             評分中...
         </button>
+        
     </div>
 </div>
 {% endfor %}
@@ -65,6 +76,10 @@
             var $currentQuestionDiv = $("#question_" + currentQuestion);
             var answer = $currentQuestionDiv.find("textarea[name='answer']").val();
             var id = $currentQuestionDiv.find("input[name='id']").val();
+            if (answer.trim() === '') {
+                $currentQuestionDiv.find(".failMessage").show();
+                return;
+            }
             var record = {
                 "id": id,
                 "answer": answer
@@ -78,6 +93,8 @@
                 $(this).hide();
                 $('#id_answer').prop('disabled', true);
                 $(this).siblings(".load-btn").show();
+                $currentQuestionDiv.find(".GeneratingMessage").show();
+                $currentQuestionDiv.find(".failMessage").hide();
                 submitAnswer();
             }
         });
