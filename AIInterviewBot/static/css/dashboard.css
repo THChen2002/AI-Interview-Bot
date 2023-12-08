@@ -134,3 +134,36 @@
     width: 50px;
     height: 50px;
 }
+.time-range-selector{
+    position: absolute; 
+    z-index: 1; 
+    padding-top: 10px; 
+    padding-left: 20px; 
+    padding-right: 20px;
+}
+.btn-outline-primary {
+    color: #F7A22D !important;
+    background-color: white!important;
+    border-color: #F7A22D!important;
+    font-size: 25px;
+    line-height: 30px;
+    padding: 0 15px;
+    text-align: center;
+    justify-content: center;
+    white-space: nowrap;
+}
+
+
+.btn-check:checked + .btn-outline-primary {
+    color: white!important;
+    background-color: #F7A22D!important;
+    border-color: #F7A22D;
+}
+
+@media screen and (max-width: 400px) {
+    .btn-outline-primary {
+        font-size: 15px;
+        padding-left: 0px;
+        padding-right: 0px;
+    }
+}
