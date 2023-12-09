@@ -202,7 +202,7 @@ def mock_interview_result(request):
                 })
                 # 創建回答紀錄並存入saved_records
                 saved_records.append(InterviewRecord.objects.create(user=request.user, question_id=question_id, answer=answer))
-            replyMsg = ContentsService.get_reply(messages, model="gpt-4")
+            replyMsg = ContentsService.get_reply(messages, model="gpt-4-1106-preview", type="json_object")
             response_data = json.loads(replyMsg)
             # 創建評分紀錄
             interview_score = InterviewScore.objects.create(
