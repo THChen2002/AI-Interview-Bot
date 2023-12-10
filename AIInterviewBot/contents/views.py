@@ -9,10 +9,11 @@ import os
 import json
 import uuid,calendar
 from datetime import datetime, timedelta
-from django.core.files import File
 from random import sample
 from django.conf import settings
 from django.db import transaction
+from django.db.models import Avg
+from django.db.models.functions import TruncDay, TruncWeek, TruncMonth
 from django.contrib.auth import get_user_model
 User = get_user_model()
 
@@ -303,51 +304,57 @@ def history_detail(request):
 # 取得儀表板資訊
 def get_chart_data(request):
     chart_type = request.GET.get('type')
+    date_filter = request.GET.get('date', 'today')
     dashboard = DashBoard.objects.get(id=request.user.id)
+
+    # 取得篩選日期區間開始日期
+    start_date = ContentsService.get_start_date(date_filter)
+
+    filtered_records = dashboard.score_records.filter(created_at__gte=start_date)        
+
     if chart_type == 'line':
-        data = {
-            'labels': [record.created_at.strftime("%m/%d") for record in dashboard.score_records.all()],
-            'datasets': [
-                {
-                    'label': '專業能力',
-                    'data': [record.professional_score for record in dashboard.score_records.all()],
-                    'borderWidth': 1,
-                }, 
-                {
-                    'label': '創意能力',
-                    'data': [record.creative_score for record in dashboard.score_records.all()],
-                    'borderWidth': 1,
-                },
-                {
-                    'label': '策略能力',
-                    'data': [record.strategy_score for record in dashboard.score_records.all()],
-                    'borderWidth': 1,
-                },
-                {
-                    'label': '溝通能力',
-                    'data': [record.communication_score for record in dashboard.score_records.all()],
-                    'borderWidth': 1,
-                },
-                {
-                    'label': '自主學習能力',
-                    'data': [record.self_learning_score for record in dashboard.score_records.all()],
-                    'borderWidth': 1,
-                },
-                {
-                    'label': '綜合能力',
-                    'data': [record.comprehensive_score for record in dashboard.score_records.all()],
-                    'borderWidth': 1,
-                }
-            ]
+        trunc_functions = {
+            'today': TruncDay,
+            'week': TruncDay,
+            'month': TruncWeek,
+            'year': TruncMonth,
         }
+
+        trunc_function = trunc_functions.get(date_filter, TruncDay)
+
+        avg_scores = filtered_records.annotate(day=trunc_function('created_at')).values('day').annotate(
+            professional_score=Avg('professional_score'),
+            creative_score=Avg('creative_score'),
+            strategy_score=Avg('strategy_score'),
+            communication_score=Avg('communication_score'),
+            self_learning_score=Avg('self_learning_score'),
+            comprehensive_score=Avg('comprehensive_score')
+        )
+        if date_filter == 'today':
+            avg_scores = filtered_records
+
+        labels = []
+        # 根據日期條件設定labels
+        for i, record in enumerate(avg_scores):
+            if not date_filter == 'today':
+                day_str = record['day'].strftime("%m/%d")
+            if date_filter == 'today':
+                labels.append(i+1)
+            elif date_filter == 'week':
+                labels.append(day_str)
+            elif date_filter == 'month':
+                end_of_week = record['day'] + timedelta(days=6 - record['day'].weekday())
+                end_of_week_str = end_of_week.strftime("%m/%d")
+                labels.append(f"{day_str} ~ {end_of_week_str}")
+            elif date_filter == 'year':
+                month_name = record['day'].strftime("%B")
+                labels.append(month_name)
+            else:
+                labels.append(day_str)
+
+        data = ContentsService.get_line_chart_data(avg_scores, labels, date_filter)
     elif chart_type == 'radar':
-        data = {
-            'labels': ['專業能力', '創意能力', '策略能力', '溝通能力', '自主學習能力'],
-            'datasets': [{
-                'label': '專業能力',
-                'data': [dashboard.professional_score, dashboard.creative_score, dashboard.strategy_score, dashboard.communication_score, dashboard.self_learning_score],
-            }]
-        }
+        data = ContentsService.get_radar_chart_data(dashboard)
     return JsonResponse({'data': data})
 
 # 下載檔案
