@@ -59,7 +59,7 @@
     justify-content: center;
 }
 
-.col.dashboard-box.chart-css {
+.dashboard-box.chart-css {
     position: relative;
     /* 畫布設為相對定位 */
 }
@@ -145,7 +145,7 @@
     color: #F7A22D !important;
     background-color: white!important;
     border-color: #F7A22D!important;
-    font-size: 25px;
+    font-size: large;
     line-height: 30px;
     padding: 0 15px;
     text-align: center;
@@ -160,9 +160,9 @@
     border-color: #F7A22D;
 }
 
-@media screen and (max-width: 400px) {
+@media screen and (max-width: 550px) {
     .btn-outline-primary {
-        font-size: 15px;
+        font-size: small;
         padding-left: 0px;
         padding-right: 0px;
     }

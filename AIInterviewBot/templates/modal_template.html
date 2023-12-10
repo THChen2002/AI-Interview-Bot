@@ -35,7 +35,7 @@
 </div>
 
 <!-- 複製成功 -->
-<div class="modal modal fade" id="copy-Modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+<div class="modal fade" id="copyModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
     aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content" style="text-align: center;">
@@ -83,15 +83,15 @@
 
     // 複製成功
     function alertCopy() {
-        const copyModal = new bootstrap.Modal($('#copy-Modal'), {
+        const copyModal = new bootstrap.Modal($('#copyModal'), {
             backdrop: false
         });
 
-        $("#copy-Modal").modal("show");
+        $("#copyModal").modal("show");
         // 淡入
-        $("#copy-Modal").fadeIn(10, function() {
+        $("#copyModal").fadeIn(10, function() {
             setTimeout(function() {
-                $("#copy-Modal").fadeOut(300, function() {
+                $("#copyModal").fadeOut(300, function() {
                     copyModal.hide();
                 });
             }, 1000);
