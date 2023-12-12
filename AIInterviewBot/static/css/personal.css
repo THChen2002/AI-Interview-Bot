@@ -43,7 +43,7 @@
     }
 }
 
-/* 儀表板(網頁) */
+/* 儀錶板(網頁) */
 .personal-dashboard {
     width: 60%;
     margin: 0 auto;
@@ -55,7 +55,7 @@
     background-color: #FCE9CF;
 }
 
-/* 儀表板(手機) */
+/* 儀錶板(手機) */
 @media only screen and (max-width: 400px) {
     .personal-dashboard {
         width: 100%;

@@ -75,7 +75,7 @@ class InterviewScore(models.Model):
     comprehensive_suggestion = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
 
-# 個人儀表板
+# 個人儀錶板
 class DashBoard(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     
