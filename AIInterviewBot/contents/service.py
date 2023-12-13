@@ -99,9 +99,9 @@ class ContentsService:
             table.cell(2, 5).text = resume['name']
             table.cell(3, 5).text = resume['self_introduction']
             table.cell(4, 1).text = resume['education']
-            table.cell(6, 1).text = resume['skill']
-            table.cell(9, 1).text = resume['personal_experience']
-            table.cell(10, 1).text = resume['interest'] #興趣沒在表格上
+            table.cell(6, 1).text = resume['personal_experience']
+            table.cell(9, 1).text = resume['skill']
+            table.cell(14, 1).text = resume['interest']
             table.cell(10, 6).text = resume['gender']
             table.cell(12, 6).text = resume['birth_date']
             table.cell(16, 6).text = resume['email']
