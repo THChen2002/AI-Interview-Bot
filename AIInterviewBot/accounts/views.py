@@ -93,21 +93,24 @@ def register(request):
             # 儲存 User 物件到資料庫並取得已創建的 User 物件
             user = registerForm.save()
 
-            # 電子郵件內容樣板
-            email_template = render_to_string(
-                'accounts/signup_success_email.html',
-                {'username': request.user.username}
-            )
+            try:
+                # 電子郵件內容樣板
+                email_template = render_to_string(
+                    'accounts/signup_success_email.html',
+                    {'username': request.user.username}
+                )
 
-            email = EmailMessage(
-                '註冊成功通知信',  # 電子郵件標題
-                email_template,  # 電子郵件內容
-                settings.EMAIL_HOST_USER,  # 寄件者
-                [request.POST.get("email")]  # 收件者
-            )
+                email = EmailMessage(
+                    '註冊成功通知信',  # 電子郵件標題
+                    email_template,  # 電子郵件內容
+                    settings.EMAIL_HOST_USER,  # 寄件者
+                    [request.POST.get("email")]  # 收件者
+                )
 
-            email.fail_silently = False
-            email.send()
+                email.fail_silently = False
+                email.send()
+            except:
+                pass
 
             return render(request, 'accounts/register.html', {'registration_success': True})
     return render(request, 'accounts/register.html', locals())
@@ -152,7 +155,7 @@ def change_password(request):
             success = True
     else:
         changePasswordForm = ChangePasswordForm(request.user)
-    return render(request, 'accounts/change_password.html',locals())
+    return render(request, 'accounts/change_password.html', locals())
 
 #使用者收信後的連結頁面
 def password_reset_confirm(request, uidb64, token):
