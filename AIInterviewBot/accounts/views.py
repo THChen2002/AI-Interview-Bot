@@ -19,7 +19,7 @@ from django.contrib.auth.forms import SetPasswordForm
 from django.contrib.auth import get_user_model
 User = get_user_model()
 from django.core.files import File
-from django.core.files.temp import TemporaryFile
+from tempfile import TemporaryFile
 from allauth.socialaccount.models import SocialAccount
 from accounts.models import UserProfile
 from contents.models import DashBoard
