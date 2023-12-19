@@ -87,20 +87,6 @@ button {
     justify-content: center;
 }
 
-.GeneratingMessage {
-    width: 300px;
-    color: #F7A22D;
-    font-size: 12px;
-    margin-left: 140px;
-    display: none;
-}
-
-@media screen and (max-width: 414px) {
-    .GeneratingMessage {
-        margin-left: 45px;
-    }
-}
-
 @media screen and (max-width: 414px) {
     .load-btn {
         margin-left: -0px;

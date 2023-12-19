@@ -41,17 +41,16 @@
             <p>面試者</p>
         </div>
     </div>
-    <div class="empty-warning gap-2 col-6 mx-auto">
-        <div class="failMessage" style="width: 200px; color: red; font-size: 12px; display: none; margin-left: 45px;">
-            <img src="{% static 'images/warning.png' %}" alt="Warning" class="warning-icon" style="width: 10px; height: 10px;">
-            回答不可為空白，請重新輸入
-        </div>
-    </div>  
+    <div class="empty-warning gap-2 col-6 mx-auto"></div>
+    <div class="failMessage" style="color: red; font-size: 12px; text-align: center; display: none;">
+        <img src="{% static 'images/warning.png' %}" alt="Warning" class="warning-icon" style="width: 10px; height: 10px;">
+        回答不可為空白，請重新輸入
+    </div>
     <div class="GeneratingMessage">
         <img src="{% static 'images/warning-y.png' %}" alt="Warning" class="warning-icon" style="width: 10px; height: 10px;">
         評分結果須等待約1分鐘，請勿重新載入頁面
     </div>
-    <div class="d-grid gap-2 col-6 mx-auto">
+    <div style="text-align: center;">
         {% if forloop.counter == questions|length %}
         <input type="button" class="btn btn-primary submit-btn" value="送出" />
         {% else %}
