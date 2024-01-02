@@ -6,19 +6,19 @@
 
 <div class="center logo" style="box-shadow: none;">
 	<div style="text-align: center;	">
-        <img src="{% static 'images/LOGO.png' %}" alt="LOGO" width="90" height="108" >
-        <h1 style="font-size: 30px; font-weight: 600; padding-bottom: 0px;">JOBEASE</h1>
+        <img src="{% static 'images/LOGO.png' %}" alt="LOGO" width="83" height="100" >
+        <h1 class="login-text2" style="font-weight: 600; padding-bottom: 0px;">JOBEASE</h1>
     </div>
-	<h1 class="custom-title" style="text-align: left; margin-left: 0px; width: 350px;">使用者登入</h1>
+	<h1 class="custom-title login-text2" style="text-align: left; margin-left: 0px; width: 350px;">使用者登入</h1>
 	<form method="post" id="login-form">
 		{% csrf_token %}
 		<div class="txt_field">
 			{{ loginForm.username }}
-			<label>{{ loginForm.username.label }}</label>
+			<label class="login-label">{{ loginForm.username.label }}</label>
 		</div>
 		<div class="txt_field">
 			{{ loginForm.password }}
-			<label>{{ loginForm.password.label }}</label>
+			<label class="login-label">{{ loginForm.password.label }}</label>
 			<button type="button" id="toggle-password" style="margin-left: 10px;">
 				<img src="{% static 'images/eye-slash-solid.png' %}" alt="顯示密碼" width="20" height="20">
 			</button>
@@ -28,10 +28,10 @@
 		<div style="display: flex; justify-content: space-between; align-items: center; margin-left: 10px;">
 			<div style="display: flex; align-items: center;">
 				{{ loginForm.remember_me }}
-				<label style="color: #F7A22D; margin-left: 5px;">{{ loginForm.remember_me.label }}</label>
+				<label class="login-text" style="color: #F7A22D; margin-left: 5px;">{{ loginForm.remember_me.label }}</label>
 			</div>
 			<div style="margin-right: 10px;">
-				<a href="{% url 'ForgotPassword' %}" style="color: #F7A22D; text-decoration: none;">忘記密碼?</a>
+				<a href="{% url 'ForgotPassword' %}" class="login-text" style="color: #F7A22D; text-decoration: none;">忘記密碼?</a>
 			</div>
 		</div>
 
@@ -54,14 +54,13 @@
 		</div>
 		{% endif %}
 		<br>
-		<input type="submit" class="btn-submit" value="登入" />
+		<input type="submit" class="btn-submit login-text" value="登入" />
 		<div class="signup_link">
-			<span style="color: #F7A22D;">還沒註冊嗎&nbsp?</span>
-			<a href="{% url 'Register' %}" style="color: #D57F0A; text-decoration: none;">&nbsp&nbsp立即註冊</a>
+			<span class="login-text" style="color: #F7A22D;">還沒註冊嗎&nbsp?</span>
+			<a href="{% url 'Register' %}" class="login-text" style="color: #D57F0A; text-decoration: none;">&nbsp&nbsp立即註冊</a>
 		</div>
 		<!--第三方登入-->
-		<button class="btn-google" onclick="location.href='{% provider_login_url 'google' method='oauth2' %}'"
-			style="width: 50px; border: none;">
+		<button class="btn-google" onclick="location.href='{% provider_login_url 'google' method='oauth2' %}'"style="width: 50px; border: none;">
 			<img src="{% static 'images/Google.png' %}" alt="google" width="50px" height="50px">
 		</button>
 	</form>
